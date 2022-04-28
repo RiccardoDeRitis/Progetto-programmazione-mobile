@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="75dp"
-    android:background="?android:attr/activatedBackgroundIndicator">
+    android:background="@drawable/menu_item_selected">
 
     <ImageView
         android:id="@+id/recipe_list_thumbnail"
@@ -88,7 +88,7 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="19dp"
-        android:background="@drawable/rounded_circle"
+        android:background="@drawable/rounded_rank_coin"
         android:textAlignment="center"
         android:textColor="@color/acquamarina"
         android:textSize="13sp"

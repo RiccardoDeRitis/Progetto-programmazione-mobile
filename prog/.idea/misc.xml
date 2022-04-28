@@ -16,6 +16,7 @@
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/item_selected_changed.xml" value="0.2325" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/navigation_bar_selector.xml" value="0.2325" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/rounded.xml" value="0.2505" />
+        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/rounded_button_login.xml" value="0.2555" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/rounded_button_login_pressed.xml" value="0.2555" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/rounded_circle.xml" value="0.2505" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/rounded_circle_white.xml" value="0.2555" />
@@ -25,8 +26,10 @@
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/rounded_percent_red.xml" value="0.2505" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/rounded_percente_red.xml" value="0.2505" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/rounded_text_login.xml" value="0.2555" />
+        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/rounded_textinput.xml" value="0.121" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/selector.xml" value="0.2325" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/selector_button_login.xml" value="0.2555" />
+        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/selector_menu_pressed.xml" value="0.2555" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/drawable/text_button_not_pressed.xml" value="0.2555" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/layout/coin_details_layout.xml" value="0.20512820512820512" />
@@ -40,6 +43,7 @@
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/layout/sign_in_layout.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/menu/bottom_menu.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/menu/context_menu.xml" value="0.1" />
+        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/menu/pressed_menu.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2555" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/prog/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2555" />
       </map>

@@ -22,7 +22,7 @@
         android:id="@+id/navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="#191919"
+        android:background="#161618"
         app:itemIconSize="27dp"
         app:itemIconTint="@color/navigation_bar_selector"
         app:itemTextColor="@color/white"

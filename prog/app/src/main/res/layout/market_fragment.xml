@@ -12,7 +12,7 @@
         android:layout_height="15dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/rounded"
+        android:background="@drawable/rounded_text_market"
         android:text="@string/cap"
         android:textAlignment="center"
         android:textColor="@color/acquamarina_scuro"
@@ -28,7 +28,7 @@
         android:layout_height="15dp"
         android:layout_marginStart="160dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/rounded"
+        android:background="@drawable/rounded_text_market"
         android:text="@string/vol"
         android:textAlignment="center"
         android:textColor="@color/acquamarina_scuro"
@@ -44,7 +44,7 @@
         android:layout_height="15dp"
         android:layout_marginStart="280dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/rounded"
+        android:background="@drawable/rounded_text_market"
         android:text="@string/dom"
         android:textAlignment="center"
         android:textColor="@color/acquamarina_scuro"
@@ -95,7 +95,7 @@
         android:layout_height="15dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/rounded"
+        android:background="@drawable/rounded_text_market"
         android:text="@string/grado"
         android:textAlignment="center"
         android:textColor="@color/acquamarina_scuro"
@@ -110,7 +110,7 @@
         android:layout_width="115dp"
         android:layout_height="15dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/rounded"
+        android:background="@drawable/rounded_text_market"
         android:text="@string/capit"
         android:textAlignment="center"
         android:textColor="@color/acquamarina_scuro"
@@ -121,13 +121,35 @@
         app:layout_constraintTop_toBottomOf="@+id/button"
         tools:ignore="SmallSp,TextContrastCheck" />
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8">
+
+        <ListView
+            android:id="@+id/listCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="45dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <TextView
         android:id="@+id/textView9"
         android:layout_width="110dp"
         android:layout_height="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/rounded"
+        android:background="@drawable/rounded_text_market"
         android:text="@string/prezzo"
         android:textAlignment="center"
         android:textColor="@color/acquamarina_scuro"
@@ -156,16 +178,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
-
-    <include
-        layout="@layout/list_view_coin_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
         android:id="@+id/textView10"

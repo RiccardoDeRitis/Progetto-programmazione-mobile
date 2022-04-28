@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/white"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/Label5"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="28dp"
+        android:autoSizeTextType="uniform"
+        android:text="Computer :"
+        app:layout_constraintStart_toEndOf="@+id/Punteggio1"
+        app:layout_constraintTop_toBottomOf="@+id/Label3" />
+
+    <TextView
+        android:id="@+id/Label1"
+        android:layout_width="287dp"
+        android:layout_height="50dp"
+        android:autoSizeTextType="uniform"
+        android:text="Scegli cosa giocare!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="22dp" />
+
+    <TextView
+        android:id="@+id/Label2"
+        android:layout_width="150dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:autoSizeTextType="uniform"
+        android:text="Hai giocato :"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SassoButton" />
+
+    <TextView
+        android:id="@+id/Giocata"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toEndOf="@+id/Label2"
+        app:layout_constraintTop_toBottomOf="@+id/SassoButton" />
+
+    <TextView
+        android:id="@+id/Label3"
+        android:layout_width="235dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:autoSizeTextType="uniform"
+        android:text="Il computer ha giocato :"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Label2" />
+
+    <TextView
+        android:id="@+id/Avversario"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/Label3"
+        app:layout_constraintTop_toBottomOf="@+id/Giocata" />
+
+    <TextView
+        android:id="@+id/Label4"
+        android:layout_width="65dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="28dp"
+        android:autoSizeTextType="uniform"
+        android:text="Tu :"
+        app:layout_constraintTop_toBottomOf="@+id/Label3"
+        tools:layout_editor_absoluteX="24dp" />
+
+    <TextView
+        android:id="@+id/Punteggio1"
+        android:layout_width="65dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
+        android:autoSizeTextType="uniform"
+        app:layout_constraintStart_toEndOf="@+id/Label4"
+        app:layout_constraintTop_toBottomOf="@+id/Label3" />
+
+    <TextView
+        android:id="@+id/Punteggio2"
+        android:layout_width="65dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Label3" />
+
+    <ImageButton
+        android:id="@+id/CartaButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:backgroundTint="@color/white"
+        android:clickable="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Label1"
+        app:srcCompat="@drawable/carta" />
+
+    <ImageButton
+        android:id="@+id/ForbiceButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/white"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CartaButton"
+        app:srcCompat="@drawable/forbice" />
+
+    <ImageButton
+        android:id="@+id/SassoButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/white"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ForbiceButton"
+        app:srcCompat="@drawable/sasso" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
