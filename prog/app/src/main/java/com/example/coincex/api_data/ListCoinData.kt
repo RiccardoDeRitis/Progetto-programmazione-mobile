@@ -5,11 +5,12 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
+import java.io.Serializable
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import kotlin.collections.ArrayList
 
-class CoinData (
+class ListCoinData (
     val rank: String,
     val imageLogo: String,
     val symbol: String,
@@ -18,7 +19,7 @@ class CoinData (
     val volume: String,
     val price: String,
     val change24h: String,
-    val changePercent: String) {
+    val changePercent: String): Serializable {
 
     companion object {
 
@@ -36,9 +37,9 @@ class CoinData (
             queue.add(stringRequest)
         }
 
-        fun getData(data: String): ArrayList<CoinData> {
+        fun getData(data: String): ArrayList<ListCoinData> {
 
-            val recipeList = ArrayList<CoinData>()
+            val recipeList = ArrayList<ListCoinData>()
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.DOWN
             val jsonData = JSONArray(data)
@@ -56,7 +57,7 @@ class CoinData (
                 val price = "$"+jsonData.getJSONObject(i).getDouble("current_price").toString()
                 val price24h = df.format(jsonData.getJSONObject(i).getDouble("price_change_24h")).toString()+"$"
                 val pricePercent = df.format(jsonData.getJSONObject(i).getDouble("price_change_percentage_24h")).toString()+"%"
-                recipeList.add(CoinData(rank,image,symbol,name,cap,volume,price,price24h,pricePercent))
+                recipeList.add(ListCoinData(rank,image,symbol,name,cap,volume,price,price24h,pricePercent))
             }
 
             return recipeList
