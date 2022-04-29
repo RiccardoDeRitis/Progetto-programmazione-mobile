@@ -5,7 +5,9 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 
-class LiveCoinData() {
+class LiveCoinData(
+
+) {
 
     companion object {
 
