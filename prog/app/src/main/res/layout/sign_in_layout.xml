@@ -7,7 +7,7 @@
     android:background="#000000">
 
     <EditText
-        android:id="@+id/editTextTextPersonName10"
+        android:id="@+id/username"
         android:layout_width="160dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -15,6 +15,7 @@
         android:background="@drawable/rounded_textinput"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView25"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -28,7 +29,7 @@
         android:text="Username"
         android:textColor="#87879B"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6" />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <ImageView
         android:id="@+id/logo"
@@ -56,11 +57,11 @@
         android:textColor="@color/text_button_pressed"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8"
+        app:layout_constraintTop_toBottomOf="@+id/secretkey"
         tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName8"
+        android:id="@+id/secretkey"
         android:layout_width="220dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -68,6 +69,7 @@
         android:background="@drawable/rounded_textinput"
         android:ems="10"
         android:inputType="textPassword"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView24"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -81,10 +83,10 @@
         android:text="Secret key"
         android:textColor="#87879B"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName7" />
+        app:layout_constraintTop_toBottomOf="@+id/apikey" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName7"
+        android:id="@+id/apikey"
         android:layout_width="220dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -92,6 +94,7 @@
         android:background="@drawable/rounded_textinput"
         android:ems="10"
         android:inputType="textPassword"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -105,10 +108,10 @@
         android:text="API key"
         android:textColor="#87879B"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName5" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/registrati"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -124,7 +127,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button6" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/password"
         android:layout_width="160dp"
         android:layout_height="50dp"
         android:layout_marginStart="220dp"
@@ -132,6 +135,7 @@
         android:background="@drawable/rounded_textinput"
         android:ems="10"
         android:inputType="textPassword"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView21"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -145,7 +149,7 @@
         android:text="Password"
         android:textColor="#87879B"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6" />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <TextView
         android:id="@+id/textView22"
@@ -156,7 +160,7 @@
         android:text="E-mail"
         android:textColor="#87879B"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/nome" />
 
     <TextView
         android:id="@+id/textView17"
@@ -167,10 +171,10 @@
         android:text="Telefono"
         android:textColor="#87879B"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/nome" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName6"
+        android:id="@+id/email"
         android:layout_width="160dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -178,12 +182,13 @@
         android:background="@drawable/rounded_textinput"
         android:ems="10"
         android:inputType="textEmailAddress"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName9"
+        android:id="@+id/telefono"
         android:layout_width="160dp"
         android:layout_height="50dp"
         android:layout_marginStart="220dp"
@@ -191,12 +196,13 @@
         android:background="@drawable/rounded_textinput"
         android:ems="10"
         android:inputType="number"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/nome"
         android:layout_width="160dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -204,12 +210,13 @@
         android:background="@drawable/rounded_textinput"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView19"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/cognome"
         android:layout_width="160dp"
         android:layout_height="50dp"
         android:layout_marginStart="220dp"
@@ -217,6 +224,7 @@
         android:background="@drawable/rounded_textinput"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView20"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />

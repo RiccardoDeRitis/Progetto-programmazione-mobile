@@ -41,7 +41,7 @@ class RecipeAdapter(context: Context, private val dataSourceList: ArrayList<List
 
             holder = ViewHolder()
             holder.rank = view.findViewById(R.id.rank) as TextView
-            holder.image = view.findViewById(R.id.recipe_list_thumbnail) as ImageView
+            holder.image = view.findViewById(R.id.logo_image) as ImageView
             holder.symbol = view.findViewById(R.id.coin) as TextView
             holder.name = view.findViewById(R.id.name) as TextView
             holder.cap = view.findViewById(R.id.market_cap) as TextView

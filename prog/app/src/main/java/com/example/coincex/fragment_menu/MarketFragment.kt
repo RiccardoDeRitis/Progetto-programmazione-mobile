@@ -66,7 +66,7 @@ class MarketFragment: Fragment() {
                 val adapter = RecipeAdapter(view.context, recipeList)
                 listView.adapter = adapter
             } catch (e: Exception) {
-                Log.d("OOOOOOOOOOOOOOOOOOOOOOOOO",e.printStackTrace().toString())
+                Log.d("ERROR",e.printStackTrace().toString())
             }
         }
 
@@ -78,8 +78,8 @@ class MarketFragment: Fragment() {
 
         listView.choiceMode = ListView.CHOICE_MODE_MULTIPLE_MODAL
         listView.setMultiChoiceModeListener(object : AbsListView.MultiChoiceModeListener {
-
             override fun onItemCheckedStateChanged(mode: ActionMode, position: Int, id: Long, checked: Boolean) {
+                swipeRefresh.isEnabled = false
                 mode.title="${listView.checkedItemCount} selezionati"
                 if (checked)
                     positionArray.add(position)
@@ -92,6 +92,7 @@ class MarketFragment: Fragment() {
                     R.id.menu_share -> {
                         savePreferences(positionArray, view.context)
                         positionArray.clear()
+                        swipeRefresh.isEnabled = true
                         Toast.makeText(view.context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
                         mode.finish()
                         true
@@ -107,6 +108,7 @@ class MarketFragment: Fragment() {
             }
 
             override fun onDestroyActionMode(mode: ActionMode) {
+                swipeRefresh.isEnabled = true
                 positionArray.clear()
             }
 
@@ -148,7 +150,7 @@ class MarketFragment: Fragment() {
                     changeBtcText.setTextColor(Color.parseColor("#00af5f"))
                 }
             } catch (e: Exception) {
-                Log.d("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",e.printStackTrace().toString())
+                Log.d("ERROR",e.printStackTrace().toString())
             }
         }
 

@@ -5,7 +5,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 
-class CoinData(
+class ProfileCoinData(
     val title: String,
     val details: String,
     val category: String,
