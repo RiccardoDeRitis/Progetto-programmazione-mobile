@@ -9,7 +9,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.coincex.api_data.CoinData
+import com.example.coincex.api_data.ListCoinData
 import com.example.coincex.R
 
 class FavoritesFragment: Fragment() {
@@ -24,7 +24,7 @@ class FavoritesFragment: Fragment() {
         val title = view.findViewById<TextView>(R.id.titleFavorite)
 
         val listCoinFavorite = view.findViewById<ListView>(R.id.listCoinFavorite)
-        val favoriteCoin = ArrayList<CoinData>()
+        val favoriteCoin = ArrayList<ListCoinData>()
 
         val positionArray = ArrayList<Int>()
         val recipeList = MarketFragment.recipeList

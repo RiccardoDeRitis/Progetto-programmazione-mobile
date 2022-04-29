@@ -10,19 +10,19 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.coincex.R
-import com.example.coincex.api_data.CoinData
+import com.example.coincex.api_data.ListCoinData
 import com.squareup.picasso.Picasso
 
-class RecipeAdapter(context: Context, private val dataSource: ArrayList<CoinData>) : BaseAdapter() {
+class RecipeAdapter(context: Context, private val dataSourceList: ArrayList<ListCoinData>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getCount(): Int {
-        return dataSource.size
+        return dataSourceList.size
     }
 
     override fun getItem(position: Int): Any {
-        return dataSource[position]
+        return dataSourceList[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -67,7 +67,7 @@ class RecipeAdapter(context: Context, private val dataSource: ArrayList<CoinData
         val priceChange = holder.priceChange
         val pricePercent = holder.pricePercent
 
-        val recipe = getItem(position) as CoinData
+        val recipe = getItem(position) as ListCoinData
 
         rank.text = recipe.rank
         symbol.text = recipe.symbol

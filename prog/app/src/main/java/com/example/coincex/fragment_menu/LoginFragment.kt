@@ -22,7 +22,6 @@ class LoginFragment: Fragment() {
         signIn.setOnClickListener {
             val intent = Intent(view.context, SignInActivity::class.java)
             startActivity(intent)
-            activity?.finish()
         }
 
     }

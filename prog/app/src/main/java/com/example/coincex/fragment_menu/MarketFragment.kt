@@ -2,6 +2,7 @@ package com.example.coincex.fragment_menu
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +10,8 @@ import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.coincex.api_data.CoinData
+import com.example.coincex.CoinDetailsActivity
+import com.example.coincex.api_data.ListCoinData
 import com.example.coincex.api_data.GlobalData
 import com.example.coincex.R
 
@@ -17,7 +19,7 @@ class MarketFragment: Fragment() {
 
     companion object {
 
-        lateinit var recipeList: ArrayList<CoinData>
+        lateinit var recipeList: ArrayList<ListCoinData>
 
         fun savePreferences(positionArray: ArrayList<Int>, context: Context) {
             val sharedPref = context.getSharedPreferences("SharedPreference", Context.MODE_PRIVATE)
@@ -58,14 +60,20 @@ class MarketFragment: Fragment() {
 
         val positionArray = ArrayList<Int>()
 
-        CoinData.getDataFromApi(view.context) {
+        ListCoinData.getDataFromApi(view.context) {
             try {
-                recipeList = CoinData.getData(it)
+                recipeList = ListCoinData.getData(it)
                 val adapter = RecipeAdapter(view.context, recipeList)
                 listView.adapter = adapter
             } catch (e: Exception) {
                 Log.d("OOOOOOOOOOOOOOOOOOOOOOOOO",e.printStackTrace().toString())
             }
+        }
+
+        listView.setOnItemClickListener { _, _, position, _ ->
+            val intent = Intent(view.context, CoinDetailsActivity::class.java)
+            intent.putExtra("item", recipeList[position])
+            startActivity(intent)
         }
 
         listView.choiceMode = ListView.CHOICE_MODE_MULTIPLE_MODAL
