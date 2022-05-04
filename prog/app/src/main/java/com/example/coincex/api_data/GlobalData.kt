@@ -19,7 +19,6 @@ class GlobalData(
     companion object {
 
         fun getDataFromApi(context: Context, callback:(result: String) -> Unit) {
-
             val url = "https://pro-api.coinmarketcap.com/v1/global-metrics/quotes/latest?CMC_PRO_API_KEY=e3dc6624-b531-4a8e-b501-7474e1e2455a"
             val queue = Volley.newRequestQueue(context)
             val stringRequest = StringRequest(

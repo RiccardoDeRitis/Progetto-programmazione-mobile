@@ -1,6 +1,7 @@
 package com.example.coincex.fragment_menu
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -61,12 +62,12 @@ class MarketFragment: Fragment() {
         val positionArray = ArrayList<Int>()
 
         ListCoinData.getDataFromApi(view.context) {
-            try {
+            if (it == "null")
+                Toast.makeText(view.context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
+            else {
                 recipeList = ListCoinData.getData(it)
                 val adapter = RecipeAdapter(view.context, recipeList)
                 listView.adapter = adapter
-            } catch (e: Exception) {
-                Log.d("ERROR",e.printStackTrace().toString())
             }
         }
 
@@ -119,7 +120,9 @@ class MarketFragment: Fragment() {
         })
 
         GlobalData.getDataFromApi(view.context) {
-            try {
+            if (it == "null")
+                Toast.makeText(view.context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
+            else {
                 val recipe = GlobalData.getData(it)
 
                 marketCapText.text = recipe.marketCap
@@ -149,8 +152,6 @@ class MarketFragment: Fragment() {
                     changeBtcText.text = "+" + recipe.btcDomChange
                     changeBtcText.setTextColor(Color.parseColor("#00af5f"))
                 }
-            } catch (e: Exception) {
-                Log.d("ERROR",e.printStackTrace().toString())
             }
         }
 

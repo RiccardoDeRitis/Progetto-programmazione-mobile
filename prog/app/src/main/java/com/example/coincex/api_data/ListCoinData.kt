@@ -32,7 +32,7 @@ class ListCoinData (
                     callback(it)
                 }
             ) {
-                callback(it.toString())
+                callback("null")
             }
             queue.add(stringRequest)
         }
