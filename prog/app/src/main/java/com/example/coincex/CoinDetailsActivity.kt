@@ -2,7 +2,6 @@ package com.example.coincex
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
@@ -38,12 +37,8 @@ class CoinDetailsActivity: AppCompatActivity() {
 
         var coinName = coin.name.lowercase()
 
-        if (coinName.contains(" ")) {
-            Log.d("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", coinName)
-            coinName = coinName.replace("\\s".toRegex(), "-")
-        }
-
-        Log.d("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", coinName)
+        if (coinName.contains(" "))
+            coinName.replace("\\s".toRegex(), "-").also { coinName = it }
 
         val url = "https://www.tradingview.com/chart/?symbol=${coin.symbol}USDT"
 

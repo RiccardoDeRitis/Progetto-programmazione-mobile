@@ -35,7 +35,7 @@ class MetricsCoinData(
 
         fun getData(data: String) : MetricsCoinData{
 
-            val df = DecimalFormat("#.###")
+            val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.DOWN
             val jsonData = JSONObject(data).getJSONObject("data")
 
