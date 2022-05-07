@@ -6,12 +6,29 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:autoText="false"
+        android:background="@android:color/transparent"
+        android:text="More details.."
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/text_button_pressed"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tradingview"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <TextView
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="5dp"
         android:textSize="11sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView26" />
@@ -21,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="238dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="5dp"
         android:textSize="11sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView27" />
@@ -31,17 +48,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="315dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="5dp"
         android:textSize="11sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="315dp"
+        android:layout_marginTop="2dp"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView34" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="315dp"
+        android:layout_marginTop="2dp"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
     <TextView
         android:id="@+id/textView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="100dp"
         android:text="Massimo 24h"
         android:textColor="#87879B"
         android:textSize="11sp"
@@ -53,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="238dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="100dp"
         android:text="Minimo 24h"
         android:textColor="#87879B"
         android:textSize="11sp"
@@ -65,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="315dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="100dp"
         android:text="All Time High"
         android:textColor="#87879B"
         android:textSize="11sp"
@@ -76,13 +113,13 @@
         android:id="@+id/tradingview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="130dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="170dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -103,7 +140,7 @@
         android:layout_height="35dp"
         android:layout_centerVertical="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="55dp"
         android:contentDescription="@string/logo"
         android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,7 +151,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="62dp"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold"

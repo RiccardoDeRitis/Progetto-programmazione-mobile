@@ -13,7 +13,7 @@ import com.example.coincex.R
 import com.example.coincex.api_data.ListCoinData
 import com.squareup.picasso.Picasso
 
-class RecipeAdapter(context: Context, private val dataSourceList: ArrayList<ListCoinData>) : BaseAdapter() {
+class CoinAdapter(context: Context, private val dataSourceList: ArrayList<ListCoinData>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 

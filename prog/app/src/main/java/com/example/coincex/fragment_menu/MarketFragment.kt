@@ -156,7 +156,7 @@ class MarketFragment: Fragment() {
                 Toast.makeText(context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
             else {
                 recipeList = ListCoinData.getData(it)
-                val adapter = RecipeAdapter(context, recipeList)
+                val adapter = CoinAdapter(context, recipeList)
                 listView.adapter = adapter
             }
         }

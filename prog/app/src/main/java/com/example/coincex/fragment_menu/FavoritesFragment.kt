@@ -41,7 +41,7 @@ class FavoritesFragment: Fragment() {
         }
         else {
             title.text = "I tuoi asset preferiti :"
-            val adapter = RecipeAdapter(view.context, favoriteCoin)
+            val adapter = CoinAdapter(view.context, favoriteCoin)
             listCoinFavorite.adapter = adapter
         }
 
