@@ -31,7 +31,6 @@ class RecipeAdapter(context: Context, private val dataSourceList: ArrayList<List
 
     @SuppressLint("SetTextI18n")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-
         val view: View
         val holder: ViewHolder
 

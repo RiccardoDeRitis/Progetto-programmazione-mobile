@@ -11,6 +11,13 @@ import java.text.DecimalFormat
 import kotlin.collections.ArrayList
 
 class ListCoinData (
+    val max24h: String,
+    val min24h: String,
+    val circulatingSupply: String,
+    val maxSupply: String,
+    val ath: String,
+    val athChangePercent: String,
+    val dateAth: String,
     val rank: String,
     val imageLogo: String,
     val symbol: String,
@@ -24,7 +31,7 @@ class ListCoinData (
     companion object {
 
         fun getDataFromApi(context: Context, callback:(result: String) -> Unit) {
-            val url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+            val url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd"
             val queue = Volley.newRequestQueue(context)
             val stringRequest = StringRequest(
                 Request.Method.GET, url,
@@ -45,7 +52,14 @@ class ListCoinData (
             val jsonData = JSONArray(data)
 
             for (i in 0 until jsonData.length()) {
-                val symbol :String = jsonData.getJSONObject(i).getString("symbol").uppercase()
+                val max24h = df.format(jsonData.getJSONObject(i).getDouble("high_24h")).toString()+"$"
+                val min24h = df.format(jsonData.getJSONObject(i).getDouble("low_24h")).toString()+"$"
+                val circulatingSupply = jsonData.getJSONObject(i).getDouble("circulating_supply").toString()
+                val maxSupply = jsonData.getJSONObject(i).getDouble("max_supply").toString()
+                val ath = df.format(jsonData.getJSONObject(i).getDouble("ath")).toString()+"$"
+                val athChangePercent = df.format(jsonData.getJSONObject(i).getDouble("ath_change_percentage")).toString()+"$"
+                val dateAth = jsonData.getJSONObject(i).getString("ath_date").replace("T"," ").replace("Z","")
+                val symbol = jsonData.getJSONObject(i).getString("symbol").uppercase()
                 val rank = jsonData.getJSONObject(i).getInt("market_cap_rank").toString()
                 val name = jsonData.getJSONObject(i).getString("name")
                 val image = jsonData.getJSONObject(i).getString("image")
@@ -57,7 +71,7 @@ class ListCoinData (
                 val price = "$"+jsonData.getJSONObject(i).getDouble("current_price").toString()
                 val price24h = df.format(jsonData.getJSONObject(i).getDouble("price_change_24h")).toString()+"$"
                 val pricePercent = df.format(jsonData.getJSONObject(i).getDouble("price_change_percentage_24h")).toString()+"%"
-                recipeList.add(ListCoinData(rank,image,symbol,name,cap,volume,price,price24h,pricePercent))
+                recipeList.add(ListCoinData(max24h,min24h,circulatingSupply,maxSupply,ath,athChangePercent,dateAth,rank,image,symbol,name,cap,volume,price,price24h,pricePercent))
             }
 
             return recipeList

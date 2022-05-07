@@ -8,7 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.coincex.api_data.ListCoinData
-import com.example.coincex.api_data.MetricsCoinData
 import com.squareup.picasso.Picasso
 
 class CoinDetailsActivity: AppCompatActivity() {
@@ -32,30 +31,14 @@ class CoinDetailsActivity: AppCompatActivity() {
 
         symbol.text = coin.symbol
 
-        val tradingView = findViewById<WebView>(R.id.tradingview)
-        tradingView.webViewClient = WebViewClass()
-
-        var coinName = coin.name.lowercase()
-
-        if (coinName.contains(" "))
-            coinName.replace("\\s".toRegex(), "-").also { coinName = it }
-
         val url = "https://www.tradingview.com/chart/?symbol=${coin.symbol}USDT"
 
+        val tradingView = findViewById<WebView>(R.id.tradingview)
+        tradingView.settings.loadsImagesAutomatically = true
+        tradingView.settings.javaScriptCanOpenWindowsAutomatically = true
         tradingView.settings.javaScriptEnabled = true
+        tradingView.webViewClient = WebViewClass()
         tradingView.loadUrl(url)
-
-        MetricsCoinData.getDataFromApi(applicationContext, coin.symbol) {
-            if (it == "null") {
-                Toast.makeText(this, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                val metrics = MetricsCoinData.getData(it)
-                max24H.text = metrics.max24h + "$"
-                min24H.text = metrics.min24h + "$"
-                ath.text = metrics.ath + "$"
-            }
-        }
 
     }
 

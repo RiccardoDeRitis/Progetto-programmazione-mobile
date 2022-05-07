@@ -1,12 +1,10 @@
 package com.example.coincex.fragment_menu
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
@@ -19,6 +17,9 @@ import com.example.coincex.R
 class MarketFragment: Fragment() {
 
     companion object {
+
+        @SuppressLint("StaticFieldLeak")
+        lateinit var listView: ListView
 
         lateinit var recipeList: ArrayList<ListCoinData>
 
@@ -51,25 +52,17 @@ class MarketFragment: Fragment() {
         val changeVolumeText = view.findViewById<TextView>(R.id.textView11)
         val changeBtcText = view.findViewById<TextView>(R.id.textView12)
 
-        val listView = view.findViewById<ListView>(R.id.listCoin)
+        listView = view.findViewById(R.id.listCoin)
 
         val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe)
         swipeRefresh.setOnRefreshListener {
-            setCurrentFragment(MarketFragment())
+            getData(view.context)
             swipeRefresh.isRefreshing = false
         }
 
         val positionArray = ArrayList<Int>()
 
-        ListCoinData.getDataFromApi(view.context) {
-            if (it == "null")
-                Toast.makeText(view.context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
-            else {
-                recipeList = ListCoinData.getData(it)
-                val adapter = RecipeAdapter(view.context, recipeList)
-                listView.adapter = adapter
-            }
-        }
+        getData(view.context)
 
         listView.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(view.context, CoinDetailsActivity::class.java)
@@ -157,9 +150,16 @@ class MarketFragment: Fragment() {
 
     }
 
-    private fun setCurrentFragment(fragment: Fragment) = parentFragmentManager.beginTransaction().apply {
-        replace(R.id.fragment_container,fragment)
-        commit()
+    private fun getData(context: Context) {
+        ListCoinData.getDataFromApi(context) {
+            if (it == "null")
+                Toast.makeText(context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
+            else {
+                recipeList = ListCoinData.getData(it)
+                val adapter = RecipeAdapter(context, recipeList)
+                listView.adapter = adapter
+            }
+        }
     }
 
 }

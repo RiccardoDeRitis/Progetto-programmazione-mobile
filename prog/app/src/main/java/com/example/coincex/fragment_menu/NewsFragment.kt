@@ -15,7 +15,6 @@ class NewsFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         val listNews = view.findViewById<ListView>(R.id.listNews)
 
     }
