@@ -5,7 +5,7 @@
     <string name="cap">Global Market Cap.</string>
     <string name="vol">Volume 24h</string>
     <string name="dom">BTC Dominance</string>
-    <string name="filter">Filters ▼</string>
+    <string name="search">Search</string>
     <string name="logo">Logo</string>
     <string name="grado">Rank</string>
     <string name="capit">Capitalizz./Volume</string>

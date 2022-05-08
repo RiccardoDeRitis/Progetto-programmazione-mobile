@@ -55,10 +55,14 @@ class ListCoinData (
                 val max24h = df.format(jsonData.getJSONObject(i).getDouble("high_24h")).toString()+"$"
                 val min24h = df.format(jsonData.getJSONObject(i).getDouble("low_24h")).toString()+"$"
                 val circulatingSupply = jsonData.getJSONObject(i).getDouble("circulating_supply").toString()
-                val maxSupply = jsonData.getJSONObject(i).getDouble("max_supply").toString()
+                val maxSupply = try {
+                    jsonData.getJSONObject(i).getDouble("max_supply").toString()
+                } catch (e: Exception) {
+                    "Unavailable"
+                }
                 val ath = df.format(jsonData.getJSONObject(i).getDouble("ath")).toString()+"$"
-                val athChangePercent = df.format(jsonData.getJSONObject(i).getDouble("ath_change_percentage")).toString()+"$"
-                val dateAth = jsonData.getJSONObject(i).getString("ath_date").replace("T"," ").replace("Z","")
+                val athChangePercent = df.format(jsonData.getJSONObject(i).getDouble("ath_change_percentage")).toString()+"%"
+                val dateAth = jsonData.getJSONObject(i).getString("ath_date").replace("T"," ").substring(0,10)
                 val symbol = jsonData.getJSONObject(i).getString("symbol").uppercase()
                 val rank = jsonData.getJSONObject(i).getInt("market_cap_rank").toString()
                 val name = jsonData.getJSONObject(i).getString("name")

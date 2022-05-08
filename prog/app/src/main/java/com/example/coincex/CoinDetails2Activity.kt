@@ -9,5 +9,8 @@ class CoinDetails2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.coin_details2_layout)
 
+        val symbol = intent.getStringExtra("symbol")
+
+
     }
 }
