@@ -13,6 +13,7 @@ import com.example.coincex.CoinDetailsActivity
 import com.example.coincex.api_data.ListCoinData
 import com.example.coincex.api_data.GlobalData
 import com.example.coincex.R
+import com.example.coincex.SearchActivity
 
 class MarketFragment: Fragment() {
 
@@ -20,7 +21,6 @@ class MarketFragment: Fragment() {
 
         @SuppressLint("StaticFieldLeak")
         lateinit var listView: ListView
-
         lateinit var recipeList: ArrayList<ListCoinData>
 
         fun savePreferences(positionArray: ArrayList<Int>, context: Context) {
@@ -58,6 +58,13 @@ class MarketFragment: Fragment() {
         swipeRefresh.setOnRefreshListener {
             getData(view.context)
             swipeRefresh.isRefreshing = false
+        }
+
+        val search = view.findViewById<Button>(R.id.search)
+
+        search.setOnClickListener {
+            val intent = Intent(view.context, SearchActivity::class.java)
+            startActivity(intent)
         }
 
         val positionArray = ArrayList<Int>()
