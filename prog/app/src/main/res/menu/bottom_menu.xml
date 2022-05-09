@@ -7,7 +7,7 @@
     <item
         android:id="@+id/prefe"
         android:title="@string/preferiti"
-        android:icon="@drawable/prefe"/>
+        android:icon="@drawable/preferred"/>
     <item
         android:id="@+id/notizie"
         android:title="@string/notizie"

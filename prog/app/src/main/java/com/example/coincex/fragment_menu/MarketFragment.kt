@@ -104,7 +104,7 @@ class MarketFragment: Fragment() {
 
             override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
                 val menuInflater: MenuInflater = mode.menuInflater
-                menuInflater.inflate(R.menu.pressed_menu, menu)
+                menuInflater.inflate(R.menu.pressed_menu2, menu)
                 return true
             }
 
@@ -124,7 +124,6 @@ class MarketFragment: Fragment() {
                 Toast.makeText(view.context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
             else {
                 val recipe = GlobalData.getData(it)
-
                 marketCapText.text = recipe.marketCap
                 volumeCapText.text = recipe.volumeCap
                 btcDominanceText.text = recipe.btcDom

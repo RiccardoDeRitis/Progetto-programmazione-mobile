@@ -55,7 +55,6 @@ class CoinAdapter(context: Context, private val dataSourceList: ArrayList<ListCo
             view = convertView
             holder = convertView.tag as ViewHolder
         }
-
         val rank = holder.rank
         val image = holder.image
         val symbol = holder.symbol

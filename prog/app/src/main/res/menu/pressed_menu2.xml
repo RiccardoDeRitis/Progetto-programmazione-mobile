@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_share"
-        android:icon="@drawable/not_preferred"
+        android:icon="@drawable/preferred"
         android:title="@string/share"
         app:showAsAction="always|never" />
 </menu>
