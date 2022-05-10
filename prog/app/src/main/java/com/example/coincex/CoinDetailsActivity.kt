@@ -24,7 +24,7 @@ class CoinDetailsActivity: AppCompatActivity() {
 
         val logo = findViewById<ImageView>(R.id.logo_image)
         val symbol = findViewById<TextView>(R.id.name_coin)
-
+        val rank = findViewById<TextView>(R.id.textView38)
         val max24H = findViewById<TextView>(R.id.textView28)
         val min24H = findViewById<TextView>(R.id.textView35)
         val ath = findViewById<TextView>(R.id.textView34)
@@ -36,13 +36,14 @@ class CoinDetailsActivity: AppCompatActivity() {
         picasso.load(coin.imageLogo).into(logo)
 
         symbol.text = coin.symbol
+        rank.text = coin.rank
         max24H.text = coin.max24h
         min24H.text = coin.min24h
         ath.text = coin.ath
         dateAth.text = coin.dateAth
         changeAthPercent.text = coin.athChangePercent
 
-       val url = """
+        val url = """
                 <div class="tradingview-widget-container">
                     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
                     <script type="text/javascript">
@@ -61,7 +62,7 @@ class CoinDetailsActivity: AppCompatActivity() {
                         });
                     </script>
                 </div>
-       """
+        """
 
         val tradingView = findViewById<WebView>(R.id.tradingview)
         tradingView.settings.javaScriptEnabled = true
@@ -70,7 +71,8 @@ class CoinDetailsActivity: AppCompatActivity() {
 
         moreDetails.setOnClickListener {
             val intent = Intent(applicationContext, CoinDetails2Activity::class.java)
-            intent.putExtra("symbol", coin.symbol)
+            intent.putExtra("symbol", coin.name.lowercase())
+            intent.putExtra("logo", coin.imageLogo)
             startActivity(intent)
         }
 
