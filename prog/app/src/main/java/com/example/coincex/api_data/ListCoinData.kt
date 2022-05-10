@@ -66,7 +66,11 @@ class ListCoinData (
                 val athChangePercent = df.format(jsonData.getJSONObject(i).getDouble("ath_change_percentage")).toString()+"%"
                 val dateAth = jsonData.getJSONObject(i).getString("ath_date").replace("T"," ").substring(0,10)
                 val symbol = jsonData.getJSONObject(i).getString("symbol").uppercase()
-                val rank = jsonData.getJSONObject(i).getInt("market_cap_rank").toString()
+                val rank = try {
+                    jsonData.getJSONObject(i).getInt("market_cap_rank").toString()
+                } catch (e: Exception) {
+                    "n/a"
+                }
                 val name = jsonData.getJSONObject(i).getString("name")
                 val image = jsonData.getJSONObject(i).getString("image")
                 val cap = "$"+df.format(jsonData.getJSONObject(i).getDouble("market_cap")/1000000000).toString()+" B"
