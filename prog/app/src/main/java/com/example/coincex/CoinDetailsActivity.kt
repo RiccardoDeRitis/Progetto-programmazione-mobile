@@ -9,9 +9,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.webkit.WebSettingsCompat
-import androidx.webkit.WebViewFeature
 import com.example.coincex.api_data.ListCoinData
+import com.example.coincex.api_data.SearchCoinData
 import com.squareup.picasso.Picasso
 
 class CoinDetailsActivity: AppCompatActivity() {

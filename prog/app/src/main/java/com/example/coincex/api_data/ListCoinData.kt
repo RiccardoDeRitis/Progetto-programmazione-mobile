@@ -11,7 +11,7 @@ import java.text.DecimalFormat
 import kotlin.collections.ArrayList
 
 class ListCoinData (
-    var isPreferred: Boolean,
+    val id: String,
     val max24h: String,
     val min24h: String,
     val circulatingSupply: String,
@@ -53,6 +53,7 @@ class ListCoinData (
             val jsonData = JSONArray(data)
 
             for (i in 0 until jsonData.length()) {
+                val id = jsonData.getJSONObject(i).getString("id")
                 val max24h = df.format(jsonData.getJSONObject(i).getDouble("high_24h")).toString()+"$"
                 val min24h = df.format(jsonData.getJSONObject(i).getDouble("low_24h")).toString()+"$"
                 val circulatingSupply = jsonData.getJSONObject(i).getDouble("circulating_supply").toString()
@@ -76,7 +77,7 @@ class ListCoinData (
                 val price = "$"+jsonData.getJSONObject(i).getDouble("current_price").toString()
                 val price24h = df.format(jsonData.getJSONObject(i).getDouble("price_change_24h")).toString()+"$"
                 val pricePercent = df.format(jsonData.getJSONObject(i).getDouble("price_change_percentage_24h")).toString()+"%"
-                recipeList.add(ListCoinData(false, max24h,min24h,circulatingSupply,maxSupply,ath,athChangePercent,dateAth,rank,image,symbol,name,cap,volume,price,price24h,pricePercent))
+                recipeList.add(ListCoinData(id,max24h,min24h,circulatingSupply,maxSupply,ath,athChangePercent,dateAth,rank,image,symbol,name,cap,volume,price,price24h,pricePercent))
             }
 
             return recipeList

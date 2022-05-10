@@ -11,6 +11,5 @@ class CoinDetails2Activity : AppCompatActivity() {
 
         val symbol = intent.getStringExtra("symbol")
 
-
     }
 }

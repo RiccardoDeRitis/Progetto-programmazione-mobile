@@ -6,9 +6,8 @@ import android.os.Bundle
 import android.widget.ListView
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.coincex.api_data.ListCoinData
 import com.example.coincex.api_data.SearchCoinData
-import com.example.coincex.fragment_menu.CoinAdapter
-import com.example.coincex.fragment_menu.MarketFragment
 
 class SearchActivity: AppCompatActivity() {
 
@@ -43,9 +42,12 @@ class SearchActivity: AppCompatActivity() {
         })
 
         searchCoin.setOnItemClickListener { _, _, position, _ ->
-            val intent = Intent(applicationContext, CoinDetailsActivity::class.java)
-            intent.putExtra("item", listCoinSearch[position])
-            startActivity(intent)
+            SearchCoinData.getCoinDataFromApi(applicationContext, listCoinSearch[position].id) {
+                val listCoin = ListCoinData.getData(it)
+                val intent = Intent(applicationContext, CoinDetailsActivity::class.java)
+                intent.putExtra("item", listCoin[0])
+                startActivity(intent)
+            }
         }
 
     }
