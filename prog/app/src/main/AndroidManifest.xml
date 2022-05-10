@@ -27,6 +27,9 @@
             android:name=".CoinDetailsActivity">
         </activity>
         <activity
+            android:name=".CoinDetails2Activity">
+        </activity>
+        <activity
             android:name=".SearchActivity">
         </activity>
     </application>

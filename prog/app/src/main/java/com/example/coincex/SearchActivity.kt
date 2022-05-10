@@ -1,6 +1,7 @@
 package com.example.coincex
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import android.widget.SearchView
@@ -40,6 +41,12 @@ class SearchActivity: AppCompatActivity() {
             }
 
         })
+
+        searchCoin.setOnItemClickListener { _, _, position, _ ->
+            val intent = Intent(applicationContext, CoinDetailsActivity::class.java)
+            intent.putExtra("item", listCoinSearch[position])
+            startActivity(intent)
+        }
 
     }
 

@@ -5,11 +5,12 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
+import java.io.Serializable
 
 class SearchCoinData (
     val logo: String,
     val symbol: String,
-    val nameCoin: String) {
+    val nameCoin: String): Serializable {
 
     companion object {
 
