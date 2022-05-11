@@ -56,11 +56,29 @@ class ListCoinData (
                 val id = jsonData.getJSONObject(i).getString("id")
                 val max24h = df.format(jsonData.getJSONObject(i).getDouble("high_24h")).toString()+"$"
                 val min24h = df.format(jsonData.getJSONObject(i).getDouble("low_24h")).toString()+"$"
-                val circulatingSupply = jsonData.getJSONObject(i).getDouble("circulating_supply").toString()
-                val maxSupply = try {
-                    jsonData.getJSONObject(i).getDouble("max_supply").toString()
+                val circulatingSupply = try {
+                    if (jsonData.getJSONObject(i).getDouble("circulating_supply") >= 1000000000)
+                        df.format(jsonData.getJSONObject(i).getDouble("circulating_supply")/1000000000).toString()+" B"
+                    else {
+                        if (jsonData.getJSONObject(i).getLong("circulating_supply") in 1000000..1000000000)
+                            df.format(jsonData.getJSONObject(i).getDouble("circulating_supply")/1000000).toString()+" M"
+                        else
+                            df.format(jsonData.getJSONObject(i).getDouble("circulating_supply")/1000).toString()+" K"
+                    }
                 } catch (e: Exception) {
-                    "Unavailable"
+                    "n/a"
+                }
+                val maxSupply = try {
+                    if (jsonData.getJSONObject(i).getDouble("max_supply") >= 1000000000)
+                        df.format(jsonData.getJSONObject(i).getDouble("max_supply")/1000000000).toString()+" B"
+                    else {
+                        if (jsonData.getJSONObject(i).getLong("max_supply") in 1000000..1000000000)
+                            df.format(jsonData.getJSONObject(i).getDouble("max_supply")/1000000).toString()+" M"
+                        else
+                            df.format(jsonData.getJSONObject(i).getDouble("max_supply")/1000).toString()+" K"
+                    }
+                } catch (e: Exception) {
+                    "n/a"
                 }
                 val ath = df.format(jsonData.getJSONObject(i).getDouble("ath")).toString()+"$"
                 val athChangePercent = df.format(jsonData.getJSONObject(i).getDouble("ath_change_percentage")).toString()+"%"
@@ -74,7 +92,7 @@ class ListCoinData (
                 val name = jsonData.getJSONObject(i).getString("name")
                 val image = jsonData.getJSONObject(i).getString("image")
                 val cap = "$"+df.format(jsonData.getJSONObject(i).getDouble("market_cap")/1000000000).toString()+" B"
-                val volume: String = if (jsonData.getJSONObject(i).getDouble("total_volume") > 1000000000)
+                val volume = if (jsonData.getJSONObject(i).getDouble("total_volume") > 1000000000)
                     "$"+df.format(jsonData.getJSONObject(i).getDouble("total_volume")/1000000000).toString()+" B"
                 else
                     "$"+df.format(jsonData.getJSONObject(i).getDouble("total_volume")/1000000).toString()+" M"

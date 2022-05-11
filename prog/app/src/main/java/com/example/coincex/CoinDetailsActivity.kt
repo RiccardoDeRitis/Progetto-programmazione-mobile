@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.coincex.api_data.ListCoinData
-import com.example.coincex.api_data.SearchCoinData
 import com.squareup.picasso.Picasso
 
 class CoinDetailsActivity: AppCompatActivity() {
@@ -30,6 +29,8 @@ class CoinDetailsActivity: AppCompatActivity() {
         val ath = findViewById<TextView>(R.id.textView34)
         val dateAth = findViewById<TextView>(R.id.textView32)
         val changeAthPercent = findViewById<TextView>(R.id.textView30)
+        val circulatingSupply = findViewById<TextView>(R.id.textView40)
+        val maxSupply = findViewById<TextView>(R.id.textView44)
         val moreDetails = findViewById<Button>(R.id.button7)
 
         val picasso = Picasso.get()
@@ -41,6 +42,8 @@ class CoinDetailsActivity: AppCompatActivity() {
         min24H.text = coin.min24h
         ath.text = coin.ath
         dateAth.text = coin.dateAth
+        circulatingSupply.text = coin.circulatingSupply
+        maxSupply.text = coin.maxSupply
         changeAthPercent.text = coin.athChangePercent
 
         val url = """

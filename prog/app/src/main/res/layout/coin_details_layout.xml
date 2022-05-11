@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
         android:layout_marginTop="100dp"
-        android:text="Massimo 24h"
+        android:text="Highest 24h"
         android:textColor="#87879B"
         android:textSize="11sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="238dp"
         android:layout_marginTop="100dp"
-        android:text="Minimo 24h"
+        android:text="Least 24h"
         android:textColor="#87879B"
         android:textSize="11sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,8 +112,8 @@
         android:id="@+id/tradingview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginBottom="145dp"
+        android:layout_marginTop="175dp"
+        android:layout_marginBottom="125dp"
         android:forceDarkAllowed="false"
         android:scrollbars="none"
         android:touchscreenBlocksFocus="false"
@@ -141,7 +141,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_centerVertical="true"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="55dp"
         android:contentDescription="@string/logo"
         android:scaleType="centerInside"
@@ -164,7 +164,7 @@
         android:id="@+id/textView37"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
         android:text="Rank :"
         android:textSize="12sp"
@@ -180,6 +180,48 @@
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/textView37"
         app:layout_constraintTop_toBottomOf="@+id/logo_image" />
+
+    <TextView
+        android:id="@+id/textView40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/textView39"
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/textView42"
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="15dp"
+        android:text="Circulating supply :"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
+
+    <TextView
+        android:id="@+id/textView42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:text="Max supply :"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/textView40"
+        app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
