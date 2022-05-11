@@ -41,4 +41,16 @@
         android:layout_marginBottom="22dp"
         android:layout_toEndOf="@+id/logo_image3"
         android:textColor="#FFFFFF" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="22dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/preferred"
+        app:srcCompat="@drawable/not_preferred" />
 </RelativeLayout>

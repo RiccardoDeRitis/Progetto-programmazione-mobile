@@ -1,13 +1,11 @@
 package com.example.coincex
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.ListView
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.coincex.api_data.ListCoinData
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.coincex.api_data.SearchCoinData
 
 class SearchActivity: AppCompatActivity() {
@@ -16,20 +14,20 @@ class SearchActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_layout)
-        var listCoinSearch = ArrayList<SearchCoinData>()
 
         val searchView = findViewById<SearchView>(R.id.searchView)
         searchView.queryHint = "Search by name or symbol.."
 
-        val searchCoin = findViewById<ListView>(R.id.SearchCoin)
+        val searchCoin = findViewById<RecyclerView>(R.id.SearchListCoin)
 
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 if (p0 != null) {
                     SearchCoinData.getDataFromApi(applicationContext, p0) {
-                        listCoinSearch = SearchCoinData.getData(it)
-                        val adapter = SearchAdapter(applicationContext, listCoinSearch)
+                        searchCoin.layoutManager = LinearLayoutManager(applicationContext)
+                        val listCoinSearch = SearchCoinData.getData(it)
+                        val adapter = SearchAdapter(listCoinSearch)
                         searchCoin.adapter = adapter
                     }
                 }
@@ -42,17 +40,6 @@ class SearchActivity: AppCompatActivity() {
 
         })
 
-        searchCoin.setOnItemClickListener { _, _, position, _ ->
-            SearchCoinData.getCoinDataFromApi(applicationContext, listCoinSearch[position].id) {
-                val listCoin = ListCoinData.getData(it)
-                val intent = Intent(applicationContext, CoinDetailsActivity::class.java)
-                intent.putExtra("item", listCoin[0])
-                Log.d("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",listCoin[0].name)
-                startActivity(intent)
-            }
-        }
-
     }
-
 
 }

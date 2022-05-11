@@ -8,8 +8,9 @@ import android.os.Bundle
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.coincex.CoinDetailsActivity
 import com.example.coincex.api_data.ListCoinData
 import com.example.coincex.api_data.GlobalData
 import com.example.coincex.R
@@ -20,20 +21,19 @@ class MarketFragment: Fragment() {
     companion object {
 
         @SuppressLint("StaticFieldLeak")
-        lateinit var listView: ListView
+        lateinit var listView: RecyclerView
         lateinit var recipeList: ArrayList<ListCoinData>
 
-        fun savePreferences(positionArray: ArrayList<Int>, context: Context) {
+        fun savePreferences(id: String, context: Context) {
             val sharedPref = context.getSharedPreferences("SharedPreference", Context.MODE_PRIVATE)
             val editor = sharedPref.edit()
-            for (position in positionArray)
-                editor.putInt(position.toString(), position)
+            editor.putString(id, id)
             editor.apply()
         }
 
-        fun getPreferences(key: String, context: Context): Int {
+        fun getPreferences(id: String, context: Context): String? {
             val sharedPref = context.getSharedPreferences("SharedPreference", Context.MODE_PRIVATE)
-            return sharedPref.getInt(key, -1)
+            return sharedPref.getString(id, "null")
         }
 
     }
@@ -67,57 +67,7 @@ class MarketFragment: Fragment() {
             startActivity(intent)
         }
 
-        val positionArray = ArrayList<Int>()
-
         getData(view.context)
-
-        listView.setOnItemClickListener { _, _, position, _ ->
-            val intent = Intent(view.context, CoinDetailsActivity::class.java)
-            intent.putExtra("item", recipeList[position])
-            startActivity(intent)
-        }
-
-        listView.choiceMode = ListView.CHOICE_MODE_MULTIPLE_MODAL
-        listView.setMultiChoiceModeListener(object : AbsListView.MultiChoiceModeListener {
-            override fun onItemCheckedStateChanged(mode: ActionMode, position: Int, id: Long, checked: Boolean) {
-                swipeRefresh.isEnabled = false
-                mode.title="${listView.checkedItemCount} selezionati"
-                if (checked)
-                    positionArray.add(position)
-                else
-                    positionArray.remove(position)
-            }
-
-            override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-                return when (item.itemId) {
-                    R.id.menu_share -> {
-                        savePreferences(positionArray, view.context)
-                        positionArray.clear()
-                        swipeRefresh.isEnabled = true
-                        Toast.makeText(view.context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
-                        mode.finish()
-                        true
-                    }
-                    else -> false
-                }
-            }
-
-            override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-                val menuInflater: MenuInflater = mode.menuInflater
-                menuInflater.inflate(R.menu.pressed_menu2, menu)
-                return true
-            }
-
-            override fun onDestroyActionMode(mode: ActionMode) {
-                swipeRefresh.isEnabled = true
-                positionArray.clear()
-            }
-
-            override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-                return false
-            }
-
-        })
 
         GlobalData.getDataFromApi(view.context) {
             if (it == "null")
@@ -161,8 +111,9 @@ class MarketFragment: Fragment() {
             if (it == "null")
                 Toast.makeText(context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
             else {
+                listView.layoutManager = LinearLayoutManager(context)
                 recipeList = ListCoinData.getData(it)
-                val adapter = CoinAdapter(context, recipeList)
+                val adapter = CoinAdapter(recipeList, false)
                 listView.adapter = adapter
             }
         }

@@ -44,7 +44,6 @@ class SearchCoinData (
         }
 
         fun getData(data: String): ArrayList<SearchCoinData> {
-
             val searchListCoin = ArrayList<SearchCoinData>()
             val jsonData = JSONObject(data).getJSONArray("coins")
             for (i in 0 until jsonData.length()) {
@@ -54,8 +53,8 @@ class SearchCoinData (
                 val nameCoin = jsonData.getJSONObject(i).getString("name")
                 searchListCoin.add(SearchCoinData(id, logo, symbol, nameCoin))
             }
-
             return searchListCoin
+
         }
 
     }
