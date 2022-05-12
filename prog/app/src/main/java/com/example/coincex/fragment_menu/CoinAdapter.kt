@@ -15,7 +15,7 @@ import com.example.coincex.R
 import com.example.coincex.api_data.ListCoinData
 import com.squareup.picasso.Picasso
 
-class CoinAdapter(private val dataSourceList: ArrayList<ListCoinData>, private val bool: Boolean) : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
+class CoinAdapter(private val dataSourceList: ArrayList<ListCoinData>, private val bool: Boolean): RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =  LayoutInflater.from(parent.context).inflate(R.layout.list_recipe, parent, false)
@@ -35,7 +35,7 @@ class CoinAdapter(private val dataSourceList: ArrayList<ListCoinData>, private v
         holder.priceChange.text = item.change24h
         holder.pricePercent.text = item.changePercent
 
-        if (MarketFragment.getPreferences(item.id, holder.itemView.context) != "null") {
+        if (FavoritesFragment.getPreferences(item.id, holder.itemView.context) != "null") {
             holder.preferred.visibility = View.VISIBLE
         }
 
@@ -67,22 +67,23 @@ class CoinAdapter(private val dataSourceList: ArrayList<ListCoinData>, private v
         }
 
         holder.rank.setOnClickListener {
-            if (MarketFragment.getPreferences(item.id, it.context) != "null") {
+            if (FavoritesFragment.getPreferences(item.id, it.context) != "null") {
                 if (bool) {
-                    FavoritesFragment().deletePreferences(item.id, it.context)
+                    FavoritesFragment.deletePreferences(item.id, it.context)
                     Toast.makeText(it.context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
                     dataSourceList.removeAt(position)
+                    notifyItemRangeChanged(position, dataSourceList.size)
                     notifyItemRemoved(position)
                 }
                 else {
-                    FavoritesFragment().deletePreferences(dataSourceList[position].id, it.context)
+                    FavoritesFragment.deletePreferences(dataSourceList[position].id, it.context)
+                    holder.preferred.visibility = View.INVISIBLE
                     Toast.makeText(it.context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
-                    notifyItemChanged(position)
                 }
             }
             else {
                 MarketFragment.savePreferences(item.id, it.context)
-                holder.preferred.visibility = View.VISIBLE
+                holder.preferred.visibility = View.GONE
                 notifyItemChanged(position)
                 Toast.makeText(it.context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
             }

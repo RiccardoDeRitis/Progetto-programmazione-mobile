@@ -31,11 +31,6 @@ class MarketFragment: Fragment() {
             editor.apply()
         }
 
-        fun getPreferences(id: String, context: Context): String? {
-            val sharedPref = context.getSharedPreferences("SharedPreference", Context.MODE_PRIVATE)
-            return sharedPref.getString(id, "null")
-        }
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -113,7 +108,7 @@ class MarketFragment: Fragment() {
             else {
                 listView.layoutManager = LinearLayoutManager(context)
                 recipeList = ListCoinData.getData(it)
-                val adapter = CoinAdapter(recipeList, false)
+                val adapter = CoinAdapter (recipeList, false)
                 listView.adapter = adapter
             }
         }

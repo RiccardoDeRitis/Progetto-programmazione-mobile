@@ -1,7 +1,6 @@
 package com.example.coincex
 
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,16 +26,19 @@ class SearchAdapter(private val dataSourceList: ArrayList<SearchCoinData>): Recy
         holder.symbol.text = item.symbol
         holder.name.text = item.nameCoin
 
-        if (MarketFragment.getPreferences(item.id, holder.itemView.context) != "null")
+        val bool = FavoritesFragment.getPreferences(item.id, holder.itemView.context) != "null"
+
+        if (bool)
             holder.preferred.setBackgroundResource(R.drawable.preferred)
 
         holder.preferred.setOnClickListener {
-            if (MarketFragment.getPreferences(item.id, holder.itemView.context) != "null") {
+            if (bool) {
                 holder.preferred.setBackgroundResource(R.drawable.not_preferred)
-                FavoritesFragment().deletePreferences(item.id, it.context)
+                FavoritesFragment.deletePreferences(item.id, it.context)
             }
             else {
                 holder.preferred.setBackgroundResource(R.drawable.preferred)
+                notifyItemChanged(position)
                 MarketFragment.savePreferences(item.id, holder.itemView.context)
             }
         }

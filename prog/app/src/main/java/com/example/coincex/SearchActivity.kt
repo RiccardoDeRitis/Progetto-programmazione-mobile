@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coincex.api_data.SearchCoinData
+import com.example.coincex.fragment_menu.MarketFragment
 
 class SearchActivity: AppCompatActivity() {
 
@@ -40,6 +41,14 @@ class SearchActivity: AppCompatActivity() {
 
         })
 
+    }
+
+    override fun onBackPressed() {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragment_container,MarketFragment())
+            commit()
+        }
+        super.onBackPressed()
     }
 
 }

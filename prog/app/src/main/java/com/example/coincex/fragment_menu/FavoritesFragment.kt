@@ -13,11 +13,20 @@ import com.example.coincex.R
 
 class FavoritesFragment: Fragment() {
 
-    fun deletePreferences(id: String, context: Context) {
-        val sharedPref = context.getSharedPreferences("SharedPreference", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.remove(id)
-        editor.apply()
+    companion object {
+
+        fun deletePreferences(id: String, context: Context) {
+            val sharedPref = context.getSharedPreferences("SharedPreference", Context.MODE_PRIVATE)
+            val editor = sharedPref.edit()
+            editor.remove(id)
+            editor.apply()
+        }
+
+        fun getPreferences(id: String, context: Context): String? {
+            val sharedPref = context.getSharedPreferences("SharedPreference", Context.MODE_PRIVATE)
+            return sharedPref.getString(id, "null")
+        }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -35,7 +44,7 @@ class FavoritesFragment: Fragment() {
         val title = view.findViewById<TextView>(R.id.titleFavorite)
         val recipeList = MarketFragment.recipeList
         for (coin in recipeList)
-            if (coin.id == MarketFragment.getPreferences(coin.id, view.context))
+            if (coin.id == getPreferences(coin.id, view.context))
                 favoriteCoin.add(coin)
         if (favoriteCoin.isEmpty()) {
             title.text = "Non stai seguendo alcun asset, torna indietro e tieni traccia dei tuoi asset preferiti"
