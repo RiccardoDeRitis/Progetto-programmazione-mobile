@@ -62,7 +62,16 @@ class MarketFragment: Fragment() {
             startActivity(intent)
         }
 
-        getData(view.context)
+        ListCoinData.getDataFromApi(view.context) {
+            if (it == "null")
+                Toast.makeText(context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
+            else {
+                listView.layoutManager = LinearLayoutManager(context)
+                recipeList = ListCoinData.getData(it)
+                val adapter = CoinAdapter(recipeList,false)
+                listView.adapter = adapter
+            }
+        }
 
         GlobalData.getDataFromApi(view.context) {
             if (it == "null")

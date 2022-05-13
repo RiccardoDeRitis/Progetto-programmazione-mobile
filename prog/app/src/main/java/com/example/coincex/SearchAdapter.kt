@@ -26,13 +26,12 @@ class SearchAdapter(private val dataSourceList: ArrayList<SearchCoinData>): Recy
         holder.symbol.text = item.symbol
         holder.name.text = item.nameCoin
 
-        val bool = FavoritesFragment.getPreferences(item.id, holder.itemView.context) != "null"
 
-        if (bool)
+        if (FavoritesFragment.getPreferences(item.id, holder.itemView.context) != "null")
             holder.preferred.setBackgroundResource(R.drawable.preferred)
 
         holder.preferred.setOnClickListener {
-            if (bool) {
+            if (FavoritesFragment.getPreferences(item.id, holder.itemView.context) != "null") {
                 holder.preferred.setBackgroundResource(R.drawable.not_preferred)
                 FavoritesFragment.deletePreferences(item.id, it.context)
             }

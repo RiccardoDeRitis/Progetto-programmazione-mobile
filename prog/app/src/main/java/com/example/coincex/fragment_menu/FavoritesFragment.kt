@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coincex.api_data.ListCoinData
 import com.example.coincex.R
+import com.example.coincex.api_data.SearchCoinData
 
 class FavoritesFragment: Fragment() {
 
@@ -23,8 +24,16 @@ class FavoritesFragment: Fragment() {
         }
 
         fun getPreferences(id: String, context: Context): String? {
+            return context.getSharedPreferences("SharedPreference", Context.MODE_PRIVATE).getString(id, "null")
+        }
+
+        fun getAllPreferences(context: Context, callback: (result: String) -> Unit) {
             val sharedPref = context.getSharedPreferences("SharedPreference", Context.MODE_PRIVATE)
-            return sharedPref.getString(id, "null")
+            if (sharedPref.all.isNotEmpty())
+                for (keys in sharedPref.all)
+                    callback(keys.key)
+            else
+                callback("void")
         }
 
     }
@@ -42,18 +51,21 @@ class FavoritesFragment: Fragment() {
         listCoinFavorite?.layoutManager = LinearLayoutManager(view.context)
 
         val title = view.findViewById<TextView>(R.id.titleFavorite)
-        val recipeList = MarketFragment.recipeList
-        for (coin in recipeList)
-            if (coin.id == getPreferences(coin.id, view.context))
-                favoriteCoin.add(coin)
-        if (favoriteCoin.isEmpty()) {
-            title.text = "Non stai seguendo alcun asset, torna indietro e tieni traccia dei tuoi asset preferiti"
-            title.textAlignment = View.TEXT_ALIGNMENT_CENTER
-        }
-        else {
-            title.text = "I tuoi asset preferiti :"
-            val adapter = CoinAdapter(favoriteCoin, true)
-            listCoinFavorite?.adapter = adapter
+
+        getAllPreferences(view.context) { id ->
+            if (id != "void") {
+                SearchCoinData.getCoinDataFromApi(view.context, id) { result ->
+                    favoriteCoin.addAll(ListCoinData.getData(result))
+                    favoriteCoin.sortBy { it.symbol }
+                    title.text = "I tuoi asset preferiti :"
+                    val adapter = CoinAdapter(favoriteCoin, true)
+                    listCoinFavorite?.adapter = adapter
+                }
+            }
+            else {
+                title.text = "Non stai seguendo alcun asset, torna indietro e tieni traccia dei tuoi asset preferiti"
+                title.textAlignment = View.TEXT_ALIGNMENT_CENTER
+            }
         }
 
     }

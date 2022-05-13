@@ -48,7 +48,6 @@ class SearchActivity: AppCompatActivity() {
             replace(R.id.fragment_container,MarketFragment())
             commit()
         }
-        super.onBackPressed()
     }
 
 }

@@ -91,7 +91,10 @@ class ListCoinData (
                 }
                 val name = jsonData.getJSONObject(i).getString("name")
                 val image = jsonData.getJSONObject(i).getString("image")
-                val cap = "$"+df.format(jsonData.getJSONObject(i).getDouble("market_cap")/1000000000).toString()+" B"
+                val cap = if (jsonData.getJSONObject(i).getDouble("market_cap") > 1000000000)
+                    "$"+df.format(jsonData.getJSONObject(i).getDouble("market_cap")/1000000000).toString()+" B"
+                else
+                    "$"+df.format(jsonData.getJSONObject(i).getDouble("market_cap")/1000000).toString()+" M"
                 val volume = if (jsonData.getJSONObject(i).getDouble("total_volume") > 1000000000)
                     "$"+df.format(jsonData.getJSONObject(i).getDouble("total_volume")/1000000000).toString()+" B"
                 else

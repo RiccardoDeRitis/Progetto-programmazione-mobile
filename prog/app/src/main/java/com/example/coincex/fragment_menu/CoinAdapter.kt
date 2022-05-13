@@ -35,10 +35,6 @@ class CoinAdapter(private val dataSourceList: ArrayList<ListCoinData>, private v
         holder.priceChange.text = item.change24h
         holder.pricePercent.text = item.changePercent
 
-        if (FavoritesFragment.getPreferences(item.id, holder.itemView.context) != "null") {
-            holder.preferred.visibility = View.VISIBLE
-        }
-
         if (item.change24h.contains("-")) {
             holder.priceChange.text = item.change24h
             holder.priceChange.setTextColor(Color.parseColor("#ff5232"))
@@ -60,6 +56,10 @@ class CoinAdapter(private val dataSourceList: ArrayList<ListCoinData>, private v
         val picasso = Picasso.get()
         picasso.load(item.imageLogo).into(holder.image)
 
+        if (FavoritesFragment.getPreferences(item.id, holder.itemView.context) != "null") {
+            holder.preferred.visibility = View.VISIBLE
+        }
+
         holder.itemView.setOnClickListener {
             val intent = Intent(it.context, CoinDetailsActivity::class.java)
             intent.putExtra("item", dataSourceList[position])
@@ -68,24 +68,59 @@ class CoinAdapter(private val dataSourceList: ArrayList<ListCoinData>, private v
 
         holder.rank.setOnClickListener {
             if (FavoritesFragment.getPreferences(item.id, it.context) != "null") {
-                if (bool) {
-                    FavoritesFragment.deletePreferences(item.id, it.context)
-                    Toast.makeText(it.context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
-                    dataSourceList.removeAt(position)
-                    notifyItemRangeChanged(position, dataSourceList.size)
-                    notifyItemRemoved(position)
-                }
-                else {
-                    FavoritesFragment.deletePreferences(dataSourceList[position].id, it.context)
-                    holder.preferred.visibility = View.INVISIBLE
-                    Toast.makeText(it.context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
-                }
+                FavoritesFragment.deletePreferences(dataSourceList[position].id, it.context)
+                holder.preferred.visibility = View.GONE
+                Toast.makeText(it.context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
             }
             else {
                 MarketFragment.savePreferences(item.id, it.context)
-                holder.preferred.visibility = View.GONE
+                holder.preferred.visibility = View.VISIBLE
                 notifyItemChanged(position)
                 Toast.makeText(it.context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        if (bool) {
+            holder.preferred.visibility = View.GONE
+            holder.rank.visibility = View.GONE
+            holder.image.setOnClickListener {
+                FavoritesFragment.deletePreferences(item.id, it.context)
+                Toast.makeText(it.context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
+                dataSourceList.removeAt(position)
+                notifyItemRemoved(position)
+                notifyItemRangeChanged(position, dataSourceList.size)
+            }
+        }
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(it.context, CoinDetailsActivity::class.java)
+            intent.putExtra("item", dataSourceList[position])
+            it.context.startActivity(intent)
+        }
+
+        holder.rank.setOnClickListener {
+            if (FavoritesFragment.getPreferences(item.id, it.context) != "null") {
+                FavoritesFragment.deletePreferences(dataSourceList[position].id, it.context)
+                holder.preferred.visibility = View.GONE
+                Toast.makeText(it.context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                MarketFragment.savePreferences(item.id, it.context)
+                holder.preferred.visibility = View.VISIBLE
+                notifyItemChanged(position)
+                Toast.makeText(it.context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        if (bool) {
+            holder.preferred.visibility = View.GONE
+            holder.rank.visibility = View.GONE
+            holder.image.setOnClickListener {
+                FavoritesFragment.deletePreferences(item.id, it.context)
+                Toast.makeText(it.context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
+                dataSourceList.removeAt(position)
+                notifyItemRemoved(position)
+                notifyItemRangeChanged(position, dataSourceList.size)
             }
         }
 
