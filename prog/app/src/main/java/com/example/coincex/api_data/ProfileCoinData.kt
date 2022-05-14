@@ -6,7 +6,8 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
-class ProfileCoinData(
+// Data class per info dettagliate di una coin
+data class ProfileCoinData(
     val title: String,
     val details: String,
     val category: String,

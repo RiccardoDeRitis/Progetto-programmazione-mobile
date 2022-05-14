@@ -19,9 +19,9 @@ import com.example.coincex.SearchActivity
 
 class MarketFragment: Fragment() {
 
+    // Oggetto contenente 2 attributi statici e un metodo per salvare gli id delle coin preferite
     companion object {
 
-        @SuppressLint("StaticFieldLeak")
         lateinit var listView: RecyclerView
         lateinit var recipeList: ArrayList<ListCoinData>
 
@@ -50,6 +50,7 @@ class MarketFragment: Fragment() {
 
         listView = view.findViewById(R.id.listCoin)
 
+        // Listener per il refresh dei dati all'interno della lista
         val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe)
         swipeRefresh.setOnRefreshListener {
             getData(view.context)
@@ -58,6 +59,7 @@ class MarketFragment: Fragment() {
 
         val search = view.findViewById<Button>(R.id.search)
 
+        // Listener per passare all'activity di ricerca
         search.setOnClickListener {
             val intent = Intent(view.context, SearchActivity::class.java)
             startActivity(intent)
@@ -65,6 +67,7 @@ class MarketFragment: Fragment() {
 
         getData(view.context)
 
+        // Esegue la chiamata all'api e setta le info globali con diversi colori a seconda dell'andamento
         GlobalData.getDataFromApi(view.context) {
             if (it == "null")
                 Toast.makeText(view.context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
@@ -101,6 +104,7 @@ class MarketFragment: Fragment() {
         }
     }
 
+    // Metodo che ritorna i dati delle coin e le passa all'adapter
     private fun getData(context: Context) {
         ListCoinData.getDataFromApi(context) {
             if (it == "null")

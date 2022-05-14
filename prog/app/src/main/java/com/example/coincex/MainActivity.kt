@@ -14,13 +14,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val marketFragment = MarketFragment()
-        val favoriteFragment = FavoritesFragment()
-        val loginFragment = LoginFragment()
+        val marketFragment = MarketFragment() // Fragment principale
+        val favoriteFragment = FavoritesFragment() // Fragment preferiti
+        val loginFragment = LoginFragment() // Fragment di Login
+        //val newsFragment = NewsFragment()
 
+        // Funzione che imposta il fragment principale a quello corrente
         setCurrentFragment(marketFragment)
 
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
+
+        // Listener che imposta il fragment in base al click nel BottomNavigationView
         navigation.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.home -> setCurrentFragment(marketFragment)
@@ -29,9 +33,9 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
     }
 
+    // Funzione che inserisce il fragment passato nel fragment container presente nell'activity_main
     private fun setCurrentFragment(fragment: Fragment) = supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragment_container,fragment)
             commit()

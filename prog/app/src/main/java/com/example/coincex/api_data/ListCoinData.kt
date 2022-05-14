@@ -10,7 +10,8 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 import kotlin.collections.ArrayList
 
-class ListCoinData (
+// Data class per le info di una coin
+data class ListCoinData (
     val id: String,
     val max24h: String,
     val min24h: String,

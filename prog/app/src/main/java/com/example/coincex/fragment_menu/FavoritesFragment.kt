@@ -18,6 +18,7 @@ import com.example.coincex.api_data.SearchCoinData
 
 class FavoritesFragment: Fragment() {
 
+    // Oggetto per definire 2 attributi statici e metodi per eliminare e ottenere gli id delle coin dai preferiti
     companion object {
 
         lateinit var favoriteCoin: ArrayList<ListCoinData>
@@ -59,6 +60,8 @@ class FavoritesFragment: Fragment() {
 
         val title = view.findViewById<TextView>(R.id.titleFavorite)
 
+        // Ritorna un preferito alla volta e lo inserisce in un ArrayList per poi passarlo all'adapter
+        // Se non ci sono preferiti viene settato un title che lo riferisce
         getAllPreferences(view.context) { id ->
             if (id != "void") {
                 SearchCoinData.getCoinDataFromApi(view.context, id) { result ->

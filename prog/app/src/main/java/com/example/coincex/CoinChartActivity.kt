@@ -17,7 +17,7 @@ class CoinChartActivity: AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.coin_details_layout)
+        setContentView(R.layout.coin_chart_layout)
 
         val coin = intent.getSerializableExtra("item") as ListCoinData
 
@@ -67,11 +67,12 @@ class CoinChartActivity: AppCompatActivity() {
                 </div>
         """
 
-        val tradingView = findViewById<WebView>(R.id.tradingview)
-        tradingView.settings.javaScriptEnabled = true
-        tradingView.setBackgroundColor(Color.BLACK)
-        tradingView.loadDataWithBaseURL(null, url, "text/html", "UTF-8", null)
+        val chart = findViewById<WebView>(R.id.tradingview)
+        chart.settings.javaScriptEnabled = true
+        chart.setBackgroundColor(Color.BLACK)
+        chart.loadDataWithBaseURL(null, url, "text/html", "UTF-8", null)
 
+        // Listener per aprire l'activity CoinDetailsActivity passandogli symbol e logo
         moreDetails.setOnClickListener {
             val intent = Intent(applicationContext, CoinDetailsActivity::class.java)
             intent.putExtra("symbol", coin.name.lowercase())

@@ -11,7 +11,7 @@ class CoinDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?,) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.coin_details2_layout)
+        setContentView(R.layout.coin_details_layout)
 
         val name = intent.getStringExtra("symbol")
         val logo = intent.getStringExtra("logo")

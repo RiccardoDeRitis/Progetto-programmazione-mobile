@@ -18,9 +18,9 @@ class CoinAdapter(private val data: ArrayList<ListCoinData>,
                   private val onClickRank: (id: String, pos: Int, preferred: ImageView) -> Unit):
     RecyclerView.Adapter<CoinAdapter.ViewHolder>(){
 
+    // Metodo per l'inflate di list_recipe che ritorna un Viewholder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =  LayoutInflater.from(parent.context).inflate(R.layout.list_recipe, parent, false)
-
         return ViewHolder(view,bool,onClickItem,onClickRank)
     }
 
@@ -28,6 +28,7 @@ class CoinAdapter(private val data: ArrayList<ListCoinData>,
         return data.size
     }
 
+    // Metodo che prende una coin nell'Arraylist ed esegue il bind dei dati
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
         holder.bind(item, bool, position)
@@ -55,8 +56,11 @@ class CoinAdapter(private val data: ArrayList<ListCoinData>,
         private var currentId: String? = null
         private var currentPosition: Int? = null
 
+        /*
+        Listener per il click sull'item, sul rank per inserirlo nei preferiti e nel caso in cui
+        l'adapter è riferito alla lista delle coin preferite, anche per il click sull'immagine
+         */
         init {
-
             itemView.setOnClickListener { _ ->
                 currentCoin?.let{
                     onClickItem(it)
@@ -82,7 +86,6 @@ class CoinAdapter(private val data: ArrayList<ListCoinData>,
                     }
                 }
             }
-
         }
 
         @SuppressLint("SetTextI18n")

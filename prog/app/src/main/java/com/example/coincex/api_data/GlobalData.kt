@@ -8,7 +8,8 @@ import org.json.JSONObject
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
-class GlobalData(
+// Data class per le info globali del mercato
+data class GlobalData(
     val marketCap: String,
     val volumeCap: String,
     val btcDom: String,
@@ -16,8 +17,10 @@ class GlobalData(
     val volumeChange: String,
     val btcDomChange: String) {
 
+    // Oggetto contenente metodi per ottenere dati attraverso le API di CoinMarketCap
     companion object {
 
+        // Metodo asincrono che restituisce un callback contenente il risultato della chiamata
         fun getDataFromApi(context: Context, callback:(result: String) -> Unit) {
             val url = "https://pro-api.coinmarketcap.com/v1/global-metrics/quotes/latest?CMC_PRO_API_KEY=e3dc6624-b531-4a8e-b501-7474e1e2455a"
             val queue = Volley.newRequestQueue(context)
@@ -30,6 +33,7 @@ class GlobalData(
             queue.add(stringRequest)
         }
 
+        // Metodo per il bind dei dati e restituisce la data class
         fun getData(data: String): GlobalData {
 
             val marketCap: String

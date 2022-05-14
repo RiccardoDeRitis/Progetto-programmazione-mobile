@@ -7,7 +7,8 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import java.io.Serializable
 
-class SearchCoinData (
+// Data class per le info di una coin cercata
+data class SearchCoinData (
     val id: String,
     val logo: String,
     val symbol: String,

@@ -16,6 +16,7 @@ class SearchAdapter(private val data: ArrayList<SearchCoinData>,
                                               preferred: ImageView) -> Unit):
     RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
+    // Metodo per l'inflate di list_recipe_search_coin che ritorna un Viewholder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =  LayoutInflater.from(parent.context).inflate(R.layout.list_recipe_search_coin, parent, false)
         return ViewHolder(view, onClickItem, onClickStar)
@@ -25,6 +26,7 @@ class SearchAdapter(private val data: ArrayList<SearchCoinData>,
         return data.size
     }
 
+    // Metodo che prende una coin nell'Arraylist ed esegue il bind dei dati
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
         holder.bind(item)
@@ -42,6 +44,7 @@ class SearchAdapter(private val data: ArrayList<SearchCoinData>,
         private var currentCoin: SearchCoinData? = null
         private var currentId: String? = null
 
+        // Listener per il click sull'item e sulla stella
         init {
             preferred.setOnClickListener {
                 currentId?.let { id ->
