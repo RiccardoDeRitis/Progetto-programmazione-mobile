@@ -1,146 +1,129 @@
 package com.example.coincex.fragment_menu
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coincex.CoinDetailsActivity
 import com.example.coincex.R
 import com.example.coincex.api_data.ListCoinData
 import com.squareup.picasso.Picasso
 
-class CoinAdapter(private val dataSourceList: ArrayList<ListCoinData>, private val bool: Boolean): RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
+class CoinAdapter(private val data: ArrayList<ListCoinData>,
+                  private val bool: Boolean,
+                  private val onClickItem: (coin: ListCoinData) -> Unit,
+                  private val onClickRank: (id: String, pos: Int, preferred: ImageView) -> Unit):
+    RecyclerView.Adapter<CoinAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =  LayoutInflater.from(parent.context).inflate(R.layout.list_recipe, parent, false)
-        return ViewHolder(view)
-    }
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = dataSourceList[position]
-
-        holder.rank.text = item.rank
-        holder.symbol.text = item.symbol
-        holder.name.text = item.name
-        holder.cap.text = item.cap
-        holder.volume.text = item.volume
-        holder.price.text = item.price
-        holder.priceChange.text = item.change24h
-        holder.pricePercent.text = item.changePercent
-
-        if (item.change24h.contains("-")) {
-            holder.priceChange.text = item.change24h
-            holder.priceChange.setTextColor(Color.parseColor("#ff5232"))
-        }
-        else {
-            holder.priceChange.text = "+"+item.change24h
-            holder.priceChange.setTextColor(Color.parseColor("#00af5f"))
-        }
-
-        if (item.changePercent.contains("-")) {
-            holder.pricePercent.text = item.changePercent
-            holder.pricePercent.setTextColor(Color.parseColor("#ff5232"))
-        }
-        else {
-            holder.pricePercent.text = "+"+item.changePercent
-            holder.pricePercent.setTextColor(Color.parseColor("#00af5f"))
-        }
-
-        val picasso = Picasso.get()
-        picasso.load(item.imageLogo).into(holder.image)
-
-        if (FavoritesFragment.getPreferences(item.id, holder.itemView.context) != "null") {
-            holder.preferred.visibility = View.VISIBLE
-        }
-
-        holder.itemView.setOnClickListener {
-            val intent = Intent(it.context, CoinDetailsActivity::class.java)
-            intent.putExtra("item", dataSourceList[position])
-            it.context.startActivity(intent)
-        }
-
-        holder.rank.setOnClickListener {
-            if (FavoritesFragment.getPreferences(item.id, it.context) != "null") {
-                FavoritesFragment.deletePreferences(dataSourceList[position].id, it.context)
-                holder.preferred.visibility = View.GONE
-                Toast.makeText(it.context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                MarketFragment.savePreferences(item.id, it.context)
-                holder.preferred.visibility = View.VISIBLE
-                notifyItemChanged(position)
-                Toast.makeText(it.context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        if (bool) {
-            holder.preferred.visibility = View.GONE
-            holder.rank.visibility = View.GONE
-            holder.image.setOnClickListener {
-                FavoritesFragment.deletePreferences(item.id, it.context)
-                Toast.makeText(it.context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
-                dataSourceList.removeAt(position)
-                notifyItemRemoved(position)
-                notifyItemRangeChanged(position, dataSourceList.size)
-            }
-        }
-
-        holder.itemView.setOnClickListener {
-            val intent = Intent(it.context, CoinDetailsActivity::class.java)
-            intent.putExtra("item", dataSourceList[position])
-            it.context.startActivity(intent)
-        }
-
-        holder.rank.setOnClickListener {
-            if (FavoritesFragment.getPreferences(item.id, it.context) != "null") {
-                FavoritesFragment.deletePreferences(dataSourceList[position].id, it.context)
-                holder.preferred.visibility = View.GONE
-                Toast.makeText(it.context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                MarketFragment.savePreferences(item.id, it.context)
-                holder.preferred.visibility = View.VISIBLE
-                notifyItemChanged(position)
-                Toast.makeText(it.context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        if (bool) {
-            holder.preferred.visibility = View.GONE
-            holder.rank.visibility = View.GONE
-            holder.image.setOnClickListener {
-                FavoritesFragment.deletePreferences(item.id, it.context)
-                Toast.makeText(it.context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
-                dataSourceList.removeAt(position)
-                notifyItemRemoved(position)
-                notifyItemRangeChanged(position, dataSourceList.size)
-            }
-        }
-
+        return ViewHolder(view,bool,onClickItem,onClickRank)
     }
 
     override fun getItemCount(): Int {
-        return dataSourceList.size
+        return data.size
     }
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val preferred = view.findViewById(R.id.imageView6) as ImageView
-        val rank = view.findViewById(R.id.rank) as TextView
-        val image = view.findViewById(R.id.logo_image) as ImageView
-        val symbol = view.findViewById(R.id.coin) as TextView
-        val name = view.findViewById(R.id.name) as TextView
-        val cap = view.findViewById(R.id.market_cap) as TextView
-        val volume = view.findViewById(R.id.volume) as TextView
-        val price = view.findViewById(R.id.price) as TextView
-        val priceChange = view.findViewById(R.id.change_price) as TextView
-        val pricePercent = view.findViewById(R.id.change24h) as TextView
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = data[position]
+        holder.bind(item, bool, position)
     }
 
+    class ViewHolder(view: View,
+                     bool: Boolean,
+                     val onClickItem: (coin: ListCoinData) -> Unit,
+                     val onClickRank: (id: String,
+                                       pos: Int,
+                                       preferred: ImageView) -> Unit)
+        : RecyclerView.ViewHolder(view) {
+
+        private val preferred = view.findViewById(R.id.imageView6) as ImageView
+        private val rank = view.findViewById(R.id.rank) as TextView
+        private val image = view.findViewById(R.id.logo_image) as ImageView
+        private val symbol = view.findViewById(R.id.coin) as TextView
+        private val name = view.findViewById(R.id.name) as TextView
+        private val cap = view.findViewById(R.id.market_cap) as TextView
+        private val volume = view.findViewById(R.id.volume) as TextView
+        private val price = view.findViewById(R.id.price) as TextView
+        private val priceChange = view.findViewById(R.id.change_price) as TextView
+        private val pricePercent = view.findViewById(R.id.change24h) as TextView
+        private var currentCoin: ListCoinData? = null
+        private var currentId: String? = null
+        private var currentPosition: Int? = null
+
+        init {
+
+            itemView.setOnClickListener { _ ->
+                currentCoin?.let{
+                    onClickItem(it)
+                }
+            }
+
+            rank.setOnClickListener {
+                currentId?.let { id ->
+                    currentPosition?.let { pos ->
+                        onClickRank(id,pos,preferred)
+                    }
+                }
+            }
+
+            if (bool) {
+                preferred.visibility = View.GONE
+                rank.visibility = View.GONE
+                image.setOnClickListener {
+                    currentId?.let { id ->
+                        currentPosition?.let { pos ->
+                            onClickRank(id,pos,preferred)
+                        }
+                    }
+                }
+            }
+
+        }
+
+        @SuppressLint("SetTextI18n")
+        fun bind(coin: ListCoinData, bool: Boolean, pos: Int) {
+            currentCoin = coin
+            currentId = coin.id
+            currentPosition = pos
+
+            rank.text = coin.rank
+            symbol.text = coin.symbol
+            name.text = coin.name
+            cap.text = coin.cap
+            volume.text = coin.volume
+            price.text = coin.price
+            priceChange.text = coin.change24h
+            pricePercent.text = coin.changePercent
+
+            if (coin.change24h.contains("-")) {
+                priceChange.text = coin.change24h
+                priceChange.setTextColor(Color.parseColor("#ff5232"))
+            }
+            else {
+                priceChange.text = "+"+coin.change24h
+                priceChange.setTextColor(Color.parseColor("#00af5f"))
+            }
+
+            if (coin.changePercent.contains("-")) {
+                pricePercent.text = coin.changePercent
+                pricePercent.setTextColor(Color.parseColor("#ff5232"))
+            }
+            else {
+                pricePercent.text = "+"+coin.changePercent
+                pricePercent.setTextColor(Color.parseColor("#00af5f"))
+            }
+
+            val picasso = Picasso.get()
+            picasso.load(coin.imageLogo).into(image)
+
+            if (!bool)
+                if (FavoritesFragment.getPreferences(coin.id, itemView.context) != "null")
+                    preferred.visibility = View.VISIBLE
+        }
+    }
 }

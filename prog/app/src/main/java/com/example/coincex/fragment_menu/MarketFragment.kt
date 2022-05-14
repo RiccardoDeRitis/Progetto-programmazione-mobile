@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.coincex.CoinDetailsActivity
 import com.example.coincex.api_data.ListCoinData
 import com.example.coincex.api_data.GlobalData
 import com.example.coincex.R
@@ -62,16 +63,7 @@ class MarketFragment: Fragment() {
             startActivity(intent)
         }
 
-        ListCoinData.getDataFromApi(view.context) {
-            if (it == "null")
-                Toast.makeText(context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
-            else {
-                listView.layoutManager = LinearLayoutManager(context)
-                recipeList = ListCoinData.getData(it)
-                val adapter = CoinAdapter(recipeList,false)
-                listView.adapter = adapter
-            }
-        }
+        getData(view.context)
 
         GlobalData.getDataFromApi(view.context) {
             if (it == "null")
@@ -107,7 +99,6 @@ class MarketFragment: Fragment() {
                 }
             }
         }
-
     }
 
     private fun getData(context: Context) {
@@ -117,9 +108,33 @@ class MarketFragment: Fragment() {
             else {
                 listView.layoutManager = LinearLayoutManager(context)
                 recipeList = ListCoinData.getData(it)
-                val adapter = CoinAdapter (recipeList, false)
+                val adapter = CoinAdapter(
+                    recipeList,
+                    false,
+                    { coin -> onClickItem(coin, context) },
+                    { id, _, preferred -> onClickRank(id, preferred, context) }
+                )
                 listView.adapter = adapter
             }
+        }
+    }
+
+    private fun onClickItem(coinData: ListCoinData, context: Context) {
+        val intent = Intent(context, CoinDetailsActivity::class.java)
+        intent.putExtra("item", coinData)
+        context.startActivity(intent)
+    }
+
+    private fun onClickRank(id: String, preferred: ImageView, context: Context) {
+        if (FavoritesFragment.getPreferences(id,context) != "null") {
+            FavoritesFragment.deletePreferences(id,context)
+            preferred.visibility = View.GONE
+            Toast.makeText(context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
+        }
+        else {
+            savePreferences(id,context)
+            preferred.visibility = View.VISIBLE
+            Toast.makeText(context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
         }
     }
 

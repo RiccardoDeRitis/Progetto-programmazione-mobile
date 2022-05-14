@@ -2,12 +2,16 @@ package com.example.coincex.fragment_menu
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coincex.CoinDetailsActivity
 import com.example.coincex.api_data.ListCoinData
 import com.example.coincex.R
 import com.example.coincex.api_data.SearchCoinData
@@ -15,6 +19,9 @@ import com.example.coincex.api_data.SearchCoinData
 class FavoritesFragment: Fragment() {
 
     companion object {
+
+        lateinit var favoriteCoin: ArrayList<ListCoinData>
+        lateinit var adapter: CoinAdapter
 
         fun deletePreferences(id: String, context: Context) {
             val sharedPref = context.getSharedPreferences("SharedPreference", Context.MODE_PRIVATE)
@@ -45,7 +52,7 @@ class FavoritesFragment: Fragment() {
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val favoriteCoin: ArrayList<ListCoinData> = ArrayList()
+        favoriteCoin = ArrayList()
 
         val listCoinFavorite = view.findViewById<RecyclerView>(R.id.listCoinFavorites)
         listCoinFavorite?.layoutManager = LinearLayoutManager(view.context)
@@ -58,7 +65,12 @@ class FavoritesFragment: Fragment() {
                     favoriteCoin.addAll(ListCoinData.getData(result))
                     favoriteCoin.sortBy { it.symbol }
                     title.text = "I tuoi asset preferiti :"
-                    val adapter = CoinAdapter(favoriteCoin, true)
+                    adapter = CoinAdapter(
+                        favoriteCoin,
+                        true,
+                        { coin -> onClickItem(coin, view.context) },
+                        { id,pos,preferred -> onClickRank(id,pos,preferred, view.context) }
+                    )
                     listCoinFavorite?.adapter = adapter
                 }
             }
@@ -68,6 +80,23 @@ class FavoritesFragment: Fragment() {
             }
         }
 
+    }
+
+    private fun onClickItem(coinData: ListCoinData, context: Context) {
+        val intent = Intent(context, CoinDetailsActivity::class.java)
+        intent.putExtra("item", coinData)
+        context.startActivity(intent)
+    }
+
+    private fun onClickRank(id: String, position: Int, preferred: ImageView, context: Context) {
+        if (getPreferences(id,context) != "null") {
+            deletePreferences(id,context)
+            preferred.visibility = View.GONE
+            Toast.makeText(context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
+            favoriteCoin.removeAt(position)
+            adapter.notifyItemRemoved(position)
+            adapter.notifyItemRangeChanged(position, favoriteCoin.size)
+        }
     }
 
 }
