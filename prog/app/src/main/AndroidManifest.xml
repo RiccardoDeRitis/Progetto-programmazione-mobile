@@ -24,10 +24,10 @@
             android:name=".SignInActivity">
         </activity>
         <activity
-            android:name=".CoinDetailsActivity">
+            android:name=".CoinChartActivity">
         </activity>
         <activity
-            android:name=".CoinDetails2Activity">
+            android:name=".CoinDetailsActivity">
         </activity>
         <activity
             android:name=".SearchActivity">

@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coincex.CoinDetailsActivity
+import com.example.coincex.CoinChartActivity
 import com.example.coincex.api_data.ListCoinData
 import com.example.coincex.R
 import com.example.coincex.api_data.SearchCoinData
@@ -83,7 +83,7 @@ class FavoritesFragment: Fragment() {
     }
 
     private fun onClickItem(coinData: ListCoinData, context: Context) {
-        val intent = Intent(context, CoinDetailsActivity::class.java)
+        val intent = Intent(context, CoinChartActivity::class.java)
         intent.putExtra("item", coinData)
         context.startActivity(intent)
     }

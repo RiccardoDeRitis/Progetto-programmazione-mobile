@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.coincex.CoinDetailsActivity
+import com.example.coincex.CoinChartActivity
 import com.example.coincex.api_data.ListCoinData
 import com.example.coincex.api_data.GlobalData
 import com.example.coincex.R
@@ -120,7 +120,7 @@ class MarketFragment: Fragment() {
     }
 
     private fun onClickItem(coinData: ListCoinData, context: Context) {
-        val intent = Intent(context, CoinDetailsActivity::class.java)
+        val intent = Intent(context, CoinChartActivity::class.java)
         intent.putExtra("item", coinData)
         context.startActivity(intent)
     }

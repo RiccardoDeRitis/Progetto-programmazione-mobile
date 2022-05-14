@@ -66,7 +66,7 @@ class SearchActivity: AppCompatActivity() {
     private fun onClickItem(coin: SearchCoinData,context: Context) {
         SearchCoinData.getCoinDataFromApi(context, coin.id) { result ->
             val listCoin = ListCoinData.getData(result)
-            val intent = Intent(context, CoinDetailsActivity::class.java)
+            val intent = Intent(context, CoinChartActivity::class.java)
             intent.putExtra("item", listCoin[0])
             startActivity(intent)
         }
