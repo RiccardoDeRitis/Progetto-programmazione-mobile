@@ -20,17 +20,20 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/navigation_bar_selector"
-        app:itemIconSize="27dp"
-        app:itemIconTint="@color/acquamarina_scuro"
-        app:itemTextColor="@color/white"
+        android:background="@color/black"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        app:itemBackground="@drawable/navigation_bar_selector"
+        app:itemIconSize="25dp"
+        app:itemIconTint="@color/navigation_color"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu" />
+        app:menu="@menu/bottom_menu"/>
 
     <FrameLayout
         android:id="@+id/fragment_container"

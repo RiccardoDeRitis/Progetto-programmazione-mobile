@@ -3,12 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/drawable/menu_item_selected.xml" value="0.167" />
+        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/drawable/navigation_background.xml" value="0.167" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/drawable/navigation_bar_selector.xml" value="0.167" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/drawable/rounded_rank_coin.xml" value="0.167" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/drawable/rounded_text_market.xml" value="0.167" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/drawable/rounded_textinput.xml" value="0.167" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/drawable/selector_button_login.xml" value="0.167" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/activity_main.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/menu/bottom_menu.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/menu/pressed_menu.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/menu/pressed_menu2.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/app/src/main/res/layout/activity_main1.xml" value="0.3625" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/app/src/main/res/layout/content_main.xml" value="0.33" />
