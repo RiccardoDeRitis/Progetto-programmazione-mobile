@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="@color/acquamarina_scuro">
+        <shape>
+            <corners android:radius="1000dp" />
+            <solid android:color="@color/scuro"/>
+        </shape>
+    </item>
+    <item android:color="@android:color/darker_gray"/>
+</selector>
