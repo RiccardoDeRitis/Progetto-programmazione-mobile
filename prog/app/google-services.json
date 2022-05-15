@@ -7,6 +7,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:94840290242:android:1d37106ebe65c4affa745b",
+        "android_client_info": {
+          "package_name": "com.example.coincex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94840290242-bahviilvdohre5djh7v6jj0mrbjdkmsb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTTlHlxfMUwg_OF6bp10IfjHmqLSntfjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94840290242-bahviilvdohre5djh7v6jj0mrbjdkmsb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:94840290242:android:8527d215c742f81cfa745b",
         "android_client_info": {
           "package_name": "it.univpm.coincex"
