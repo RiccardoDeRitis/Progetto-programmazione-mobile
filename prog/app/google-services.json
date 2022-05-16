@@ -1,62 +1,33 @@
 {
   "project_info": {
-    "project_number": "94840290242",
-    "project_id": "coincex-4d5f9",
-    "storage_bucket": "coincex-4d5f9.appspot.com"
+    "project_number": "987804962011",
+    "project_id": "programmazione-mobile-univpm",
+    "storage_bucket": "programmazione-mobile-univpm.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:94840290242:android:1d37106ebe65c4affa745b",
+        "mobilesdk_app_id": "1:987804962011:android:517b762592cb98245a10fe",
         "android_client_info": {
           "package_name": "com.example.coincex"
         }
       },
       "oauth_client": [
         {
-          "client_id": "94840290242-bahviilvdohre5djh7v6jj0mrbjdkmsb.apps.googleusercontent.com",
+          "client_id": "987804962011-8ee185uhlkud1kvkmlfjl1fd236t830t.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDTTlHlxfMUwg_OF6bp10IfjHmqLSntfjc"
+          "current_key": "AIzaSyCqNNyY6i2VgZ3MjKqo_8pDSNM0xXhGU0U"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "94840290242-bahviilvdohre5djh7v6jj0mrbjdkmsb.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:94840290242:android:8527d215c742f81cfa745b",
-        "android_client_info": {
-          "package_name": "it.univpm.coincex"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "94840290242-bahviilvdohre5djh7v6jj0mrbjdkmsb.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDTTlHlxfMUwg_OF6bp10IfjHmqLSntfjc"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "94840290242-bahviilvdohre5djh7v6jj0mrbjdkmsb.apps.googleusercontent.com",
+              "client_id": "987804962011-8ee185uhlkud1kvkmlfjl1fd236t830t.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

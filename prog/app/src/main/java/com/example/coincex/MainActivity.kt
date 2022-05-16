@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Funzione che inserisce il fragment passato nel fragment container presente nell'activity_main
-    private fun setCurrentFragment(fragment: Fragment) = supportFragmentManager.beginTransaction().apply {
+    private fun setCurrentFragment(fragment: Fragment, ) = supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragment_container,fragment)
             commit()
     }

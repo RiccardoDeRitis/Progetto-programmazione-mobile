@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdk 32
 
@@ -31,8 +33,9 @@ android {
 }
 
 dependencies {
-    implementation platform('com.google.firebase:firebase-bom:29.3.1')
-    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation "org.mindrot:jbcrypt:0.4"
+    implementation platform('com.google.firebase:firebase-bom:30.0.1')
+    implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'androidx.webkit:webkit:1.4.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'androidx.core:core-ktx:1.7.0'

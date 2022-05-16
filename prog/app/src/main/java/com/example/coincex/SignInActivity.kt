@@ -5,7 +5,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import org.mindrot.jbcrypt.BCrypt
 
 class SignInActivity: AppCompatActivity() {
 
@@ -21,6 +25,7 @@ class SignInActivity: AppCompatActivity() {
         val email = findViewById<EditText>(R.id.email)
         val apikey = findViewById<EditText>(R.id.apikey)
         val secretkey = findViewById<EditText>(R.id.secretkey)
+        val registrati = findViewById<Button>(R.id.registrati)
 
         val createApi = findViewById<Button>(R.id.button6)
 
@@ -30,10 +35,39 @@ class SignInActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
+        val db = Firebase.firestore
+
+        registrati.setOnClickListener {
+
+            val hashPassword = BCrypt.hashpw(password.text.toString(), BCrypt.gensalt())
+            val hashApiKey = BCrypt.hashpw(apikey.text.toString(), BCrypt.gensalt())
+            val hashSecretKey = BCrypt.hashpw(secretkey.text.toString(), BCrypt.gensalt())
+
+            val user = hashMapOf(
+                "Nome" to nome.text.toString(),
+                "Cognome" to cognome.text.toString(),
+                "E-mail" to email.text.toString(),
+                "Telefono" to telefono.text.toString(),
+                "Username" to username.text.toString(),
+                "Password" to hashPassword,
+                "ApiKey" to hashApiKey,
+                "SecretKey" to hashSecretKey
+            )
+
+            db.collection("Utente").add(user).addOnSuccessListener {
+                Toast.makeText(applicationContext, "Ti sei registrato correttamente", Toast.LENGTH_SHORT).show()
+                finish()
+            }.addOnFailureListener {
+                Toast.makeText(applicationContext, "Errore in fase di registrazione", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
     }
+
 }
