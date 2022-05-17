@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import org.mindrot.jbcrypt.BCrypt
@@ -16,6 +18,8 @@ class SignInActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sign_in_layout)
+
+        val auth: FirebaseAuth = Firebase.auth
 
         val nome = findViewById<EditText>(R.id.nome)
         val cognome = findViewById<EditText>(R.id.cognome)
@@ -55,10 +59,16 @@ class SignInActivity: AppCompatActivity() {
             )
 
             db.collection("Utente").add(user).addOnSuccessListener {
+                auth.createUserWithEmailAndPassword(user["E-mail"].toString(), user["Password"].toString()).addOnCompleteListener {
+                    if (it.isSuccessful)
+                        Toast.makeText(applicationContext, "Benvenuto ${user["Username"]}", Toast.LENGTH_SHORT).show()
+                    else
+                        Toast.makeText(applicationContext, "Errore in fase di Login", Toast.LENGTH_SHORT).show()
+                }
                 Toast.makeText(applicationContext, "Ti sei registrato correttamente", Toast.LENGTH_SHORT).show()
                 finish()
             }.addOnFailureListener {
-                Toast.makeText(applicationContext, "Errore in fase di registrazione", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Errore di comunicazione con il database, riprova", Toast.LENGTH_SHORT).show()
             }
 
         }

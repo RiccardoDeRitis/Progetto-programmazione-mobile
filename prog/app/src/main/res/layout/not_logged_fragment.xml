@@ -29,6 +29,18 @@
         app:srcCompat="@drawable/sinc"
         app:tint="#FF018786" />
 
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:tintMode="src_in"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10"
+        app:srcCompat="@drawable/trading"
+        app:tint="#FF018786" />
+
     <TextView
         android:id="@+id/textView46"
         android:layout_width="0dp"
@@ -83,6 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
+        android:layout_marginTop="1dp"
         android:text="Tieni traccia delle tue statistiche"
         app:layout_constraintStart_toEndOf="@+id/imageView9"
         app:layout_constraintTop_toBottomOf="@+id/textView56" />
@@ -92,9 +105,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
+        android:layout_marginTop="1dp"
         android:text="Sync con il tuo portafoglio Binance"
         app:layout_constraintStart_toEndOf="@+id/imageView10"
         app:layout_constraintTop_toBottomOf="@+id/textView58" />
+
+    <TextView
+        android:id="@+id/textView50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:text="Fai trading comodamente dall'app"
+        app:layout_constraintStart_toEndOf="@+id/imageView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView48" />
 
     <TextView
         android:id="@+id/textView55"
@@ -125,7 +148,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="30dp"
         android:text="Portafoglio"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
@@ -133,13 +156,25 @@
         app:layout_constraintTop_toBottomOf="@+id/textView57" />
 
     <TextView
+        android:id="@+id/textView48"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="32dp"
+        android:text="Trading"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView59" />
+
+    <TextView
         android:id="@+id/textView60"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
         android:text="Oppure"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView12" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

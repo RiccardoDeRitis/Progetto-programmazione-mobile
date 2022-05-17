@@ -128,6 +128,7 @@
         android:text="Ricordami"
         android:textColor="#87879B"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pass_edit" />
+        app:layout_constraintTop_toBottomOf="@+id/pass_edit"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
