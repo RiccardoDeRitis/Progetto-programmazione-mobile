@@ -42,33 +42,43 @@ class SignInActivity: AppCompatActivity() {
         val db = Firebase.firestore
 
         registrati.setOnClickListener {
-            val hashApiKey = BCrypt.hashpw(apikey.text.toString(), BCrypt.gensalt())
-            val hashSecretKey = BCrypt.hashpw(secretkey.text.toString(), BCrypt.gensalt())
+            if (nome.text.toString() != "" && cognome.text.toString() != "" &&
+                username.text.toString() != "" && telefono.text.toString() != "" &&
+                password.text.toString() != "" && email.text.toString() != "" &&
+                apikey.text.toString() != "" && secretkey.text.toString() != "") {
+                    if (password.text.toString().length >= 6) {
+                        val hashApiKey = BCrypt.hashpw(apikey.text.toString(), BCrypt.gensalt())
+                        val hashSecretKey = BCrypt.hashpw(secretkey.text.toString(), BCrypt.gensalt())
 
-            val user = hashMapOf(
-                "Nome" to nome.text.toString(),
-                "Cognome" to cognome.text.toString(),
-                "E-mail" to email.text.toString(),
-                "Telefono" to telefono.text.toString(),
-                "Username" to username.text.toString(),
-                "Password" to password.text.toString(),
-                "ApiKey" to hashApiKey,
-                "SecretKey" to hashSecretKey
-            )
+                        val user = hashMapOf(
+                            "Nome" to nome.text.toString(),
+                            "Cognome" to cognome.text.toString(),
+                            "E-mail" to email.text.toString(),
+                            "Telefono" to telefono.text.toString(),
+                            "Username" to username.text.toString(),
+                            "Password" to password.text.toString(),
+                            "ApiKey" to hashApiKey,
+                            "SecretKey" to hashSecretKey
+                        )
 
-            db.collection("Utente").add(user).addOnSuccessListener {
-                auth.createUserWithEmailAndPassword(user["E-mail"].toString(), user["Password"].toString()).addOnCompleteListener {
-                    if (it.isSuccessful)
-                        Toast.makeText(applicationContext, "Ti sei registrato correttamente", Toast.LENGTH_SHORT).show()
+                        db.collection("Utente").document(email.text.toString()).set(user).addOnSuccessListener {
+                            auth.createUserWithEmailAndPassword(user["E-mail"].toString(), user["Password"].toString()).addOnCompleteListener { task ->
+                                if (task.isSuccessful)
+                                    Toast.makeText(applicationContext, "Ti sei registrato correttamente", Toast.LENGTH_SHORT).show()
+                                else
+                                    Toast.makeText(applicationContext, "Campi non validi", Toast.LENGTH_SHORT).show()
+                            }
+                            Toast.makeText(applicationContext, "Ti sei registrato correttamente", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }.addOnFailureListener {
+                            Toast.makeText(applicationContext, "Errore di comunicazione con il database, riprova", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                     else
-                        Toast.makeText(applicationContext, "Campi non validi", Toast.LENGTH_SHORT).show()
-                }
-                Toast.makeText(applicationContext, "Ti sei registrato correttamente", Toast.LENGTH_SHORT).show()
-                finish()
-            }.addOnFailureListener {
-                Toast.makeText(applicationContext, "Errore di comunicazione con il database, riprova", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "La password deve contenere almeno 6 lettere", Toast.LENGTH_SHORT).show()
             }
-
+            else
+                Toast.makeText(applicationContext, "Inserisci tutti i dati!", Toast.LENGTH_SHORT).show()
         }
 
     }

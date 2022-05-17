@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -14,10 +15,7 @@ import com.example.coincex.R
 import com.example.coincex.SignInActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.QuerySnapshot
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import org.mindrot.jbcrypt.BCrypt
 
 class LoginFragment: Fragment() {
 
@@ -28,20 +26,49 @@ class LoginFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         auth = Firebase.auth
 
         val email = view.findViewById<EditText>(R.id.email_edit)
         val password = view.findViewById<EditText>(R.id.pass_edit)
         val accedi = view.findViewById<Button>(R.id.button3)
+        val ricordami = view.findViewById<CheckBox>(R.id.checkBox)
 
-        val db = Firebase.firestore
+        if (view.context.getSharedPreferences("User", Context.MODE_PRIVATE).getString("email", "null") != "null") {
+            ricordami.isChecked = true
+            email.setText(view.context.getSharedPreferences("User", Context.MODE_PRIVATE).getString("email", "null"))
+            password.setText(view.context.getSharedPreferences("User", Context.MODE_PRIVATE).getString("password", "null"))
+        }
 
         accedi.setOnClickListener {
-            db.collection("Utente").get().addOnSuccessListener {
-                check(view.context,email.text.toString(),password.text.toString())
-            }.addOnFailureListener {
-                Toast.makeText(view.context, "Errore di comunicazione con il database, riprovare più tardi", Toast.LENGTH_SHORT).show()
+            if (view.context.getSharedPreferences("User", Context.MODE_PRIVATE).getString("email", "null") == "null") {
+                if (ricordami.isChecked) {
+                    val sharedPref = view.context.getSharedPreferences("User", Context.MODE_PRIVATE)
+                    val editor = sharedPref.edit()
+                    editor.putString("email", email.text.toString())
+                    editor.putString("password", password.text.toString())
+                    editor.apply()
+                }
+            }
+            else {
+                if (!ricordami.isChecked) {
+                    val sharedPref = view.context.getSharedPreferences("User", Context.MODE_PRIVATE)
+                    val editor = sharedPref.edit()
+                    editor.remove("email")
+                    editor.remove("password")
+                    editor.apply()
+                }
+            }
+
+            auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener(requireActivity()) {
+                if (it.isSuccessful) {
+                    activity?.supportFragmentManager?.beginTransaction()?.apply {
+                        replace(R.id.fragment_container, LoggedFragment())
+                        commit()
+                    }
+                    Toast.makeText(context, "Benvenuto ${auth.currentUser?.email}", Toast.LENGTH_SHORT).show()
+                }
+                else
+                    Toast.makeText(context, "Email o Password errati, riprova", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -54,17 +81,4 @@ class LoginFragment: Fragment() {
 
     }
 
-    private fun check(context: Context, email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(requireActivity()) {
-            if (it.isSuccessful) {
-                activity?.supportFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.fragment_container, LoggedFragment())
-                    commit()
-                }
-                Toast.makeText(context, "Benvenuto ${auth.currentUser?.email}", Toast.LENGTH_SHORT).show()
-            }
-            else
-                Toast.makeText(context, "Email o Password errati, riprova", Toast.LENGTH_SHORT).show()
-        }
-    }
 }

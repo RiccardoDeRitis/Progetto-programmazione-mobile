@@ -144,11 +144,27 @@
         tools:ignore="HardcodedText,TouchTargetSizeCheck,TextContrastCheck" />
 
     <Button
+        android:id="@+id/button8"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="430dp"
+        android:background="@android:color/transparent"
+        android:text="Reimposta le chiavi segrete"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/text_button_pressed"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11"
+        tools:ignore="HardcodedText,TouchTargetSizeCheck,TextContrastCheck" />
+
+    <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="440dp"
+        android:layout_marginTop="470dp"
         android:background="@android:color/transparent"
         android:text="Modifica dati"
         android:textAlignment="viewStart"

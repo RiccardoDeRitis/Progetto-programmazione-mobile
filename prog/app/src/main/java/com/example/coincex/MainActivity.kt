@@ -12,12 +12,21 @@ import com.google.firebase.ktx.Firebase
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var navigation: BottomNavigationView
 
     override fun onStart() {
         super.onStart()
         if (auth.currentUser != null) {
             auth.signOut()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        auth.signOut()
+        navigation = findViewById(R.id.navigation)
+        navigation.selectedItemId = R.id.login
+        setCurrentFragment(LoginFragment())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         val newsFragment = NewsFragment() // Fragment per news
         val loggedFragment = LoggedFragment() // Fragment per utente loggato
 
-        val navigation = findViewById<BottomNavigationView>(R.id.navigation)
+        navigation = findViewById(R.id.navigation)
         navigation.selectedItemId = R.id.home
 
         // Funzione che imposta il fragment principale a quello corrente
