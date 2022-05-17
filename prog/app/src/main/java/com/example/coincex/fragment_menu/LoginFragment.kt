@@ -39,7 +39,7 @@ class LoginFragment: Fragment() {
 
         accedi.setOnClickListener {
             db.collection("Utente").get().addOnSuccessListener {
-                check(view.context,it,email.text.toString(),password.text.toString())
+                check(view.context,email.text.toString(),password.text.toString())
             }.addOnFailureListener {
                 Toast.makeText(view.context, "Errore di comunicazione con il database, riprovare più tardi", Toast.LENGTH_SHORT).show()
             }
@@ -54,16 +54,17 @@ class LoginFragment: Fragment() {
 
     }
 
-    private fun check(context: Context, query: QuerySnapshot, email: String, password: String) {
+    private fun check(context: Context, email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(requireActivity()) {
-            if (it.isSuccessful)
+            if (it.isSuccessful) {
+                activity?.supportFragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.fragment_container, LoggedFragment())
+                    commit()
+                }
                 Toast.makeText(context, "Benvenuto ${auth.currentUser?.email}", Toast.LENGTH_SHORT).show()
+            }
             else
-                Toast.makeText(context, "Errore in fase di Login", Toast.LENGTH_SHORT).show()
-        }
-        activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.fragment_container, LoggedFragment())
-            commit()
+                Toast.makeText(context, "Email o Password errati, riprova", Toast.LENGTH_SHORT).show()
         }
     }
 }

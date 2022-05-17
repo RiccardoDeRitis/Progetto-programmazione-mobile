@@ -42,8 +42,6 @@ class SignInActivity: AppCompatActivity() {
         val db = Firebase.firestore
 
         registrati.setOnClickListener {
-
-            val hashPassword = BCrypt.hashpw(password.text.toString(), BCrypt.gensalt())
             val hashApiKey = BCrypt.hashpw(apikey.text.toString(), BCrypt.gensalt())
             val hashSecretKey = BCrypt.hashpw(secretkey.text.toString(), BCrypt.gensalt())
 
@@ -53,7 +51,7 @@ class SignInActivity: AppCompatActivity() {
                 "E-mail" to email.text.toString(),
                 "Telefono" to telefono.text.toString(),
                 "Username" to username.text.toString(),
-                "Password" to hashPassword,
+                "Password" to password.text.toString(),
                 "ApiKey" to hashApiKey,
                 "SecretKey" to hashSecretKey
             )
@@ -61,9 +59,9 @@ class SignInActivity: AppCompatActivity() {
             db.collection("Utente").add(user).addOnSuccessListener {
                 auth.createUserWithEmailAndPassword(user["E-mail"].toString(), user["Password"].toString()).addOnCompleteListener {
                     if (it.isSuccessful)
-                        Toast.makeText(applicationContext, "Benvenuto ${user["Username"]}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "Ti sei registrato correttamente", Toast.LENGTH_SHORT).show()
                     else
-                        Toast.makeText(applicationContext, "Errore in fase di Login", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "Campi non validi", Toast.LENGTH_SHORT).show()
                 }
                 Toast.makeText(applicationContext, "Ti sei registrato correttamente", Toast.LENGTH_SHORT).show()
                 finish()
