@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -18,7 +19,7 @@ import com.example.coincex.api_data.SearchCoinData
 
 class FavoritesFragment: Fragment() {
 
-    // Oggetto per definire 2 attributi statici e metodi per eliminare e ottenere gli id delle coin dai preferiti
+    // Oggetto per la definizione di 2 attributi statici e metodi per eliminare e ottenere gli id delle coin dai preferiti
     companion object {
 
         lateinit var favoriteCoin: ArrayList<ListCoinData>
@@ -62,7 +63,11 @@ class FavoritesFragment: Fragment() {
 
         // Ritorna un preferito alla volta e lo inserisce in un ArrayList per poi passarlo all'adapter
         // Se non ci sono preferiti viene settato un title che lo riferisce
+
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar4)
+
         getAllPreferences(view.context) { id ->
+            progressBar.visibility = View.VISIBLE
             if (id != "void") {
                 SearchCoinData.getCoinDataFromApi(view.context, id) { result ->
                     favoriteCoin.addAll(ListCoinData.getData(result))
@@ -74,10 +79,12 @@ class FavoritesFragment: Fragment() {
                         { coin -> onClickItem(coin, view.context) },
                         { id,pos,preferred -> onClickRank(id,pos,preferred, view.context) }
                     )
+                    progressBar.visibility = View.GONE
                     listCoinFavorite?.adapter = adapter
                 }
             }
             else {
+                progressBar.visibility = View.GONE
                 title.text = "Non stai seguendo alcun asset, torna indietro e tieni traccia dei tuoi asset preferiti"
                 title.textAlignment = View.TEXT_ALIGNMENT_CENTER
             }

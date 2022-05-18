@@ -21,14 +21,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        auth.signOut()
-        navigation = findViewById(R.id.navigation)
-        navigation.selectedItemId = R.id.login
-        setCurrentFragment(LoginFragment())
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

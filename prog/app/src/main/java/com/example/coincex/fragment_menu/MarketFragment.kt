@@ -19,10 +19,11 @@ import com.example.coincex.SearchActivity
 
 class MarketFragment: Fragment() {
 
+    lateinit var progressBar: ProgressBar
+    private lateinit var listView: RecyclerView
+
     // Oggetto contenente 2 attributi statici e un metodo per salvare gli id delle coin preferite
     companion object {
-
-        lateinit var listView: RecyclerView
         lateinit var recipeList: ArrayList<ListCoinData>
 
         fun savePreferences(id: String, context: Context) {
@@ -65,13 +66,17 @@ class MarketFragment: Fragment() {
             startActivity(intent)
         }
 
+        progressBar = view.findViewById(R.id.progressBar3)
         getData(view.context)
 
         // Esegue la chiamata all'api e setta le info globali con diversi colori a seconda dell'andamento
         GlobalData.getDataFromApi(view.context) {
-            if (it == "null")
+            if (it == "null") {
+                progressBar.visibility = View.GONE
                 Toast.makeText(view.context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
+            }
             else {
+                progressBar.visibility = View.GONE
                 val recipe = GlobalData.getData(it)
                 marketCapText.text = recipe.marketCap
                 volumeCapText.text = recipe.volumeCap
@@ -106,6 +111,7 @@ class MarketFragment: Fragment() {
 
     // Metodo che ritorna i dati delle coin e le passa all'adapter
     private fun getData(context: Context) {
+        progressBar.visibility = View.VISIBLE
         ListCoinData.getDataFromApi(context) {
             if (it == "null")
                 Toast.makeText(context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()

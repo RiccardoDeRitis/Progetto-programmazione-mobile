@@ -52,7 +52,6 @@ class LoggedFragment: Fragment() {
         }
 
 
-
         modifica.setOnClickListener {
             nome.visibility = View.GONE
             cognome.visibility = View.GONE

@@ -3,8 +3,10 @@ package com.example.coincex
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -40,8 +42,10 @@ class SignInActivity: AppCompatActivity() {
         }
 
         val db = Firebase.firestore
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar2)
 
         registrati.setOnClickListener {
+            progressBar.visibility = View.VISIBLE
             if (nome.text.toString() != "" && cognome.text.toString() != "" &&
                 username.text.toString() != "" && telefono.text.toString() != "" &&
                 password.text.toString() != "" && email.text.toString() != "" &&
@@ -63,22 +67,30 @@ class SignInActivity: AppCompatActivity() {
 
                         db.collection("Utente").document(email.text.toString()).set(user).addOnSuccessListener {
                             auth.createUserWithEmailAndPassword(user["E-mail"].toString(), user["Password"].toString()).addOnCompleteListener { task ->
-                                if (task.isSuccessful)
+                                if (task.isSuccessful) {
+                                    progressBar.visibility = View.GONE
                                     Toast.makeText(applicationContext, "Ti sei registrato correttamente", Toast.LENGTH_SHORT).show()
-                                else
+                                    finish()
+                                }
+                                else {
+                                    progressBar.visibility = View.GONE
                                     Toast.makeText(applicationContext, "Campi non validi", Toast.LENGTH_SHORT).show()
+                                }
                             }
-                            Toast.makeText(applicationContext, "Ti sei registrato correttamente", Toast.LENGTH_SHORT).show()
-                            finish()
                         }.addOnFailureListener {
+                            progressBar.visibility = View.GONE
                             Toast.makeText(applicationContext, "Errore di comunicazione con il database, riprova", Toast.LENGTH_SHORT).show()
                         }
                     }
-                    else
+                    else {
+                        progressBar.visibility = View.GONE
                         Toast.makeText(applicationContext, "La password deve contenere almeno 6 lettere", Toast.LENGTH_SHORT).show()
+                    }
             }
-            else
+            else {
+                progressBar.visibility = View.GONE
                 Toast.makeText(applicationContext, "Inserisci tutti i dati!", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

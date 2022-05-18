@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.coincex.R
 import com.example.coincex.SignInActivity
@@ -40,6 +37,10 @@ class LoginFragment: Fragment() {
         }
 
         accedi.setOnClickListener {
+
+            val progress = view.findViewById<ProgressBar>(R.id.progressBar)
+            progress.visibility = View.VISIBLE
+
             if (view.context.getSharedPreferences("User", Context.MODE_PRIVATE).getString("email", "null") == "null") {
                 if (ricordami.isChecked) {
                     val sharedPref = view.context.getSharedPreferences("User", Context.MODE_PRIVATE)
@@ -61,15 +62,19 @@ class LoginFragment: Fragment() {
 
             auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener(requireActivity()) {
                 if (it.isSuccessful) {
+                    progress.visibility = View.GONE
                     activity?.supportFragmentManager?.beginTransaction()?.apply {
                         replace(R.id.fragment_container, LoggedFragment())
                         commit()
                     }
                     Toast.makeText(context, "Benvenuto ${auth.currentUser?.email}", Toast.LENGTH_SHORT).show()
                 }
-                else
+                else {
+                    progress.visibility = View.GONE
                     Toast.makeText(context, "Email o Password errati, riprova", Toast.LENGTH_SHORT).show()
+                }
             }
+
         }
 
         val signIn = view.findViewById<Button>(R.id.button5)
