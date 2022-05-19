@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+    implementation("ir.mahozad.android:pie-chart:0.7.0")
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation "org.mindrot:jbcrypt:0.4"
     implementation platform('com.google.firebase:firebase-bom:30.0.1')
