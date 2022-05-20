@@ -1,7 +1,6 @@
 package com.example.coincex.api_data
 
 import android.content.Context
-import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -13,7 +12,9 @@ import java.nio.charset.StandardCharsets
 
 
 data class WalletData(
-    val listCoinBalance: HashMap<String, Float>) {
+    val name: String,
+    val value: Double
+) {
 
     companion object {
 
@@ -43,14 +44,15 @@ data class WalletData(
             queue.add(stringRequest)
         }
 
-        fun getData(data: String): HashMap<String, Float> {
-            val assetsList = HashMap<String, Float>()
+        fun getData(data: String): ArrayList<WalletData> {
+            val assetsList = ArrayList<WalletData>()
             val jsonData = JSONObject(data).getJSONArray("balances")
             try {
                 for (i in 0 until jsonData.length()) {
-                    if (jsonData.getJSONObject(i).getString("free").toFloat() > 0)
-                        assetsList[jsonData.getJSONObject(i).getString("asset")] =
-                            jsonData.getJSONObject(i).getString("free").toFloat()
+                    if (jsonData.getJSONObject(i).getString("free").toDouble() > 0)
+                        assetsList.add(WalletData(jsonData.getJSONObject(i).getString("asset"),
+                            jsonData.getJSONObject(i).getString("free").toDouble()))
+
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -58,13 +60,13 @@ data class WalletData(
             return assetsList
         }
 
-        fun getPriceAsset(context: Context, listAsset: ArrayList<String>, callback: (result: String) -> Unit) {
+        fun getPriceAsset(context: Context, listAsset: ArrayList<WalletData>, callback: (result: String) -> Unit) {
             var url = "https://api.binance.com/api/v3/ticker/price?symbols=["
             for (asset in listAsset) {
                 url += if (asset == listAsset[listAsset.size-1])
-                    "\"${asset}USDT\"]"
+                    "\"${asset.name}USDT\"]"
                 else
-                    "\"${asset}USDT\","
+                    "\"${asset.name}USDT\","
             }
             val queue = Volley.newRequestQueue(context)
             val stringRequest = StringRequest(
@@ -78,12 +80,13 @@ data class WalletData(
             queue.add(stringRequest)
         }
 
-        fun getDataPrice(data: String): HashMap<String,Float> {
-            val priceList = HashMap<String,Float>()
+        fun getDataPrice(data: String): ArrayList<WalletData> {
+            val priceList = ArrayList<WalletData>()
             val jsonData = JSONArray(data)
 
             for (i in 0 until jsonData.length())
-                priceList[jsonData.getJSONObject(i).getString("symbol").replace("USDT", "")] = jsonData.getJSONObject(i).getString("price").toFloat()
+                priceList.add(WalletData(jsonData.getJSONObject(i).getString("symbol").replace("USDT", ""),
+                    jsonData.getJSONObject(i).getString("price").toDouble()))
 
             return priceList
         }

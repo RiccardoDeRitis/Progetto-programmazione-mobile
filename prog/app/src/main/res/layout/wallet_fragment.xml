@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/progressBar6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.415" />
 
     <ir.mahozad.android.PieChart
         android:id="@+id/pieChart"
@@ -10,8 +24,9 @@
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="500dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="550dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,10 +34,42 @@
         app:legendIconsMargin="8dp"
         app:legendLinesMargin="10dp"
         app:legendTitleMargin="14dp"
-        app:legendsColor="#FF0000"
         app:legendsMargin="20dp"
         app:legendsPercentageMargin="8dp"
         app:legendsPercentageSize="11sp"
         app:legendsSize="11sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/coinWallet"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pieChart" />
+
+    <TextView
+        android:id="@+id/textView70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-100dp"
+        android:layout_marginTop="40dp"
+        android:text="Totale :"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/pieChart"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView71"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-100dp"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/pieChart"
+        app:layout_constraintTop_toBottomOf="@+id/textView70" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

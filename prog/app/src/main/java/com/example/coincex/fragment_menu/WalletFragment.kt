@@ -1,15 +1,22 @@
 package com.example.coincex.fragment_menu
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.coincex.R
+import com.example.coincex.WalletAdapter
+import com.example.coincex.WalletCoinDataClass
 import com.example.coincex.api_data.WalletData
 import ir.mahozad.android.PieChart
+import java.text.DecimalFormat
 
 class WalletFragment: Fragment() {
 
@@ -17,7 +24,12 @@ class WalletFragment: Fragment() {
         return inflater.inflate(R.layout.wallet_fragment, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val coinWallet = view.findViewById<RecyclerView>(R.id.coinWallet)
+        val tot = view.findViewById<TextView>(R.id.textView71)
+        val totText = view.findViewById<TextView>(R.id.textView70)
 
         val color1 = Color.parseColor("#e5be01")
         val color2 = Color.parseColor("#FFBB86FC")
@@ -32,27 +44,44 @@ class WalletFragment: Fragment() {
         listColor.add(color4)
         listColor.add(color5)
 
-        var listAsset: HashMap<String, Float>
         val pieChart = view.findViewById<PieChart>(R.id.pieChart)
+        val walletCoinData = ArrayList<WalletCoinDataClass>()
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar6)
 
+        progressBar.visibility = View.VISIBLE
         WalletData.getDataFromApi(view.context) { result ->
-            listAsset = WalletData.getData(result)
-            listAsset.remove("VIB")
-            val list = listAsset.keys.toList()
-            WalletData.getPriceAsset(view.context, list as ArrayList<String>) { res ->
-                val priceList = WalletData.getDataPrice(res)
-                var totBalance = 0.0F
-                for (asset in listAsset) {
-                    totBalance += asset.value* priceList[asset.key]!!
+            val listAsset = WalletData.getData(result) // WalletData asset quantity
+
+            WalletData.getPriceAsset(view.context, listAsset) { res ->
+                val priceList = WalletData.getDataPrice(res) // WalletData asset price
+                var totBalance = 0.0
+
+                for ((j, asset) in listAsset.withIndex()) {
+                    val element = priceList.stream().filter {
+                        it.name == asset.name
+                    }.findFirst().orElse(null)
+                    val i = priceList.indexOf(element)
+                    walletCoinData.add(WalletCoinDataClass(listColor[j],
+                        priceList[i].name,
+                        asset.value,
+                        priceList[i].value))
+                    totBalance += asset.value*priceList[i].value
                 }
+
                 pieChart.apply {
                     var i = 0
-                    slices = listAsset.toList().map {
-                        PieChart.Slice((priceList[it.first]!!*it.second)/totBalance, listColor[i++], legend = it.first)
+                    slices = walletCoinData.toList().map {
+                        PieChart.Slice(((it.price*it.quantity)/totBalance).toFloat(), listColor[i++], legend = it.name)
                     }
-                    gradientType = PieChart.GradientType.RADIAL
-                    legendsIcon = PieChart.DefaultIcons.SQUARE
                 }
+
+                coinWallet.layoutManager = LinearLayoutManager(view.context)
+                val adapter = WalletAdapter(walletCoinData)
+                coinWallet.adapter = adapter
+                progressBar.visibility = View.GONE
+                pieChart.visibility = View.VISIBLE
+                totText.visibility = View.VISIBLE
+                tot.text = DecimalFormat("#.##").format(totBalance).toString()+"$"
             }
         }
 

@@ -1,6 +1,7 @@
 package com.example.coincex.api_data
 
 import android.content.Context
+import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -105,7 +106,6 @@ data class ListCoinData (
                 val pricePercent = df.format(jsonData.getJSONObject(i).getDouble("price_change_percentage_24h")).toString()+"%"
                 recipeList.add(ListCoinData(id,max24h,min24h,circulatingSupply,maxSupply,ath,athChangePercent,dateAth,rank,image,symbol,name,cap,volume,price,price24h,pricePercent))
             }
-
             return recipeList
         }
     }
