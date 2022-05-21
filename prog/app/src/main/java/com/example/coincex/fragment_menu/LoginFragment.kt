@@ -8,22 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.example.coincex.MainActivity
 import com.example.coincex.R
 import com.example.coincex.SignInActivity
-import com.google.firebase.auth.FirebaseAuth
+import com.example.coincex.UserDataClass
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class LoginFragment: Fragment() {
-
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.login_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        auth = Firebase.auth
+        val auth = Firebase.auth
+        val db = Firebase.firestore
 
         val email = view.findViewById<EditText>(R.id.email_edit)
         val password = view.findViewById<EditText>(R.id.pass_edit)
@@ -40,7 +41,6 @@ class LoginFragment: Fragment() {
 
             val progress = view.findViewById<ProgressBar>(R.id.progressBar)
             progress.visibility = View.VISIBLE
-
             if (view.context.getSharedPreferences("User", Context.MODE_PRIVATE).getString("email", "null") == "null") {
                 if (ricordami.isChecked) {
                     val sharedPref = view.context.getSharedPreferences("User", Context.MODE_PRIVATE)
@@ -62,12 +62,23 @@ class LoginFragment: Fragment() {
 
             auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener(requireActivity()) {
                 if (it.isSuccessful) {
-                    progress.visibility = View.GONE
-                    activity?.supportFragmentManager?.beginTransaction()?.apply {
-                        replace(R.id.fragment_container, LoggedFragment())
-                        commit()
+                    db.collection("Utente").document(email.text.toString()).get().addOnSuccessListener { doc ->
+                        MainActivity.currentUser = UserDataClass(
+                            doc["Nome"].toString(),
+                            doc["Cognome"].toString(),
+                            doc["Telefono"].toString(),
+                            doc["E-mail"].toString(),
+                            doc["Username"].toString(),
+                            doc["SecretKey"].toString(),
+                            doc["ApiKey"].toString()
+                        )
+                        progress.visibility = View.GONE
+                        activity?.supportFragmentManager?.beginTransaction()?.apply {
+                            replace(R.id.fragment_container, LoggedFragment())
+                            commit()
+                        }
+                        Toast.makeText(context, "Benvenuto ${doc["E-mail"]}", Toast.LENGTH_SHORT).show()
                     }
-                    Toast.makeText(context, "Benvenuto ${auth.currentUser?.email}", Toast.LENGTH_SHORT).show()
                 }
                 else {
                     progress.visibility = View.GONE

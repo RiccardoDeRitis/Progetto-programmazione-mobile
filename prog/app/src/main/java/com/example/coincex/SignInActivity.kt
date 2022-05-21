@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import org.mindrot.jbcrypt.BCrypt
 
 class SignInActivity: AppCompatActivity() {
 
@@ -51,9 +50,6 @@ class SignInActivity: AppCompatActivity() {
                 password.text.toString() != "" && email.text.toString() != "" &&
                 apikey.text.toString() != "" && secretkey.text.toString() != "") {
                     if (password.text.toString().length >= 6) {
-                        val hashApiKey = BCrypt.hashpw(apikey.text.toString(), BCrypt.gensalt())
-                        val hashSecretKey = BCrypt.hashpw(secretkey.text.toString(), BCrypt.gensalt())
-
                         val user = hashMapOf(
                             "Nome" to nome.text.toString(),
                             "Cognome" to cognome.text.toString(),
@@ -61,8 +57,8 @@ class SignInActivity: AppCompatActivity() {
                             "Telefono" to telefono.text.toString(),
                             "Username" to username.text.toString(),
                             "Password" to password.text.toString(),
-                            "ApiKey" to hashApiKey,
-                            "SecretKey" to hashSecretKey
+                            "ApiKey" to apikey.text.toString(),
+                            "SecretKey" to secretkey.text.toString()
                         )
 
                         db.collection("Utente").document(email.text.toString()).set(user).addOnSuccessListener {

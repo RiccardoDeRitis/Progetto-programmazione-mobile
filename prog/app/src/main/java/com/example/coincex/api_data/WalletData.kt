@@ -18,11 +18,10 @@ data class WalletData(
 
     companion object {
 
-        fun getDataFromApi(context: Context, callback: (result: String) -> Unit) {
-            val key = ""
+        fun getDataFromApi(context: Context, apikey: String, secret: String, callback: (result: String) -> Unit) {
             val mills = System.currentTimeMillis()
-            val params = "recvWindow=60000&timestamp=$mills"
-            val hashing = Hashing.hmacSha256(key.toByteArray(StandardCharsets.UTF_8))
+            val params = "recvWindow=50000&timestamp=$mills"
+            val hashing = Hashing.hmacSha256(secret.toByteArray(StandardCharsets.UTF_8))
                 .hashString(params, StandardCharsets.UTF_8).toString()
             val url = "https://api.binance.com/api/v3/account?$params&signature=$hashing"
             val queue = Volley.newRequestQueue(context)
@@ -37,7 +36,7 @@ data class WalletData(
             ) {
                 override fun getHeaders(): Map<String, String> {
                     val headers: HashMap<String, String> = HashMap()
-                    headers["X-MBX-APIKEY"] = ""
+                    headers["X-MBX-APIKEY"] = apikey
                     return headers
                 }
             }

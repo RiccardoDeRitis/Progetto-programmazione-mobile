@@ -1,31 +1,89 @@
 package com.example.coincex
 
+import android.animation.ValueAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.provider.Settings
+import android.util.DisplayMetrics
+import android.view.View
+import android.view.animation.AccelerateInterpolator
+import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.example.coincex.fragment_menu.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.*
+import kotlin.concurrent.schedule
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
+    companion object {
+        lateinit var currentUser: UserDataClass
+    }
+
+    private var screenHeight = 0f
+
     private lateinit var navigation: BottomNavigationView
 
-    override fun onStart() {
-        super.onStart()
-        if (auth.currentUser != null) {
-            auth.signOut()
-        }
+    override fun onResume() {
+        super.onResume()
+
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        screenHeight = displayMetrics.heightPixels.toFloat()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        auth = Firebase.auth
+        val auth = Firebase.auth
+        val db = Firebase.firestore
+
+        if (auth.currentUser != null)
+            db.collection("Utente").document(auth.currentUser!!.email.toString()).get().addOnSuccessListener { doc ->
+                currentUser = UserDataClass(
+                    doc["Nome"].toString(),
+                    doc["Cognome"].toString(),
+                    doc["Telefono"].toString(),
+                    doc["E-mail"].toString(),
+                    doc["Username"].toString(),
+                    doc["SecretKey"].toString(),
+                    doc["ApiKey"].toString()
+                )
+            }
+
+        navigation = findViewById(R.id.navigation)
+        val fragmentContainer = findViewById<FrameLayout>(R.id.fragment_container)
+        val container = findViewById<FrameLayout>(R.id.container)
+
+        val rocket = findViewById<ImageView>(R.id.rocket)
+        val doge = findViewById<ImageView>(R.id.doge)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            val valueAnimator = ValueAnimator.ofFloat(0f, -screenHeight)
+            valueAnimator.addUpdateListener {
+                val value = it.animatedValue as Float
+                rocket.translationY = value
+                doge.translationY = value
+            }
+
+            valueAnimator.interpolator = AccelerateInterpolator(1.5f)
+            valueAnimator.duration = 2500L
+
+            valueAnimator.start()
+        },300)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            container.visibility = View.GONE
+            navigation.visibility = View.VISIBLE
+            fragmentContainer.visibility = View.VISIBLE
+        },2800)
 
         val marketFragment = MarketFragment() // Fragment principale
         val favoriteFragment = FavoritesFragment() // Fragment preferiti
@@ -35,7 +93,6 @@ class MainActivity : AppCompatActivity() {
         val newsFragment = NewsFragment() // Fragment per news
         val loggedFragment = LoggedFragment() // Fragment per utente loggato
 
-        navigation = findViewById(R.id.navigation)
         navigation.selectedItemId = R.id.home
 
         // Funzione che imposta il fragment principale a quello corrente
