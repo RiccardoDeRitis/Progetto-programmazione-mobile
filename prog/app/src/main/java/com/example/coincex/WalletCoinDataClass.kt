@@ -1,8 +1,11 @@
 package com.example.coincex
 
+import java.io.Serializable
+
 data class WalletCoinDataClass(
-    val color: Int,
+    val logo: String,
+    val symbol: String,
     val name: String,
     val quantity: Double,
     val price: Double
-)
+): Serializable

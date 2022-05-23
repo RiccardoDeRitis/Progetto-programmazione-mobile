@@ -1,11 +1,13 @@
 package com.example.coincex.fragment_menu
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -31,12 +33,14 @@ class WalletFragment: Fragment() {
         val assetWallet = view.findViewById<RecyclerView>(R.id.coinWallet2)
         val layout = view.findViewById<ConstraintLayout>(R.id.layoutWallet)
 
+        val buy = view.findViewById<Button>(R.id.button9)
+
         val currentUser = MainActivity.currentUser
 
         val color1 = Color.parseColor("#007fff")
-        val color2 = Color.parseColor("#cb3234")
-        val color3 = Color.parseColor("#e5be01")
-        val color4 = Color.parseColor("#FFBB86FC")
+        val color2 = Color.parseColor("#ffa500")
+        val color3 = Color.parseColor("#00bd2d")
+        val color4 = Color.parseColor("#e5be01")
         val color5 = Color.parseColor("#FF01BAA7")
 
         val listColor = ArrayList<Int>()
@@ -54,22 +58,28 @@ class WalletFragment: Fragment() {
         WalletData.getDataFromApi(view.context, currentUser.apikey, currentUser.secretKey) { result ->
             try {
                 val listAsset = WalletData.getData(result) // WalletData asset quantity
-
                 WalletData.getPriceAsset(view.context, listAsset) { res ->
                     val priceList = WalletData.getDataPrice(res) // WalletData asset price
                     var totBalance = 0.0
 
                     val assetData = ArrayList<AssetAllocationDataClass>()
 
-                    for ((j, asset) in listAsset.withIndex()) {
+                    val recipeList = MarketFragment.recipeList
+
+                    for (asset in listAsset) {
                         val element = priceList.stream().filter {
                             it.name == asset.name
                         }.findFirst().orElse(null)
                         val i = priceList.indexOf(element)
+                        val element2 = recipeList.stream().filter {
+                            it.symbol == asset.name
+                        }.findFirst().orElse(null)
+                        val k = recipeList.indexOf(element2)
                         walletCoinData.add(
                             WalletCoinDataClass(
-                                listColor[j],
+                                recipeList[k].imageLogo,
                                 priceList[i].name,
+                                recipeList[k].name,
                                 asset.value,
                                 priceList[i].value
                             )
@@ -77,8 +87,8 @@ class WalletFragment: Fragment() {
                         totBalance += asset.value * priceList[i].value
                     }
 
-                    for (coin in walletCoinData) {
-                        assetData.add(AssetAllocationDataClass(coin.color, coin.name, (((coin.price*coin.quantity)/totBalance)*100).toFloat()))
+                    for ((i, coin) in walletCoinData.withIndex()) {
+                        assetData.add(AssetAllocationDataClass(listColor[i], coin.name, (((coin.price*coin.quantity)/totBalance)*100).toFloat()))
                     }
 
                     pieChart.apply {
@@ -98,11 +108,17 @@ class WalletFragment: Fragment() {
                     coinWallet.adapter = adapter
                     progressBar.visibility = View.GONE
                     layout.visibility = View.VISIBLE
-
                 }
             } catch (e: Exception) {
                 Toast.makeText(view.context, "Errore nel caricamento dei dati, riprovare", Toast.LENGTH_SHORT).show()
             }
         }
+
+        buy.setOnClickListener {
+            val intent = Intent(view.context, BuyActivity::class.java)
+            intent.putExtra("asset", walletCoinData)
+            view.context.startActivity(intent)
+        }
+
     }
 }
