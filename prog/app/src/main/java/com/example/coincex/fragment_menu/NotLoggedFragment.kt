@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.coincex.R
-import com.example.coincex.SignInActivity
+import com.example.coincex.activity.SignInActivity
 
 class NotLoggedFragment: Fragment() {
 

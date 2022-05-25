@@ -1,4 +1,4 @@
-package com.example.coincex
+package com.example.coincex.data_class
 
 data class UserDataClass(
     val nome: String,

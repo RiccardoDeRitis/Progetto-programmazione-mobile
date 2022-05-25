@@ -1,4 +1,4 @@
-package com.example.coincex
+package com.example.coincex.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -11,10 +11,12 @@ import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coincex.R
 import com.example.coincex.api_data.ListCoinData
 import com.example.coincex.api_data.SearchCoinData
 import com.example.coincex.fragment_menu.FavoritesFragment
 import com.example.coincex.fragment_menu.MarketFragment
+import com.example.coincex.list_adapter.SearchAdapter
 
 class SearchActivity: AppCompatActivity() {
 

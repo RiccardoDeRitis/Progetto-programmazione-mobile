@@ -11,11 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.coincex.CoinChartActivity
+import com.example.coincex.activity.CoinChartActivity
 import com.example.coincex.api_data.ListCoinData
 import com.example.coincex.api_data.GlobalData
 import com.example.coincex.R
-import com.example.coincex.SearchActivity
+import com.example.coincex.activity.SearchActivity
+import com.example.coincex.list_adapter.CoinAdapter
 
 class MarketFragment: Fragment() {
 

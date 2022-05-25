@@ -1,4 +1,4 @@
-package com.example.coincex
+package com.example.coincex.list_adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coincex.R
+import com.example.coincex.data_class.WalletCoinDataClass
 import com.squareup.picasso.Picasso
 
 class ConvertAdapter(private val data: ArrayList<WalletCoinDataClass>, private val onClickItem: (coin: WalletCoinDataClass) -> Unit):

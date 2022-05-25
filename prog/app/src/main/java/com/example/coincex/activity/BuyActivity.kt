@@ -1,4 +1,4 @@
-package com.example.coincex
+package com.example.coincex.activity
 
 import android.app.Dialog
 import android.os.Bundle
@@ -9,7 +9,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coincex.R
 import com.example.coincex.api_data.ConvertCoinData
+import com.example.coincex.data_class.WalletCoinDataClass
+import com.example.coincex.list_adapter.ConvertAdapter
 import com.squareup.picasso.Picasso
 
 class BuyActivity: AppCompatActivity() {

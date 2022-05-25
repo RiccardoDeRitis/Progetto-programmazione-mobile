@@ -1,4 +1,4 @@
-package com.example.coincex
+package com.example.coincex.data_class
 
 import java.io.Serializable
 

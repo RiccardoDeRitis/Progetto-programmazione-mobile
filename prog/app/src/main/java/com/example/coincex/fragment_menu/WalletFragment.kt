@@ -15,7 +15,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coincex.*
+import com.example.coincex.activity.BuyActivity
 import com.example.coincex.api_data.WalletData
+import com.example.coincex.data_class.AssetAllocationDataClass
+import com.example.coincex.data_class.WalletCoinDataClass
+import com.example.coincex.list_adapter.AssetAllocationAdapter
+import com.example.coincex.list_adapter.WalletAdapter
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
 import java.lang.Exception

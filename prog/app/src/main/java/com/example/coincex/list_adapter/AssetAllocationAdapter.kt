@@ -1,4 +1,4 @@
-package com.example.coincex
+package com.example.coincex.list_adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coincex.data_class.AssetAllocationDataClass
+import com.example.coincex.R
 import java.math.RoundingMode
 import java.text.DecimalFormat
 

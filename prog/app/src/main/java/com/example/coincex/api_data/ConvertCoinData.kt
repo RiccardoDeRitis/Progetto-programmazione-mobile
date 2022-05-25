@@ -4,7 +4,7 @@ import android.content.Context
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.coincex.WalletCoinDataClass
+import com.example.coincex.data_class.WalletCoinDataClass
 import com.example.coincex.fragment_menu.MarketFragment
 import org.json.JSONObject
 

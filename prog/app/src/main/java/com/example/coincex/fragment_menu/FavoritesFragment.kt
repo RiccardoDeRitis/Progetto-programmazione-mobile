@@ -12,10 +12,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coincex.CoinChartActivity
+import com.example.coincex.activity.CoinChartActivity
 import com.example.coincex.api_data.ListCoinData
 import com.example.coincex.R
 import com.example.coincex.api_data.SearchCoinData
+import com.example.coincex.list_adapter.CoinAdapter
 
 class FavoritesFragment: Fragment() {
 

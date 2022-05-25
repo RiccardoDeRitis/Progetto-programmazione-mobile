@@ -10,8 +10,8 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.coincex.MainActivity
 import com.example.coincex.R
-import com.example.coincex.SignInActivity
-import com.example.coincex.UserDataClass
+import com.example.coincex.activity.SignInActivity
+import com.example.coincex.data_class.UserDataClass
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase

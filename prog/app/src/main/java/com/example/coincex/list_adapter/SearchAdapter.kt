@@ -1,4 +1,4 @@
-package com.example.coincex
+package com.example.coincex.list_adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coincex.R
 import com.example.coincex.api_data.SearchCoinData
 import com.example.coincex.fragment_menu.FavoritesFragment
 import com.squareup.picasso.Picasso

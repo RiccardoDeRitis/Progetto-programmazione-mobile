@@ -20,11 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity"/>
-        <activity android:name=".CoinChartActivity"/>
-        <activity android:name=".CoinDetailsActivity"/>
-        <activity android:name=".SearchActivity"/>
-        <activity android:name=".BuyActivity"/>
+        <activity android:name=".activity.SignInActivity"/>
+        <activity android:name=".activity.CoinChartActivity"/>
+        <activity android:name=".activity.CoinDetailsActivity"/>
+        <activity android:name=".activity.SearchActivity"/>
+        <activity android:name=".activity.BuyActivity"/>
     </application>
 
 </manifest>

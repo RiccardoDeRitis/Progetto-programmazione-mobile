@@ -1,4 +1,4 @@
-package com.example.coincex.fragment_menu
+package com.example.coincex.list_adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Color
@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coincex.R
 import com.example.coincex.api_data.ListCoinData
+import com.example.coincex.fragment_menu.FavoritesFragment
 import com.squareup.picasso.Picasso
 
 class CoinAdapter(private val data: ArrayList<ListCoinData>,

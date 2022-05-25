@@ -1,4 +1,4 @@
-package com.example.coincex
+package com.example.coincex.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.coincex.R
 import com.example.coincex.api_data.ListCoinData
 import com.squareup.picasso.Picasso
 
