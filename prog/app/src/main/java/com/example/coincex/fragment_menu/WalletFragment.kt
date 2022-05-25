@@ -33,7 +33,7 @@ class WalletFragment: Fragment() {
         val assetWallet = view.findViewById<RecyclerView>(R.id.coinWallet2)
         val layout = view.findViewById<ConstraintLayout>(R.id.layoutWallet)
 
-        val buy = view.findViewById<Button>(R.id.button9)
+        val convert = view.findViewById<Button>(R.id.button9)
 
         val currentUser = MainActivity.currentUser
 
@@ -75,15 +75,26 @@ class WalletFragment: Fragment() {
                             it.symbol == asset.name
                         }.findFirst().orElse(null)
                         val k = recipeList.indexOf(element2)
-                        walletCoinData.add(
-                            WalletCoinDataClass(
-                                recipeList[k].imageLogo,
-                                priceList[i].name,
-                                recipeList[k].name,
-                                asset.value,
-                                priceList[i].value
+                        if (k == -1)
+                            walletCoinData.add(
+                                WalletCoinDataClass(
+                                    "n/a",
+                                    priceList[i].name,
+                                    "N/A",
+                                    asset.value,
+                                    priceList[i].value
+                                )
                             )
-                        )
+                        else
+                            walletCoinData.add(
+                                WalletCoinDataClass(
+                                    recipeList[k].imageLogo,
+                                    priceList[i].name,
+                                    recipeList[k].name,
+                                    asset.value,
+                                    priceList[i].value
+                                )
+                            )
                         totBalance += asset.value * priceList[i].value
                     }
 
@@ -114,7 +125,7 @@ class WalletFragment: Fragment() {
             }
         }
 
-        buy.setOnClickListener {
+        convert.setOnClickListener {
             val intent = Intent(view.context, BuyActivity::class.java)
             intent.putExtra("asset", walletCoinData)
             view.context.startActivity(intent)

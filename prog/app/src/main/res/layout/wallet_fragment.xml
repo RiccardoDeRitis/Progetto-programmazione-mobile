@@ -97,26 +97,33 @@
         android:id="@+id/button9"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/selector_wallet_buy"
-        android:text="Acquista"
-        android:textAllCaps="false"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewGraph" />
-
-    <Button
-        android:id="@+id/button10"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
-        android:background="@drawable/selector_wallet_sell"
-        android:text="Vendi"
+        android:background="@drawable/selector_wallet_buy"
+        android:text="Converti"
         android:textAllCaps="false"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardViewGraph" />
+
+    <TextView
+        android:id="@+id/textView90"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="Totale :"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewGraph" />
+
+    <TextView
+        android:id="@+id/textView91"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView90" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
