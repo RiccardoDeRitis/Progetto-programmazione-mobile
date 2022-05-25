@@ -45,7 +45,7 @@ class WalletAdapter(private val data: ArrayList<WalletCoinDataClass>):
             val picasso = Picasso.get()
 
             if (coin.logo == "n/a")
-                picasso.load(R.drawable.logona).into(logo)
+                picasso.load(R.drawable.logo_na).into(logo)
             else
                 picasso.load(coin.logo).into(logo)
 

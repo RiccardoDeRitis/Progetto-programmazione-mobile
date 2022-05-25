@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ import com.example.coincex.list_adapter.WalletAdapter
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
 import java.lang.Exception
+import java.text.DecimalFormat
 
 class WalletFragment: Fragment() {
 
@@ -58,6 +60,7 @@ class WalletFragment: Fragment() {
         val pieChart = view.findViewById<PieChart>(R.id.piechart)
         val walletCoinData = ArrayList<WalletCoinDataClass>()
         val progressBar = view.findViewById<ProgressBar>(R.id.progressBar6)
+        val tot = view.findViewById<TextView>(R.id.textView91)
 
         progressBar.visibility = View.VISIBLE
         WalletData.getDataFromApi(view.context, currentUser.apikey, currentUser.secretKey) { result ->
@@ -112,6 +115,8 @@ class WalletFragment: Fragment() {
                         for (coin in walletCoinData)
                             addPieSlice(PieModel(((coin.price*coin.quantity)/totBalance).toFloat(), listColor[i++]))
                     }
+
+                    tot.text = DecimalFormat("#.##").format(totBalance)+" $"
 
                     pieChart.startAnimation()
 
