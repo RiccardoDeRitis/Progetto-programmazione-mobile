@@ -61,11 +61,18 @@ data class WalletData(
 
         fun getPriceAsset(context: Context, listAsset: ArrayList<WalletData>, callback: (result: String) -> Unit) {
             var url = "https://api.binance.com/api/v3/ticker/price?symbols=["
+            val element = listAsset.stream().filter {
+                it.name == "USDT"
+            }.findFirst().orElse(null)
             for (asset in listAsset) {
-                url += if (asset == listAsset[listAsset.size-1])
-                    "\"${asset.name}USDT\"]"
+                if (asset != element)
+                    url += if (asset == listAsset[listAsset.size-1])
+                        "\"${asset.name}USDT\"]"
+                    else
+                        "\"${asset.name}USDT\","
                 else
-                    "\"${asset.name}USDT\","
+                    if (asset == listAsset[listAsset.size-1])
+                        url = url.substring(0, url.length-1)+"]"
             }
             val queue = Volley.newRequestQueue(context)
             val stringRequest = StringRequest(

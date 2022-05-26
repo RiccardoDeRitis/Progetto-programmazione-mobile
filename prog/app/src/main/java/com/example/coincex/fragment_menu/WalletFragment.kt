@@ -93,17 +93,32 @@ class WalletFragment: Fragment() {
                                     priceList[i].value
                                 )
                             )
-                        else
-                            walletCoinData.add(
-                                WalletCoinDataClass(
-                                    recipeList[k].imageLogo,
-                                    priceList[i].name,
-                                    recipeList[k].name,
-                                    asset.value,
-                                    priceList[i].value
+                        else {
+                            if (asset.name == "USDT")
+                                walletCoinData.add(
+                                    WalletCoinDataClass(
+                                        recipeList[k].imageLogo,
+                                        recipeList[k].symbol,
+                                        recipeList[k].name,
+                                        asset.value,
+                                        1.0
+                                    )
                                 )
-                            )
-                        totBalance += asset.value * priceList[i].value
+                            else
+                                walletCoinData.add(
+                                    WalletCoinDataClass(
+                                        recipeList[k].imageLogo,
+                                        priceList[i].name,
+                                        recipeList[k].name,
+                                        asset.value,
+                                        priceList[i].value
+                                    )
+                                )
+                        }
+                        totBalance += if (asset.name == "USDT")
+                            asset.value
+                        else
+                            asset.value * priceList[i].value
                     }
 
                     for ((i, coin) in walletCoinData.withIndex()) {

@@ -8,18 +8,15 @@
 
     <Button
         android:id="@+id/button14"
-        android:layout_width="0dp"
+        android:layout_width="120dp"
         android:layout_height="50dp"
-        android:layout_marginStart="30dp"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/selector_button_login"
-        android:text="Effettua la conversione"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/selector_wallet_sell"
+        android:text="Sell"
         android:textAllCaps="false"
-        android:textColor="#000000"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView89" />
 
     <ImageView
@@ -106,6 +103,7 @@
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         android:background="#161618"
         android:ems="10"
         android:hint="|  0.0001 - 1500"
@@ -114,7 +112,7 @@
         android:textAllCaps="false"
         android:textColorHint="#373737"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/relativeLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/relativeLayout"
         app:layout_constraintTop_toBottomOf="@+id/textView77"
         tools:ignore="HardcodedText,RtlSymmetry,TouchTargetSizeCheck" />
@@ -184,32 +182,6 @@
             android:scaleType="centerInside" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout3"
-        android:layout_width="50dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
-        android:background="#161618"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView77">
-
-        <TextView
-            android:id="@+id/textView83"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="17dp"
-            android:text="MAX"
-            android:textSize="12sp" />
-    </RelativeLayout>
-
     <TextView
         android:id="@+id/textView89"
         android:layout_width="0dp"
@@ -220,5 +192,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/relativeLayout2"
         app:layout_constraintTop_toBottomOf="@+id/textView81" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/selector_wallet_buy"
+        android:text="Buy"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView89" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

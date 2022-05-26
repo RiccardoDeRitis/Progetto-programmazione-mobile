@@ -2,17 +2,19 @@ package com.example.coincex.activity
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coincex.MainActivity
 import com.example.coincex.R
 import com.example.coincex.api_data.ConvertCoinData
+import com.example.coincex.api_data.OrderData
 import com.example.coincex.data_class.WalletCoinDataClass
 import com.example.coincex.list_adapter.ConvertAdapter
 import com.squareup.picasso.Picasso
+import java.text.DecimalFormat
 
 class BuyActivity: AppCompatActivity() {
 
@@ -39,6 +41,8 @@ class BuyActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.buy_layout)
 
+        val currentUser = MainActivity.currentUser
+
         logoBuy = findViewById(R.id.logo_image5)
         nameBuy = findViewById(R.id.textView78)
         logoConvert = findViewById(R.id.logo_image7)
@@ -53,7 +57,8 @@ class BuyActivity: AppCompatActivity() {
         val walletData = intent.getSerializableExtra("asset") as ArrayList<WalletCoinDataClass>
         val layoutBuy = findViewById<RelativeLayout>(R.id.relativeLayout)
         val layoutConvert = findViewById<RelativeLayout>(R.id.relativeLayout2)
-        val maxBalance = findViewById<RelativeLayout>(R.id.relativeLayout3)
+        val sell = findViewById<Button>(R.id.button14)
+        val buy = findViewById<Button>(R.id.button10)
 
         val editQuantity = findViewById<EditText>(R.id.editQuantity)
 
@@ -70,7 +75,7 @@ class BuyActivity: AppCompatActivity() {
         nameCurrentConvert.text = walletData[1].symbol
 
         disponibile = findViewById(R.id.textView80)
-        disponibile.text = walletData[0].quantity.toString()
+        disponibile.text = DecimalFormat("#.###").format(walletData[0].quantity)
 
         picasso.load(walletData[0].logo).into(logoBuy)
         picasso.load(walletData[1].logo).into(logoConvert)
@@ -152,8 +157,52 @@ class BuyActivity: AppCompatActivity() {
 
         }
 
-        maxBalance.setOnClickListener {
-            editQuantity.setText(disponibile.text.toString())
+        sell.setOnClickListener {
+            when {
+                nameBuy.text.toString() == nameConvert.text.toString() -> Toast.makeText(applicationContext, "Inserisci coin diverse!", Toast.LENGTH_SHORT).show()
+                else -> {
+                    OrderData.orderApiData(applicationContext,
+                        nameBuy.text.toString()+nameConvert.text.toString(),
+                        currentUser.apikey,
+                        currentUser.secretKey,
+                        editQuantity.text.toString(),
+                        "SELL") {
+                        if (it != "null") {
+                            Toast.makeText(
+                                applicationContext,
+                                "Operazione effettuata con successo!",
+                                Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                        else
+                            Toast.makeText(applicationContext, "Errore", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
+        buy.setOnClickListener {
+            when {
+                nameBuy.text.toString() == nameConvert.text.toString() -> Toast.makeText(applicationContext, "Inserisci coin diverse!", Toast.LENGTH_SHORT).show()
+                else -> {
+                    OrderData.orderApiData(applicationContext,
+                        nameBuy.text.toString()+nameConvert.text.toString(),
+                        currentUser.apikey,
+                        currentUser.secretKey,
+                        editQuantity.text.toString(),
+                        "BUY") {
+                        if (it != "null") {
+                            Toast.makeText(
+                                applicationContext,
+                                "Operazione effettuata con successo!",
+                                Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                        else
+                            Toast.makeText(applicationContext, "Errore", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
 
     }
@@ -161,7 +210,7 @@ class BuyActivity: AppCompatActivity() {
     private fun onClickItem(coin: WalletCoinDataClass) {
         nameBuy.text = coin.symbol
         picasso.load(coin.logo).into(logoBuy)
-        disponibile.text = coin.quantity.toString()
+        disponibile.text = DecimalFormat("#.###").format(coin.quantity)
         picasso.load(coin.logo).into(logoCurrentBuy)
         nameCurrentBuy.text = coin.symbol
         dialog.dismiss()
@@ -174,7 +223,5 @@ class BuyActivity: AppCompatActivity() {
         nameCurrentConvert.text = coin.symbol
         dialogConvert.dismiss()
     }
-
-
 
 }

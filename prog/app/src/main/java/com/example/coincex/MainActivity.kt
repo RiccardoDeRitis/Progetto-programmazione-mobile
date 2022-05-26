@@ -72,16 +72,16 @@ class MainActivity : AppCompatActivity() {
             }
 
             valueAnimator.interpolator = AccelerateInterpolator(1.5f)
-            valueAnimator.duration = 2500L
+            valueAnimator.duration = 2600L
 
             valueAnimator.start()
-        },300)
+        },400)
 
         Handler(Looper.getMainLooper()).postDelayed({
             container.visibility = View.GONE
             navigation.visibility = View.VISIBLE
             fragmentContainer.visibility = View.VISIBLE
-        },2800)
+        },3000)
 
         val marketFragment = MarketFragment() // Fragment principale
         val favoriteFragment = FavoritesFragment() // Fragment preferiti
