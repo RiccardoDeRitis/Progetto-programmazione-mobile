@@ -5,6 +5,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
+import java.lang.Exception
 
 // Data class per info dettagliate di una coin
 data class ProfileCoinData(
@@ -14,11 +15,6 @@ data class ProfileCoinData(
     val sector: String,
     val whitepaper: String,
     val website: String,
-    val background_details: String,
-    val regulation: String,
-    val token_name: String,
-    val token_type: String,
-    val name_explorer: String,
     val blockchain_explorer: String,
     val token_usage: String,
     val launch_details: String,
@@ -29,8 +25,7 @@ data class ProfileCoinData(
     val block_reward: String,
     val algorithm: String,
     val technology_details: String,
-    val governance_details: String,
-    val is_decentralized: String) {
+    val governance_details: String) {
 
     companion object {
 
@@ -43,37 +38,49 @@ data class ProfileCoinData(
                     callback(it)
                 }
             ) {
-                callback(it.toString())
+                callback("")
             }
             queue.add(stringRequest)
         }
 
         fun getDataProfile(data: String): ProfileCoinData {
-            val jsonData = JSONObject(data).getJSONObject("data").getJSONObject("profile")
-            val title = jsonData.getJSONObject("general").getJSONObject("overview").getString("tagline")
-            val category = jsonData.getJSONObject("general").getJSONObject("overview").getString("category")
-            val sector = jsonData.getJSONObject("general").getJSONObject("overview").getString("sector")
-            val details = jsonData.getJSONObject("general").getJSONObject("overview").getString("project_details")
-            val website = jsonData.getJSONObject("general").getJSONObject("overview").getJSONArray("official_links").getJSONObject(0).getString("link")
-            val whitepaper = jsonData.getJSONObject("general").getJSONObject("overview").getJSONArray("official_links").getJSONObject(1).getString("link")
-            val backgroundDetails = jsonData.getJSONObject("general").getJSONObject("background").getString("background_details")
-            val regulation = jsonData.getJSONObject("general").getJSONObject("regulation").getString("regulatory_details")
-            val tokenName = jsonData.getJSONObject("economics").getJSONObject("token").getString("token_name")
-            val tokenType = jsonData.getJSONObject("economics").getJSONObject("token").getString("token_type")
-            val nameExplorer = jsonData.getJSONObject("economics").getJSONObject("token").getJSONArray("block_explorers").getJSONObject(0).getString("name")
-            val blockchainExplorer = jsonData.getJSONObject("economics").getJSONObject("token").getJSONArray("block_explorers").getJSONObject(0).getString("link")
-            val tokenUsage = jsonData.getJSONObject("economics").getJSONObject("token").getString("token_usage_details")
-            val launchDetails = jsonData.getJSONObject("economics").getJSONObject("launch").getJSONObject("general").getString("launch_details")
-            val supplyDetails = jsonData.getJSONObject("economics").getJSONObject("consensus_and_emission").getJSONObject("supply").getString("supply_curve_details")
-            val emissionType =  jsonData.getJSONObject("economics").getJSONObject("consensus_and_emission").getJSONObject("supply").getString("general_emission_type")
-            val consensusName = jsonData.getJSONObject("economics").getJSONObject("consensus_and_emission").getJSONObject("consensus").getString("general_consensus_mechanism")
-            val consensusDetails = jsonData.getJSONObject("economics").getJSONObject("consensus_and_emission").getJSONObject("consensus").getString("consensus_details")
-            val blockReward = jsonData.getJSONObject("economics").getJSONObject("consensus_and_emission").getJSONObject("consensus").getString("block_reward").toString()
-            val algorithm = jsonData.getJSONObject("economics").getJSONObject("consensus_and_emission").getJSONObject("consensus").getString("mining_algorithm")
-            val technologyDetails = jsonData.getJSONObject("technology").getJSONObject("overview").getString("technology_details")
-            val governanceDetails = jsonData.getJSONObject("governance").getString("governance_details")
-            val decentralized = jsonData.getJSONObject("governance").getJSONObject("onchain_governance").getString("is_treasury_decentralized").toString()
-            return ProfileCoinData(title,details,category,sector,whitepaper,website,backgroundDetails,regulation,tokenName,tokenType,nameExplorer,blockchainExplorer,tokenUsage,launchDetails,supplyDetails,emissionType,consensusName,consensusDetails,blockReward,algorithm,technologyDetails,governanceDetails,decentralized)
+            val jsonData = try{ JSONObject(data).getJSONObject("data").getJSONObject("profile") }
+            catch (e: Exception) { null }
+            val title = try{ jsonData!!.getJSONObject("general").getJSONObject("overview").getString("tagline") }
+            catch (e: Exception) { "n/a" }
+            val category = try{ jsonData!!.getJSONObject("general").getJSONObject("overview").getString("category") }
+            catch (e: Exception) { "n/a" }
+            val sector = try{ jsonData!!.getJSONObject("general").getJSONObject("overview").getString("sector") }
+            catch (e: Exception) { "n/a" }
+            val details = try{ jsonData!!.getJSONObject("general").getJSONObject("overview").getString("project_details") }
+            catch (e: Exception) { "n/a" }
+            val website = try{ jsonData!!.getJSONObject("general").getJSONObject("overview").getJSONArray("official_links").getJSONObject(0).getString("link") }
+            catch (e: Exception) { "n/a" }
+            val whitepaper = try{ jsonData!!.getJSONObject("general").getJSONObject("overview").getJSONArray("official_links").getJSONObject(1).getString("link") }
+            catch (e: Exception) { "n/a" }
+            val blockchainExplorer = try{ jsonData!!.getJSONObject("economics").getJSONObject("token").getJSONArray("block_explorers").getJSONObject(0).getString("link") }
+            catch (e: Exception) { "n/a" }
+            val tokenUsage = try{jsonData!!.getJSONObject("economics").getJSONObject("token").getString("token_usage_details") }
+            catch (e: Exception) { "n/a" }
+            val launchDetails = try{ jsonData!!.getJSONObject("economics").getJSONObject("launch").getJSONObject("general").getString("launch_details") }
+            catch (e: Exception) { "n/a" }
+            val supplyDetails = try{ jsonData!!.getJSONObject("economics").getJSONObject("consensus_and_emission").getJSONObject("supply").getString("supply_curve_details") }
+            catch (e: Exception) { "n/a" }
+            val emissionType =  try{ jsonData!!.getJSONObject("economics").getJSONObject("consensus_and_emission").getJSONObject("supply").getString("general_emission_type") }
+            catch (e: Exception) { "n/a" }
+            val consensusName = try{ jsonData!!.getJSONObject("economics").getJSONObject("consensus_and_emission").getJSONObject("consensus").getString("general_consensus_mechanism") }
+            catch (e: Exception) { "n/a" }
+            val consensusDetails = try{ jsonData!!.getJSONObject("economics").getJSONObject("consensus_and_emission").getJSONObject("consensus").getString("consensus_details") }
+            catch (e: Exception) { "n/a" }
+            val blockReward = try{ jsonData!!.getJSONObject("economics").getJSONObject("consensus_and_emission").getJSONObject("consensus").getString("block_reward").toString() }
+            catch (e: Exception) { "n/a" }
+            val algorithm = try{ jsonData!!.getJSONObject("economics").getJSONObject("consensus_and_emission").getJSONObject("consensus").getString("mining_algorithm") }
+            catch (e: Exception) { "n/a" }
+            val technologyDetails = try{ jsonData!!.getJSONObject("technology").getJSONObject("overview").getString("technology_details") }
+            catch (e: Exception) { "n/a" }
+            val governanceDetails = try{ jsonData!!.getJSONObject("governance").getString("governance_details") }
+            catch (e: Exception) { "n/a" }
+            return ProfileCoinData(title,details,category,sector,whitepaper,website,blockchainExplorer,tokenUsage,launchDetails,supplyDetails,emissionType,consensusName,consensusDetails,blockReward,algorithm,technologyDetails,governanceDetails)
         }
 
     }

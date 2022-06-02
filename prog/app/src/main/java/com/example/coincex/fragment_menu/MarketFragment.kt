@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
@@ -75,8 +77,7 @@ class MarketFragment: Fragment() {
             if (it == "null") {
                 progressBar.visibility = View.GONE
                 Toast.makeText(view.context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 progressBar.visibility = View.GONE
                 val recipe = GlobalData.getData(it)
                 marketCapText.text = recipe.marketCap
@@ -110,7 +111,6 @@ class MarketFragment: Fragment() {
         }
     }
 
-    // Metodo che ritorna i dati delle coin e le passa all'adapter
     private fun getData(context: Context) {
         progressBar.visibility = View.VISIBLE
         ListCoinData.getDataFromApi(context) {
@@ -139,12 +139,14 @@ class MarketFragment: Fragment() {
     private fun onClickRank(id: String, preferred: ImageView, context: Context) {
         if (FavoritesFragment.getPreferences(id,context) != "null") {
             FavoritesFragment.deletePreferences(id,context)
-            preferred.visibility = View.GONE
             Toast.makeText(context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
         }
         else {
             savePreferences(id,context)
             preferred.visibility = View.VISIBLE
+            Handler(Looper.getMainLooper()).postDelayed({
+                preferred.visibility = View.GONE
+            }, 500)
             Toast.makeText(context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
         }
     }

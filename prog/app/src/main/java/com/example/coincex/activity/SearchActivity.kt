@@ -31,6 +31,7 @@ class SearchActivity: AppCompatActivity() {
 
         val searchView = findViewById<SearchView>(R.id.searchView)
         searchView.queryHint = "Search by name or symbol.."
+        searchView.isIconified = false
 
         val searchCoin = findViewById<RecyclerView>(R.id.SearchListCoin)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar5)
@@ -69,16 +70,6 @@ class SearchActivity: AppCompatActivity() {
 
         })
 
-    }
-
-    // Override del metodo onBackPressed per ricaricare la pagina qunado l'utente torna nell'activity precedente
-    // affichè le preferenze vengano visualizzate
-    override fun onBackPressed() {
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragment_container,MarketFragment())
-            commit()
-        }
-        finish()
     }
 
     // Metodo eseguito al click di un item nella lista, passato attraverso il metodo onClickItem presente nell'adapter

@@ -126,10 +126,6 @@ class CoinAdapter(private val data: ArrayList<ListCoinData>,
 
             val picasso = Picasso.get()
             picasso.load(coin.imageLogo).into(image)
-
-            if (!bool)
-                if (FavoritesFragment.getPreferences(coin.id, itemView.context) != "null")
-                    preferred.visibility = View.VISIBLE
         }
     }
 }

@@ -1,7 +1,12 @@
 package com.example.coincex.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Html
+import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.coincex.R
@@ -10,6 +15,7 @@ import com.squareup.picasso.Picasso
 
 class CoinDetailsActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?,) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.coin_details_layout)
@@ -19,6 +25,11 @@ class CoinDetailsActivity : AppCompatActivity() {
 
         val symbol = findViewById<TextView>(R.id.textView33)
         val imageLogo = findViewById<ImageView>(R.id.imageView4)
+
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar7)
+        val scroll = findViewById<ScrollView>(R.id.scroll)
+
+        progressBar.visibility = View.VISIBLE
 
         symbol.text = name?.replaceFirstChar { it.uppercase() }
         val picasso = Picasso.get()
@@ -30,18 +41,42 @@ class CoinDetailsActivity : AppCompatActivity() {
         val sector = findViewById<TextView>(R.id.sector)
         val whitepaper = findViewById<TextView>(R.id.whitepaper)
         val website = findViewById<TextView>(R.id.website)
-        val backgroundDetails = findViewById<TextView>(R.id.details_back)
+        val token = findViewById<TextView>(R.id.token)
+        val block = findViewById<TextView>(R.id.block)
+        val launch = findViewById<TextView>(R.id.launch)
+        val supply = findViewById<TextView>(R.id.supply)
+        val emission = findViewById<TextView>(R.id.emission)
+        val consensusName = findViewById<TextView>(R.id.consensusName)
+        val consensusDetails = findViewById<TextView>(R.id.consensusDetails)
+        val reward = findViewById<TextView>(R.id.reward)
+        val mining = findViewById<TextView>(R.id.mining)
+        val technology = findViewById<TextView>(R.id.technology)
+        val governance = findViewById<TextView>(R.id.governance)
 
         ProfileCoinData.getProfileFromApi(applicationContext, name!!) {
             val profile = ProfileCoinData.getDataProfile(it)
 
             title.text = profile.title
-            details.text = profile.details
+            details.text = Html.fromHtml(profile.details,1)
             category.text = profile.category
             sector.text = profile.sector
-            whitepaper.text = profile.whitepaper
-            website.text = profile.website
-            backgroundDetails.text = profile.background_details
+            whitepaper.text = Html.fromHtml(profile.whitepaper,1)
+            website.text = Html.fromHtml(profile.website,1)
+            token.text = Html.fromHtml(profile.token_usage,1)
+            block.text = Html.fromHtml(profile.blockchain_explorer,1)
+            launch.text = Html.fromHtml(profile.launch_details,1)
+            supply.text = Html.fromHtml(profile.supply_details,1)
+            emission.text = profile.emission_type
+            consensusName.text = Html.fromHtml(profile.consensus_name,1)
+            consensusDetails.text = Html.fromHtml(profile.consensus_details,1)
+            reward.text = profile.block_reward
+            mining.text = profile.algorithm
+            technology.text = Html.fromHtml(profile.technology_details,1)
+            governance.text = Html.fromHtml(profile.governance_details,1)
+
+            progressBar.visibility = View.GONE
+            scroll.visibility = View.VISIBLE
+
         }
 
     }

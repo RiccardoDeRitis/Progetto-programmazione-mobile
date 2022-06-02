@@ -26,8 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private var screenHeight = 0f
 
-    private lateinit var navigation: BottomNavigationView
-
+    @Suppress("DEPRECATION")
     override fun onResume() {
         super.onResume()
 
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 )
             }
 
-        navigation = findViewById(R.id.navigation)
+        val navigation: BottomNavigationView = findViewById(R.id.navigation)
         val fragmentContainer = findViewById<FrameLayout>(R.id.fragment_container)
         val container = findViewById<FrameLayout>(R.id.container)
 

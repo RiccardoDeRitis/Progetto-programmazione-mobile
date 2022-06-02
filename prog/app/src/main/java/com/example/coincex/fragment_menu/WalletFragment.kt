@@ -142,6 +142,7 @@ class WalletFragment: Fragment() {
                     coinWallet.layoutManager = LinearLayoutManager(view.context)
                     val adapter = WalletAdapter(walletCoinData)
                     coinWallet.adapter = adapter
+                    convert.visibility = View.VISIBLE
                     progressBar.visibility = View.GONE
                     layout.visibility = View.VISIBLE
                 }
