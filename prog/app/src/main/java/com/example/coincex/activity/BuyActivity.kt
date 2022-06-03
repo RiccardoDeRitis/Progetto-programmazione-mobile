@@ -2,7 +2,6 @@ package com.example.coincex.activity
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -56,7 +55,6 @@ class BuyActivity: AppCompatActivity() {
         dialogConvert.setContentView(R.layout.dialog_search_coin_convert)
 
         val walletData = intent.getSerializableExtra("asset") as ArrayList<WalletCoinDataClass>
-        Log.d("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", walletData.toString())
         val layoutBuy = findViewById<RelativeLayout>(R.id.relativeLayout)
         val layoutConvert = findViewById<RelativeLayout>(R.id.relativeLayout2)
         val sell = findViewById<Button>(R.id.button14)

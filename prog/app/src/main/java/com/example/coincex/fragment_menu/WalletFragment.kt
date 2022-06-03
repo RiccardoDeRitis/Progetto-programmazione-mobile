@@ -148,6 +148,7 @@ class WalletFragment: Fragment() {
                 }
             } catch (e: Exception) {
                 Toast.makeText(view.context, "Errore nel caricamento dei dati, riprovare", Toast.LENGTH_SHORT).show()
+                progressBar.visibility = View.GONE
             }
         }
 

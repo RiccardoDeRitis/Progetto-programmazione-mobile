@@ -1,11 +1,13 @@
 package com.example.coincex.fragment_menu
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.coincex.MainActivity
@@ -30,6 +32,8 @@ class LoginFragment: Fragment() {
         val password = view.findViewById<EditText>(R.id.pass_edit)
         val accedi = view.findViewById<Button>(R.id.button3)
         val ricordami = view.findViewById<CheckBox>(R.id.checkBox)
+
+        val resetPassword = view.findViewById<Button>(R.id.button4)
 
         if (view.context.getSharedPreferences("User", Context.MODE_PRIVATE).getString("email", "null") != "null") {
             ricordami.isChecked = true
@@ -86,6 +90,34 @@ class LoginFragment: Fragment() {
                 }
             }
 
+        }
+
+        resetPassword.setOnClickListener {
+            val dialog = Dialog(view.context)
+            dialog.setContentView(R.layout.dialog_reset_password)
+
+            val lp = WindowManager.LayoutParams()
+            lp.copyFrom(dialog.window?.attributes)
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT
+
+            val reset = dialog.findViewById<Button>(R.id.button12)
+            val email = dialog.findViewById<EditText>(R.id.editTextTextPersonName)
+
+            reset.setOnClickListener {
+                if (email.text.toString() != "")
+                    auth.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            Toast.makeText(view.context, "Email sent.", Toast.LENGTH_SHORT).show()
+                            dialog.dismiss()
+                        }
+                        else
+                            Toast.makeText(view.context, "Email non esistente, registrati", Toast.LENGTH_SHORT).show()
+                    }
+                else
+                    Toast.makeText(view.context, "Inserisci una email!", Toast.LENGTH_SHORT).show()
+            }
+            dialog.show()
+            dialog.window?.attributes = lp
         }
 
         val signIn = view.findViewById<Button>(R.id.button5)

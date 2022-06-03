@@ -18,7 +18,10 @@ import com.example.coincex.R
 import com.example.coincex.api_data.SearchCoinData
 import com.example.coincex.list_adapter.CoinAdapter
 
+@SuppressLint("SetTextI18n", "NotifyDataSetChanged")
 class FavoritesFragment: Fragment() {
+
+    lateinit var title: TextView
 
     // Oggetto per la definizione di 2 attributi statici e metodi per eliminare e ottenere gli id delle coin dai preferiti
     companion object {
@@ -52,15 +55,14 @@ class FavoritesFragment: Fragment() {
         return inflater.inflate(R.layout.favorites_fragment, container, false)
     }
 
-    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        title = view.findViewById(R.id.titleFavorite)
 
         favoriteCoin = ArrayList()
 
         val listCoinFavorite = view.findViewById<RecyclerView>(R.id.listCoinFavorites)
         listCoinFavorite?.layoutManager = LinearLayoutManager(view.context)
-
-        val title = view.findViewById<TextView>(R.id.titleFavorite)
 
         // Ritorna un preferito alla volta e lo inserisce in un ArrayList per poi passarlo all'adapter
         // Se non ci sono preferiti viene settato un title che lo riferisce
@@ -107,6 +109,10 @@ class FavoritesFragment: Fragment() {
             favoriteCoin.removeAt(position)
             adapter.notifyItemRemoved(position)
             adapter.notifyItemRangeChanged(position, favoriteCoin.size)
+            if (favoriteCoin.isEmpty()) {
+                title.text = "Non stai seguendo alcun asset, torna indietro e tieni traccia dei tuoi asset preferiti"
+                title.textAlignment = View.TEXT_ALIGNMENT_CENTER
+            }
         }
     }
 
