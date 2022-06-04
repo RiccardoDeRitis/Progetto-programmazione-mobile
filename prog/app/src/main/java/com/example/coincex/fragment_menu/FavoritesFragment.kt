@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.*
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -22,6 +23,9 @@ import com.example.coincex.list_adapter.CoinAdapter
 class FavoritesFragment: Fragment() {
 
     lateinit var title: TextView
+    private lateinit var listCoinFavorite: RecyclerView
+    lateinit var detective: ImageView
+    lateinit var favorite: ImageView
 
     // Oggetto per la definizione di 2 attributi statici e metodi per eliminare e ottenere gli id delle coin dai preferiti
     companion object {
@@ -61,8 +65,10 @@ class FavoritesFragment: Fragment() {
 
         favoriteCoin = ArrayList()
 
-        val listCoinFavorite = view.findViewById<RecyclerView>(R.id.listCoinFavorites)
-        listCoinFavorite?.layoutManager = LinearLayoutManager(view.context)
+        listCoinFavorite = view.findViewById(R.id.listCoinFavorites)
+        listCoinFavorite.layoutManager = LinearLayoutManager(view.context)
+        detective = view.findViewById(R.id.imageView17)
+        favorite = view.findViewById(R.id.imageView18)
 
         // Ritorna un preferito alla volta e lo inserisce in un ArrayList per poi passarlo all'adapter
         // Se non ci sono preferiti viene settato un title che lo riferisce
@@ -72,9 +78,11 @@ class FavoritesFragment: Fragment() {
         getAllPreferences(view.context) { id ->
             progressBar.visibility = View.VISIBLE
             if (id != "void") {
+                detective.visibility = View.GONE
                 SearchCoinData.getCoinDataFromApi(view.context, id) { result ->
                     favoriteCoin.addAll(ListCoinData.getData(result))
                     favoriteCoin.sortBy { it.symbol }
+                    listCoinFavorite.visibility = View.VISIBLE
                     title.text = "I tuoi asset preferiti :"
                     adapter = CoinAdapter(
                         favoriteCoin,
@@ -83,13 +91,14 @@ class FavoritesFragment: Fragment() {
                         { id,pos,preferred -> onClickRank(id,pos,preferred, view.context) }
                     )
                     progressBar.visibility = View.GONE
-                    listCoinFavorite?.adapter = adapter
+                    listCoinFavorite.adapter = adapter
                 }
             }
             else {
                 progressBar.visibility = View.GONE
-                title.text = "Non stai seguendo alcun asset, torna indietro e tieni traccia dei tuoi asset preferiti"
-                title.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                title.text = "Non stai seguendo alcun asset. Tieni traccia dei tuoi asset preferiti!"
+                detective.visibility = View.VISIBLE
+                favorite.visibility = View.VISIBLE
             }
         }
 
@@ -110,8 +119,10 @@ class FavoritesFragment: Fragment() {
             adapter.notifyItemRemoved(position)
             adapter.notifyItemRangeChanged(position, favoriteCoin.size)
             if (favoriteCoin.isEmpty()) {
-                title.text = "Non stai seguendo alcun asset, torna indietro e tieni traccia dei tuoi asset preferiti"
-                title.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                title.text = Html.fromHtml("Non stai seguendo alcun asset.\nTieni traccia dei tuoi asset preferiti", 1)
+                listCoinFavorite.visibility = View.GONE
+                detective.visibility = View.VISIBLE
+                favorite.visibility = View.VISIBLE
             }
         }
     }
