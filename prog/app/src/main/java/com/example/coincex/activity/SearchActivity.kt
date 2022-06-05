@@ -7,8 +7,10 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +36,7 @@ class SearchActivity: AppCompatActivity() {
         searchView.queryHint = "Search by name or symbol.."
         searchView.isIconified = false
 
+        val text = findViewById<TextView>(R.id.textView95)
         val searchCoin = findViewById<RecyclerView>(R.id.SearchListCoin)
         val dialog = Dialog(this@SearchActivity)
         dialog.setContentView(R.layout.dialog_loading)
@@ -53,13 +56,18 @@ class SearchActivity: AppCompatActivity() {
                     SearchCoinData.getDataFromApi(applicationContext, p0) {
                         searchCoin.layoutManager = LinearLayoutManager(applicationContext)
                         val listCoinSearch = SearchCoinData.getData(it)
-                        adapter = SearchAdapter(
-                            listCoinSearch,
-                            { coin -> onClickItem(coin, applicationContext) },
-                            { id, preferred -> onClickStar(id, applicationContext, preferred) }
-                        )
-                        dialog.dismiss()
-                        searchCoin.adapter = adapter
+                        if (listCoinSearch.isEmpty())
+                            text.visibility = View.VISIBLE
+                        else {
+                            text.visibility = View.GONE
+                            adapter = SearchAdapter(
+                                listCoinSearch,
+                                { coin -> onClickItem(coin, applicationContext) },
+                                { id, preferred -> onClickStar(id, applicationContext, preferred) }
+                            )
+                            dialog.dismiss()
+                            searchCoin.adapter = adapter
+                        }
                     }
                 }
                 dialog.dismiss()

@@ -62,6 +62,14 @@ class MainActivity : AppCompatActivity() {
         val rocket = findViewById<ImageView>(R.id.rocket)
         val doge = findViewById<ImageView>(R.id.doge)
 
+        val marketFragment = MarketFragment() // Fragment principale
+        val favoriteFragment = FavoritesFragment() // Fragment preferiti
+        val loginFragment = LoginFragment() // Fragment di Login
+        val walletFragment = WalletFragment() // Fragment del wallet
+        val notLoggedFragment = NotLoggedFragment() // Fragment per utente non loggato
+        val newsFragment = NewsFragment() // Fragment per news
+        val loggedFragment = LoggedFragment() // Fragment per utente loggato
+
         Handler(Looper.getMainLooper()).postDelayed({
             val valueAnimator = ValueAnimator.ofFloat(0f, -screenHeight)
             valueAnimator.addUpdateListener {
@@ -82,18 +90,7 @@ class MainActivity : AppCompatActivity() {
             fragmentContainer.visibility = View.VISIBLE
         },3000)
 
-        val marketFragment = MarketFragment() // Fragment principale
-        val favoriteFragment = FavoritesFragment() // Fragment preferiti
-        val loginFragment = LoginFragment() // Fragment di Login
-        val walletFragment = WalletFragment() // Fragment del wallet
-        val notLoggedFragment = NotLoggedFragment() // Fragment per utente non loggato
-        val newsFragment = NewsFragment() // Fragment per news
-        val loggedFragment = LoggedFragment() // Fragment per utente loggato
-
         navigation.selectedItemId = R.id.home
-
-        // Funzione che imposta il fragment principale a quello corrente
-        setCurrentFragment(marketFragment)
 
         // Listener che imposta il fragment in base al click nel BottomNavigationView
         navigation.setOnItemSelectedListener {
