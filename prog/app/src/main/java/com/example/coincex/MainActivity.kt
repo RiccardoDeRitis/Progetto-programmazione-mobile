@@ -88,9 +88,9 @@ class MainActivity : AppCompatActivity() {
             container.visibility = View.GONE
             navigation.visibility = View.VISIBLE
             fragmentContainer.visibility = View.VISIBLE
+            navigation.selectedItemId = R.id.home
+            setCurrentFragment(marketFragment)
         },3000)
-
-        navigation.selectedItemId = R.id.home
 
         // Listener che imposta il fragment in base al click nel BottomNavigationView
         navigation.setOnItemSelectedListener {

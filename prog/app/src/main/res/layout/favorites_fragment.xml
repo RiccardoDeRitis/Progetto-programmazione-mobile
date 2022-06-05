@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleFavorite"
         app:srcCompat="@drawable/detective"
-        app:tint="#303030" />
+        app:tint="#222224" />
 
     <ImageView
         android:id="@+id/imageView18"
