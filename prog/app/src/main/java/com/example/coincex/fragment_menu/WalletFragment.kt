@@ -1,14 +1,15 @@
 package com.example.coincex.fragment_menu
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -57,12 +58,15 @@ class WalletFragment: Fragment() {
         listColor.add(color4)
         listColor.add(color5)
 
+        val dialog = Dialog(view.context)
+        dialog.setContentView(R.layout.dialog_loading)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         val pieChart = view.findViewById<PieChart>(R.id.piechart)
         val walletCoinData = ArrayList<WalletCoinDataClass>()
-        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar6)
         val tot = view.findViewById<TextView>(R.id.textView91)
 
-        progressBar.visibility = View.VISIBLE
+        dialog.show()
         WalletData.getDataFromApi(view.context, currentUser.apikey, currentUser.secretKey) { result ->
             try {
                 val listAsset = WalletData.getData(result) // WalletData asset quantity
@@ -143,12 +147,12 @@ class WalletFragment: Fragment() {
                     val adapter = WalletAdapter(walletCoinData)
                     coinWallet.adapter = adapter
                     convert.visibility = View.VISIBLE
-                    progressBar.visibility = View.GONE
+                    dialog.dismiss()
                     layout.visibility = View.VISIBLE
                 }
             } catch (e: Exception) {
                 Toast.makeText(view.context, "Errore nel caricamento dei dati, riprovare", Toast.LENGTH_SHORT).show()
-                progressBar.visibility = View.GONE
+                dialog.dismiss()
             }
         }
 

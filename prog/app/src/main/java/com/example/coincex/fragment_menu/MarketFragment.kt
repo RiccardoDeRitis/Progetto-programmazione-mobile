@@ -1,9 +1,11 @@
 package com.example.coincex.fragment_menu
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -22,7 +24,7 @@ import com.example.coincex.list_adapter.CoinAdapter
 
 class MarketFragment: Fragment() {
 
-    lateinit var progressBar: ProgressBar
+    private lateinit var dialog: Dialog
     private lateinit var listView: RecyclerView
 
     // Oggetto contenente 2 attributi statici e un metodo per salvare gli id delle coin preferite
@@ -58,6 +60,7 @@ class MarketFragment: Fragment() {
         val swipeRefresh = view.findViewById<SwipeRefreshLayout>(R.id.swipe)
         swipeRefresh.setOnRefreshListener {
             getData(view.context)
+            dialog.dismiss()
             swipeRefresh.isRefreshing = false
         }
 
@@ -69,16 +72,18 @@ class MarketFragment: Fragment() {
             startActivity(intent)
         }
 
-        progressBar = view.findViewById(R.id.progressBar3)
+        dialog = Dialog(view.context)
+        dialog.setContentView(R.layout.dialog_loading)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         getData(view.context)
 
         // Esegue la chiamata all'api e setta le info globali con diversi colori a seconda dell'andamento
         GlobalData.getDataFromApi(view.context) {
             if (it == "null") {
-                progressBar.visibility = View.GONE
+                dialog.dismiss()
                 Toast.makeText(view.context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
             } else {
-                progressBar.visibility = View.GONE
+                dialog.dismiss()
                 val recipe = GlobalData.getData(it)
                 marketCapText.text = recipe.marketCap
                 volumeCapText.text = recipe.volumeCap
@@ -112,7 +117,7 @@ class MarketFragment: Fragment() {
     }
 
     private fun getData(context: Context) {
-        progressBar.visibility = View.VISIBLE
+        dialog.show()
         ListCoinData.getDataFromApi(context) {
             if (it == "null")
                 Toast.makeText(context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()

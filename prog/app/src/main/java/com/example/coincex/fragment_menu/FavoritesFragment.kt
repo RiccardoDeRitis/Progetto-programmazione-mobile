@@ -1,13 +1,15 @@
 package com.example.coincex.fragment_menu
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Html
 import android.view.*
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -22,10 +24,10 @@ import com.example.coincex.list_adapter.CoinAdapter
 @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
 class FavoritesFragment: Fragment() {
 
-    lateinit var title: TextView
+    private lateinit var title: TextView
     private lateinit var listCoinFavorite: RecyclerView
-    lateinit var detective: ImageView
-    lateinit var favorite: ImageView
+    private lateinit var detective: ImageView
+    private lateinit var favorite: ImageView
 
     // Oggetto per la definizione di 2 attributi statici e metodi per eliminare e ottenere gli id delle coin dai preferiti
     companion object {
@@ -73,12 +75,15 @@ class FavoritesFragment: Fragment() {
         // Ritorna un preferito alla volta e lo inserisce in un ArrayList per poi passarlo all'adapter
         // Se non ci sono preferiti viene settato un title che lo riferisce
 
-        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar4)
+        val dialog = Dialog(view.context)
+        dialog.setContentView(R.layout.dialog_loading)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         getAllPreferences(view.context) { id ->
-            progressBar.visibility = View.VISIBLE
+            dialog.show()
             if (id != "void") {
                 detective.visibility = View.GONE
+                favorite.visibility = View.GONE
                 SearchCoinData.getCoinDataFromApi(view.context, id) { result ->
                     favoriteCoin.addAll(ListCoinData.getData(result))
                     favoriteCoin.sortBy { it.symbol }
@@ -90,12 +95,12 @@ class FavoritesFragment: Fragment() {
                         { coin -> onClickItem(coin, view.context) },
                         { id,pos,preferred -> onClickRank(id,pos,preferred, view.context) }
                     )
-                    progressBar.visibility = View.GONE
+                    dialog.dismiss()
                     listCoinFavorite.adapter = adapter
                 }
             }
             else {
-                progressBar.visibility = View.GONE
+                dialog.dismiss()
                 title.text = "Non stai seguendo alcun asset. Tieni traccia dei tuoi asset preferiti!"
                 detective.visibility = View.VISIBLE
                 favorite.visibility = View.VISIBLE
@@ -119,7 +124,7 @@ class FavoritesFragment: Fragment() {
             adapter.notifyItemRemoved(position)
             adapter.notifyItemRangeChanged(position, favoriteCoin.size)
             if (favoriteCoin.isEmpty()) {
-                title.text = Html.fromHtml("Non stai seguendo alcun asset.\nTieni traccia dei tuoi asset preferiti", 1)
+                title.text = Html.fromHtml("Non stai seguendo alcun asset. Tieni traccia dei tuoi asset preferiti", 1)
                 listCoinFavorite.visibility = View.GONE
                 detective.visibility = View.VISIBLE
                 favorite.visibility = View.VISIBLE

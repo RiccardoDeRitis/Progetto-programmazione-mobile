@@ -1,12 +1,13 @@
 package com.example.coincex.activity
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,7 +35,9 @@ class SearchActivity: AppCompatActivity() {
         searchView.isIconified = false
 
         val searchCoin = findViewById<RecyclerView>(R.id.SearchListCoin)
-        val progressBar = findViewById<ProgressBar>(R.id.progressBar5)
+        val dialog = Dialog(this@SearchActivity)
+        dialog.setContentView(R.layout.dialog_loading)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         // Listener per la ricerca delle coin/token attraverso una SearchView
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
@@ -45,7 +48,7 @@ class SearchActivity: AppCompatActivity() {
             e queste vengono poi messe in un RecyclerView attraverso un Adapter
              */
             override fun onQueryTextSubmit(p0: String?): Boolean {
-                progressBar.visibility = View.VISIBLE
+                dialog.show()
                 if (p0 != null) {
                     SearchCoinData.getDataFromApi(applicationContext, p0) {
                         searchCoin.layoutManager = LinearLayoutManager(applicationContext)
@@ -55,11 +58,11 @@ class SearchActivity: AppCompatActivity() {
                             { coin -> onClickItem(coin, applicationContext) },
                             { id, preferred -> onClickStar(id, applicationContext, preferred) }
                         )
-                        progressBar.visibility = View.GONE
+                        dialog.dismiss()
                         searchCoin.adapter = adapter
                     }
                 }
-                progressBar.visibility = View.GONE
+                dialog.dismiss()
                 return false
             }
 

@@ -3,6 +3,8 @@ package com.example.coincex.fragment_menu
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +30,14 @@ class LoginFragment: Fragment() {
         val auth = Firebase.auth
         val db = Firebase.firestore
 
+        val dialog = Dialog(view.context)
+        dialog.setContentView(R.layout.dialog_loading)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(dialog.window?.attributes)
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+
         val email = view.findViewById<EditText>(R.id.email_edit)
         val password = view.findViewById<EditText>(R.id.pass_edit)
         val accedi = view.findViewById<Button>(R.id.button3)
@@ -42,9 +52,8 @@ class LoginFragment: Fragment() {
         }
 
         accedi.setOnClickListener {
-
-            val progress = view.findViewById<ProgressBar>(R.id.progressBar)
-            progress.visibility = View.VISIBLE
+            dialog.show()
+            dialog.window?.attributes = lp
             if (view.context.getSharedPreferences("User", Context.MODE_PRIVATE).getString("email", "null") == "null") {
                 if (ricordami.isChecked) {
                     val sharedPref = view.context.getSharedPreferences("User", Context.MODE_PRIVATE)
@@ -76,16 +85,16 @@ class LoginFragment: Fragment() {
                             doc["SecretKey"].toString(),
                             doc["ApiKey"].toString()
                         )
-                        progress.visibility = View.GONE
                         activity?.supportFragmentManager?.beginTransaction()?.apply {
                             replace(R.id.fragment_container, LoggedFragment())
                             commit()
                         }
+                        dialog.dismiss()
                         Toast.makeText(context, "Benvenuto ${doc["E-mail"]}", Toast.LENGTH_SHORT).show()
                     }
                 }
                 else {
-                    progress.visibility = View.GONE
+                    dialog.dismiss()
                     Toast.makeText(context, "Email o Password errati, riprova", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -93,19 +102,15 @@ class LoginFragment: Fragment() {
         }
 
         resetPassword.setOnClickListener {
-            val dialog = Dialog(view.context)
+            val dialogReset = Dialog(view.context)
             dialog.setContentView(R.layout.dialog_reset_password)
 
-            val lp = WindowManager.LayoutParams()
-            lp.copyFrom(dialog.window?.attributes)
-            lp.width = WindowManager.LayoutParams.MATCH_PARENT
-
             val reset = dialog.findViewById<Button>(R.id.button12)
-            val email = dialog.findViewById<EditText>(R.id.editTextTextPersonName)
+            val emailReset = dialog.findViewById<EditText>(R.id.editTextTextPersonName)
 
             reset.setOnClickListener {
-                if (email.text.toString() != "")
-                    auth.sendPasswordResetEmail(email.text.toString()).addOnCompleteListener {
+                if (emailReset.text.toString() != "")
+                    auth.sendPasswordResetEmail(emailReset.text.toString()).addOnCompleteListener {
                         if (it.isSuccessful) {
                             Toast.makeText(view.context, "Email sent.", Toast.LENGTH_SHORT).show()
                             dialog.dismiss()
@@ -116,7 +121,7 @@ class LoginFragment: Fragment() {
                 else
                     Toast.makeText(view.context, "Inserisci una email!", Toast.LENGTH_SHORT).show()
             }
-            dialog.show()
+            dialogReset.show()
             dialog.window?.attributes = lp
         }
 

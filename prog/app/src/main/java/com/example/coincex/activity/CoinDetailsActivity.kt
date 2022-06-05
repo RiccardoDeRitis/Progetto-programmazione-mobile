@@ -1,6 +1,9 @@
 package com.example.coincex.activity
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Html
 import android.view.View
@@ -26,10 +29,13 @@ class CoinDetailsActivity : AppCompatActivity() {
         val symbol = findViewById<TextView>(R.id.textView33)
         val imageLogo = findViewById<ImageView>(R.id.imageView4)
 
-        val progressBar = findViewById<ProgressBar>(R.id.progressBar7)
+        val dialog = Dialog(this@CoinDetailsActivity)
+        dialog.setContentView(R.layout.dialog_loading)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         val scroll = findViewById<ScrollView>(R.id.scroll)
 
-        progressBar.visibility = View.VISIBLE
+        dialog.show()
 
         symbol.text = name?.replaceFirstChar { it.uppercase() }
         val picasso = Picasso.get()
@@ -74,7 +80,7 @@ class CoinDetailsActivity : AppCompatActivity() {
             technology.text = Html.fromHtml(profile.technology_details,1)
             governance.text = Html.fromHtml(profile.governance_details,1)
 
-            progressBar.visibility = View.GONE
+            dialog.dismiss()
             scroll.visibility = View.VISIBLE
 
         }
