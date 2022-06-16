@@ -73,30 +73,35 @@ class LoginFragment: Fragment() {
                 }
             }
 
-            auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener(requireActivity()) {
-                if (it.isSuccessful) {
-                    db.collection("Utente").document(email.text.toString()).get().addOnSuccessListener { doc ->
-                        MainActivity.currentUser = UserDataClass(
-                            doc["Nome"].toString(),
-                            doc["Cognome"].toString(),
-                            doc["Telefono"].toString(),
-                            doc["E-mail"].toString(),
-                            doc["Username"].toString(),
-                            doc["SecretKey"].toString(),
-                            doc["ApiKey"].toString()
-                        )
-                        activity?.supportFragmentManager?.beginTransaction()?.apply {
-                            replace(R.id.fragment_container, LoggedFragment())
-                            commit()
+            if (email.text.toString() != "" && password.text.toString() != "")
+                auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener(requireActivity()) {
+                    if (it.isSuccessful) {
+                        db.collection("Utente").document(email.text.toString()).get().addOnSuccessListener { doc ->
+                            MainActivity.currentUser = UserDataClass(
+                                doc["Nome"].toString(),
+                                doc["Cognome"].toString(),
+                                doc["Telefono"].toString(),
+                                doc["E-mail"].toString(),
+                                doc["Username"].toString(),
+                                doc["SecretKey"].toString(),
+                                doc["ApiKey"].toString()
+                            )
+                            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                                replace(R.id.fragment_container, LoggedFragment())
+                                commit()
+                            }
+                            dialog.dismiss()
+                            Toast.makeText(context, "Benvenuto ${doc["E-mail"]}", Toast.LENGTH_SHORT).show()
                         }
+                    }
+                    else {
                         dialog.dismiss()
-                        Toast.makeText(context, "Benvenuto ${doc["E-mail"]}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Email o Password errati, riprova", Toast.LENGTH_SHORT).show()
                     }
                 }
-                else {
-                    dialog.dismiss()
-                    Toast.makeText(context, "Email o Password errati, riprova", Toast.LENGTH_SHORT).show()
-                }
+            else {
+                dialog.dismiss()
+                Toast.makeText(view.context, "Inserisci i campi richiesti!", Toast.LENGTH_SHORT).show()
             }
 
         }

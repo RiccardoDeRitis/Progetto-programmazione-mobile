@@ -22,6 +22,7 @@ class CoinChartActivity: AppCompatActivity() {
 
         val coin = intent.getSerializableExtra("item") as ListCoinData
 
+
         val logo = findViewById<ImageView>(R.id.logo_image)
         val symbol = findViewById<TextView>(R.id.name_coin)
         val rank = findViewById<TextView>(R.id.textView38)
