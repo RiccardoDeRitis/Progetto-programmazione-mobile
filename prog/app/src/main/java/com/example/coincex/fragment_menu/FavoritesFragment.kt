@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coincex.activity.CoinChartActivity
-import com.example.coincex.api_data.ListCoinData
+import com.example.coincex.api_data.CoinData
 import com.example.coincex.R
 import com.example.coincex.api_data.SearchCoinData
 import com.example.coincex.list_adapter.CoinAdapter
@@ -32,7 +32,7 @@ class FavoritesFragment: Fragment() {
     // Oggetto per la definizione di 2 attributi statici e metodi per eliminare e ottenere gli id delle coin dai preferiti
     companion object {
 
-        lateinit var favoriteCoin: ArrayList<ListCoinData>
+        lateinit var favoriteCoin: ArrayList<CoinData>
         lateinit var adapter: CoinAdapter
 
         fun deletePreferences(id: String, context: Context) {
@@ -85,7 +85,7 @@ class FavoritesFragment: Fragment() {
                 detective.visibility = View.GONE
                 favorite.visibility = View.GONE
                 SearchCoinData.getCoinDataFromApi(view.context, id) { result ->
-                    favoriteCoin.addAll(ListCoinData.getData(result))
+                    favoriteCoin.addAll(CoinData.getData(result))
                     favoriteCoin.sortBy { it.symbol }
                     listCoinFavorite.visibility = View.VISIBLE
                     title.text = "I tuoi asset preferiti :"
@@ -109,7 +109,7 @@ class FavoritesFragment: Fragment() {
 
     }
 
-    private fun onClickItem(coinData: ListCoinData, context: Context) {
+    private fun onClickItem(coinData: CoinData, context: Context) {
         val intent = Intent(context, CoinChartActivity::class.java)
         intent.putExtra("item", coinData)
         context.startActivity(intent)

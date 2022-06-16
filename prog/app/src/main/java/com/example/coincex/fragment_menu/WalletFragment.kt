@@ -76,7 +76,7 @@ class WalletFragment: Fragment() {
 
                     val assetData = ArrayList<AssetAllocationDataClass>()
 
-                    val recipeList = MarketFragment.recipeList
+                    val recipeList = MarketFragment.recipe
 
                     for (asset in listAsset) {
                         val element = priceList.stream().filter {
@@ -125,9 +125,8 @@ class WalletFragment: Fragment() {
                             asset.value * priceList[i].value
                     }
 
-                    for ((i, coin) in walletCoinData.withIndex()) {
+                    for ((i, coin) in walletCoinData.withIndex())
                         assetData.add(AssetAllocationDataClass(listColor[i], coin.name, (((coin.price*coin.quantity)/totBalance)*100).toFloat()))
-                    }
 
                     pieChart.apply {
                         var i = 0

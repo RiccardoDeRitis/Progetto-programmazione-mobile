@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coincex.R
-import com.example.coincex.api_data.ListCoinData
+import com.example.coincex.api_data.CoinData
 import com.example.coincex.api_data.SearchCoinData
 import com.example.coincex.fragment_menu.FavoritesFragment
 import com.example.coincex.fragment_menu.MarketFragment
@@ -87,7 +87,7 @@ class SearchActivity: AppCompatActivity() {
     // che apre l'activity CoinChartActivity passandogli la coin selezionata
     private fun onClickItem(coin: SearchCoinData,context: Context) {
         SearchCoinData.getCoinDataFromApi(context, coin.id) { result ->
-            val listCoin = ListCoinData.getData(result)
+            val listCoin = CoinData.getData(result)
             val intent = Intent(context, CoinChartActivity::class.java)
             intent.putExtra("item", listCoin[0])
             startActivity(intent)

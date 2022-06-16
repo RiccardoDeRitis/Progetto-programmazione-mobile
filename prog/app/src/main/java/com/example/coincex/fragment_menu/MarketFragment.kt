@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.coincex.activity.CoinChartActivity
-import com.example.coincex.api_data.ListCoinData
+import com.example.coincex.api_data.CoinData
 import com.example.coincex.api_data.GlobalData
 import com.example.coincex.R
 import com.example.coincex.activity.SearchActivity
@@ -29,7 +29,7 @@ class MarketFragment: Fragment() {
 
     // Oggetto contenente 2 attributi statici e un metodo per salvare gli id delle coin preferite
     companion object {
-        lateinit var recipeList: ArrayList<ListCoinData>
+        lateinit var recipe: ArrayList<CoinData>
 
         fun savePreferences(id: String, context: Context) {
             val sharedPref = context.getSharedPreferences("SharedPreference", Context.MODE_PRIVATE)
@@ -118,14 +118,14 @@ class MarketFragment: Fragment() {
 
     private fun getData(context: Context) {
         dialog.show()
-        ListCoinData.getDataFromApi(context) {
+        CoinData.getDataFromApi(context) {
             if (it == "null")
                 Toast.makeText(context, "Contenuto non disponibile", Toast.LENGTH_SHORT).show()
             else {
                 listView.layoutManager = LinearLayoutManager(context)
-                recipeList = ListCoinData.getData(it)
+                recipe = CoinData.getData(it)
                 val adapter = CoinAdapter(
-                    recipeList,
+                    recipe,
                     false,
                     { coin -> onClickItem(coin, context) },
                     { id, _, preferred -> onClickRank(id, preferred, context) }
@@ -135,13 +135,13 @@ class MarketFragment: Fragment() {
         }
     }
 
-    private fun onClickItem(coinData: ListCoinData, context: Context) {
+    private fun onClickItem(coinData: CoinData, context: Context) {
         val intent = Intent(context, CoinChartActivity::class.java)
         intent.putExtra("item", coinData)
         context.startActivity(intent)
     }
 
-    private fun onClickRank(id: String, preferred: ImageView, context: Context) {
+    fun onClickRank(id: String, preferred: ImageView, context: Context) {
         if (FavoritesFragment.getPreferences(id,context) != "null") {
             FavoritesFragment.deletePreferences(id,context)
             Toast.makeText(context, "Rimosso dai preferiti", Toast.LENGTH_SHORT).show()
@@ -152,7 +152,6 @@ class MarketFragment: Fragment() {
             Handler(Looper.getMainLooper()).postDelayed({
                 preferred.visibility = View.GONE
             }, 500)
-            Toast.makeText(context, "Aggiunto ai preferiti", Toast.LENGTH_SHORT).show()
         }
     }
 

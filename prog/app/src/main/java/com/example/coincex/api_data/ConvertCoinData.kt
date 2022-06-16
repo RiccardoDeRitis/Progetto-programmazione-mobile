@@ -26,7 +26,7 @@ class ConvertCoinData {
 
         fun getData(data: String, symbol: String): ArrayList<WalletCoinDataClass> {
 
-            val recipeList = MarketFragment.recipeList
+            val recipeList = MarketFragment.recipe
 
             val listConvertData = ArrayList<WalletCoinDataClass>()
             val jsonData = JSONObject(data).getJSONArray("symbols")

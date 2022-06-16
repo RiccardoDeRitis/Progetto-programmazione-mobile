@@ -108,17 +108,17 @@ class LoginFragment: Fragment() {
 
         resetPassword.setOnClickListener {
             val dialogReset = Dialog(view.context)
-            dialog.setContentView(R.layout.dialog_reset_password)
+            dialogReset.setContentView(R.layout.dialog_reset_password)
 
-            val reset = dialog.findViewById<Button>(R.id.button12)
-            val emailReset = dialog.findViewById<EditText>(R.id.editTextTextPersonName)
+            val reset = dialogReset.findViewById<Button>(R.id.button12)
+            val emailReset = dialogReset.findViewById<EditText>(R.id.editTextTextPersonName)
 
             reset.setOnClickListener {
                 if (emailReset.text.toString() != "")
                     auth.sendPasswordResetEmail(emailReset.text.toString()).addOnCompleteListener {
                         if (it.isSuccessful) {
                             Toast.makeText(view.context, "Email sent.", Toast.LENGTH_SHORT).show()
-                            dialog.dismiss()
+                            dialogReset.dismiss()
                         }
                         else
                             Toast.makeText(view.context, "Email non esistente, registrati", Toast.LENGTH_SHORT).show()
@@ -127,7 +127,7 @@ class LoginFragment: Fragment() {
                     Toast.makeText(view.context, "Inserisci una email!", Toast.LENGTH_SHORT).show()
             }
             dialogReset.show()
-            dialog.window?.attributes = lp
+            dialogReset.window?.attributes = lp
         }
 
         val signIn = view.findViewById<Button>(R.id.button5)

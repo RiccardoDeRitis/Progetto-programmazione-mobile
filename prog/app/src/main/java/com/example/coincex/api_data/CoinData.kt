@@ -1,7 +1,6 @@
 package com.example.coincex.api_data
 
 import android.content.Context
-import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -12,7 +11,7 @@ import java.text.DecimalFormat
 import kotlin.collections.ArrayList
 
 // Data class per le info di una coin
-data class ListCoinData (
+data class CoinData (
     val id: String,
     val max24h: String,
     val min24h: String,
@@ -47,9 +46,9 @@ data class ListCoinData (
             queue.add(stringRequest)
         }
 
-        fun getData(data: String): ArrayList<ListCoinData> {
+        fun getData(data: String): ArrayList<CoinData> {
 
-            val recipeList = ArrayList<ListCoinData>()
+            val recipeList = ArrayList<CoinData>()
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.DOWN
             val jsonData = JSONArray(data)
@@ -104,7 +103,7 @@ data class ListCoinData (
                 val price = "$"+jsonData.getJSONObject(i).getDouble("current_price").toString()
                 val price24h = df.format(jsonData.getJSONObject(i).getDouble("price_change_24h")).toString()+"$"
                 val pricePercent = df.format(jsonData.getJSONObject(i).getDouble("price_change_percentage_24h")).toString()+"%"
-                recipeList.add(ListCoinData(id,max24h,min24h,circulatingSupply,maxSupply,ath,athChangePercent,dateAth,rank,image,symbol,name,cap,volume,price,price24h,pricePercent))
+                recipeList.add(CoinData(id,max24h,min24h,circulatingSupply,maxSupply,ath,athChangePercent,dateAth,rank,image,symbol,name,cap,volume,price,price24h,pricePercent))
             }
             return recipeList
         }

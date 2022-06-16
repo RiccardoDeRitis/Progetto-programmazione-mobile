@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.coincex.R
-import com.example.coincex.api_data.ListCoinData
+import com.example.coincex.api_data.CoinData
 import com.squareup.picasso.Picasso
 
 class CoinChartActivity: AppCompatActivity() {
@@ -20,7 +20,7 @@ class CoinChartActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.coin_chart_layout)
 
-        val coin = intent.getSerializableExtra("item") as ListCoinData
+        val coin = intent.getSerializableExtra("item") as CoinData
 
 
         val logo = findViewById<ImageView>(R.id.logo_image)

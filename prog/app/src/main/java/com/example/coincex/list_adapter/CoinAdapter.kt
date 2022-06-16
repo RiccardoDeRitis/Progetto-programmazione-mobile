@@ -9,13 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coincex.R
-import com.example.coincex.api_data.ListCoinData
-import com.example.coincex.fragment_menu.FavoritesFragment
+import com.example.coincex.api_data.CoinData
 import com.squareup.picasso.Picasso
 
-class CoinAdapter(private val data: ArrayList<ListCoinData>,
+class CoinAdapter(private val data: ArrayList<CoinData>,
                   private val bool: Boolean,
-                  private val onClickItem: (coin: ListCoinData) -> Unit,
+                  private val onClickItem: (coin: CoinData) -> Unit,
                   private val onClickRank: (id: String, pos: Int, preferred: ImageView) -> Unit):
     RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
 
@@ -37,7 +36,7 @@ class CoinAdapter(private val data: ArrayList<ListCoinData>,
 
     class ViewHolder(view: View,
                      bool: Boolean,
-                     val onClickItem: (coin: ListCoinData) -> Unit,
+                     val onClickItem: (coin: CoinData) -> Unit,
                      val onClickRank: (id: String,
                                        pos: Int,
                                        preferred: ImageView) -> Unit)
@@ -53,7 +52,7 @@ class CoinAdapter(private val data: ArrayList<ListCoinData>,
         private val price = view.findViewById(R.id.price) as TextView
         private val priceChange = view.findViewById(R.id.change_price) as TextView
         private val pricePercent = view.findViewById(R.id.change24h) as TextView
-        private var currentCoin: ListCoinData? = null
+        private var currentCoin: CoinData? = null
         private var currentId: String? = null
         private var currentPosition: Int? = null
 
@@ -92,7 +91,7 @@ class CoinAdapter(private val data: ArrayList<ListCoinData>,
         }
 
         @SuppressLint("SetTextI18n")
-        fun bind(coin: ListCoinData, bool: Boolean, pos: Int) {
+        fun bind(coin: CoinData, bool: Boolean, pos: Int) {
             currentCoin = coin
             currentId = coin.id
             currentPosition = pos
