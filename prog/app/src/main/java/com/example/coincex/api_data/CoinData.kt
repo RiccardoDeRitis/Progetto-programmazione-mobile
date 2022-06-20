@@ -100,9 +100,18 @@ data class CoinData (
                     "$"+df.format(jsonData.getJSONObject(i).getDouble("total_volume")/1000000000).toString()+" B"
                 else
                     "$"+df.format(jsonData.getJSONObject(i).getDouble("total_volume")/1000000).toString()+" M"
-                val price = "$"+jsonData.getJSONObject(i).getDouble("current_price").toString()
-                val price24h = df.format(jsonData.getJSONObject(i).getDouble("price_change_24h")).toString()+"$"
-                val pricePercent = df.format(jsonData.getJSONObject(i).getDouble("price_change_percentage_24h")).toString()+"%"
+                val price = try { "$"+jsonData.getJSONObject(i).getDouble("current_price").toString() }
+                catch (e: Exception) {
+                    "n/a"
+                }
+                val price24h = try { df.format(jsonData.getJSONObject(i).getDouble("price_change_24h")).toString()+"$" }
+                catch (e: Exception) {
+                    "n/a"
+                }
+                val pricePercent = try { df.format(jsonData.getJSONObject(i).getDouble("price_change_percentage_24h")).toString()+"%" }
+                catch (e: Exception) {
+                    "n/a"
+                }
                 recipeList.add(CoinData(id,max24h,min24h,circulatingSupply,maxSupply,ath,athChangePercent,dateAth,rank,image,symbol,name,cap,volume,price,price24h,pricePercent))
             }
             return recipeList

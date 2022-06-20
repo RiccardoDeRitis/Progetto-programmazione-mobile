@@ -20,6 +20,7 @@ import com.example.coincex.api_data.CoinData
 import com.example.coincex.R
 import com.example.coincex.api_data.SearchCoinData
 import com.example.coincex.list_adapter.CoinAdapter
+import com.example.coincex.list_adapter.RecyclerViewItemDecoration
 
 @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
 class FavoritesFragment: Fragment() {
@@ -97,11 +98,12 @@ class FavoritesFragment: Fragment() {
                     )
                     dialog.dismiss()
                     listCoinFavorite.adapter = adapter
+                    listCoinFavorite.addItemDecoration(RecyclerViewItemDecoration(view.context, R.drawable.divider))
                 }
             }
             else {
                 dialog.dismiss()
-                title.text = "Non stai seguendo alcun asset. Tieni traccia dei tuoi asset preferiti!"
+                title.text = "A quanto pare non stai seguendo alcun asset. Prova a seguire qualche asset!"
                 detective.visibility = View.VISIBLE
                 favorite.visibility = View.VISIBLE
             }

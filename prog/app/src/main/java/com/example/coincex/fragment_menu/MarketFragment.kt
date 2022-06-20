@@ -12,6 +12,7 @@ import android.os.Looper
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -21,6 +22,7 @@ import com.example.coincex.api_data.GlobalData
 import com.example.coincex.R
 import com.example.coincex.activity.SearchActivity
 import com.example.coincex.list_adapter.CoinAdapter
+import com.example.coincex.list_adapter.RecyclerViewItemDecoration
 
 class MarketFragment: Fragment() {
 
@@ -131,6 +133,7 @@ class MarketFragment: Fragment() {
                     { id, _, preferred -> onClickRank(id, preferred, context) }
                 )
                 listView.adapter = adapter
+                listView.addItemDecoration(RecyclerViewItemDecoration(context, R.drawable.divider))
             }
         }
     }
