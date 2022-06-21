@@ -15,6 +15,8 @@
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/drawable/selector_button_login.xml" value="0.167" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/drawable/selector_wallet_buy.xml" value="0.1765" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/drawable/selector_wallet_sell.xml" value="0.1765" />
+        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/font/font_app.xml" value="0.2798887859128823" />
+        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/font/roboto.xml" value="0.2798887859128823" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/activity_base_animation.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/activity_main.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/buy_layout.xml" value="0.33" />
@@ -26,7 +28,7 @@
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/dialog_reset_password.xml" value="0.33" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/dialog_search_coin_buy.xml" value="0.33" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/dialog_search_coin_convert.xml" value="0.33" />
-        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/favorites_fragment.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/favorites_fragment.xml" value="0.5" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/list_recipe.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/list_recipe_asset_wallet.xml" value="0.6" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/list_recipe_coin_convert.xml" value="0.536" />
@@ -35,7 +37,7 @@
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/list_view_coin_layout.xml" value="0.2975630611372381" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/logged_fragment.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/login_fragment.xml" value="0.29743589743589743" />
-        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/market_fragment.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/market_fragment.xml" value="0.33" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/news_fragment.xml" value="0.48265895953757226" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/news_recipe.xml" value="0.5" />
         <entry key="..\:/Users/99fly/Desktop/Programmazione mobile/Progetto/prog/app/src/main/res/layout/not_logged_fragment.xml" value="0.20512820512820512" />

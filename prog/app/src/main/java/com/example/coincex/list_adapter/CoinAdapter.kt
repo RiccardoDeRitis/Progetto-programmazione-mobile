@@ -12,11 +12,14 @@ import com.example.coincex.R
 import com.example.coincex.api_data.CoinData
 import com.squareup.picasso.Picasso
 
+
 class CoinAdapter(private val data: ArrayList<CoinData>,
                   private val bool: Boolean,
                   private val onClickItem: (coin: CoinData) -> Unit,
                   private val onClickRank: (id: String, pos: Int, preferred: ImageView) -> Unit):
     RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
+
+    private var lastPosition = -1
 
     // Metodo per l'inflate di list_recipe che ritorna un Viewholder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -107,20 +110,20 @@ class CoinAdapter(private val data: ArrayList<CoinData>,
 
             if (coin.change24h.contains("-")) {
                 priceChange.text = coin.change24h
-                priceChange.setTextColor(Color.parseColor("#ff5232"))
+                priceChange.setTextColor(Color.parseColor("#FFFF5252"))
             }
             else {
                 priceChange.text = "+"+coin.change24h
-                priceChange.setTextColor(Color.parseColor("#00af5f"))
+                priceChange.setTextColor(Color.parseColor("#FF00E676"))
             }
 
             if (coin.changePercent.contains("-")) {
                 pricePercent.text = coin.changePercent
-                pricePercent.setTextColor(Color.parseColor("#ff5232"))
+                pricePercent.setTextColor(Color.parseColor("#FFFF5252"))
             }
             else {
                 pricePercent.text = "+"+coin.changePercent
-                pricePercent.setTextColor(Color.parseColor("#00af5f"))
+                pricePercent.setTextColor(Color.parseColor("#FF00E676"))
             }
 
             val picasso = Picasso.get()

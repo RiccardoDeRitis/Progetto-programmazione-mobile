@@ -56,6 +56,10 @@ class MarketFragment: Fragment() {
         val changeVolumeText = view.findViewById<TextView>(R.id.textView11)
         val changeBtcText = view.findViewById<TextView>(R.id.textView12)
 
+        val imageMarket = view.findViewById<ImageView>(R.id.logo_image11)
+        val imageVolume = view.findViewById<ImageView>(R.id.logo_image12)
+        val imageBTC = view.findViewById<ImageView>(R.id.logo_image13)
+
         listView = view.findViewById(R.id.listCoin)
 
         // Listener per il refresh dei dati all'interno della lista
@@ -87,32 +91,39 @@ class MarketFragment: Fragment() {
             } else {
                 dialog.dismiss()
                 val recipe = GlobalData.getData(it)
+
                 marketCapText.text = recipe.marketCap
                 volumeCapText.text = recipe.volumeCap
                 btcDominanceText.text = recipe.btcDom
 
                 if (recipe.marketChange.contains("-")) {
+                    imageMarket.setBackgroundColor(Color.parseColor("#FFFF5252"))
                     changeCapText.text = recipe.marketChange
-                    changeCapText.setTextColor(Color.parseColor("#ff5232"))
+                    changeCapText.setTextColor(Color.parseColor("#FFFF5252"))
                 } else {
+                    imageMarket.setBackgroundColor(Color.parseColor("#FF00E676"))
                     changeCapText.text = "+" + recipe.marketChange
-                    changeCapText.setTextColor(Color.parseColor("#00af5f"))
+                    changeCapText.setTextColor(Color.parseColor("#FF00E676"))
                 }
 
                 if (recipe.volumeChange.contains("-")) {
+                    imageVolume.setBackgroundColor(Color.parseColor("#FFFF5252"))
                     changeVolumeText.text = recipe.volumeChange
-                    changeVolumeText.setTextColor(Color.parseColor("#ff5232"))
+                    changeVolumeText.setTextColor(Color.parseColor("#FFFF5252"))
                 } else {
+                    imageVolume.setBackgroundColor(Color.parseColor("#FF00E676"))
                     changeVolumeText.text = "+" + recipe.volumeChange
-                    changeVolumeText.setTextColor(Color.parseColor("#00af5f"))
+                    changeVolumeText.setTextColor(Color.parseColor("#FF00E676"))
                 }
 
                 if (recipe.btcDomChange.contains("-")) {
+                    imageBTC.setBackgroundColor(Color.parseColor("#FFFF5252"))
                     changeBtcText.text = recipe.btcDomChange
-                    changeBtcText.setTextColor(Color.parseColor("#ff5232"))
+                    changeBtcText.setTextColor(Color.parseColor("#FFFF5252"))
                 } else {
+                    imageBTC.setBackgroundColor(Color.parseColor("#FF00E676"))
                     changeBtcText.text = "+" + recipe.btcDomChange
-                    changeBtcText.setTextColor(Color.parseColor("#00af5f"))
+                    changeBtcText.setTextColor(Color.parseColor("#FF00E676"))
                 }
             }
         }

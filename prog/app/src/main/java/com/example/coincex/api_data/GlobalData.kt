@@ -47,7 +47,10 @@ data class GlobalData(
             df.roundingMode = RoundingMode.DOWN
 
             val jsonData = JSONObject(data).getJSONObject("data")
-            marketCap = "$"+df.format(jsonData.getJSONObject("quote").getJSONObject("USD").getDouble("total_market_cap")/1000000000000).toString()+" T"
+            marketCap = if (jsonData.getJSONObject("quote").getJSONObject("USD").getDouble("total_market_cap") > 1000000000000)
+                "$"+df.format(jsonData.getJSONObject("quote").getJSONObject("USD").getDouble("total_market_cap")/1000000000000).toString()+" T"
+            else
+                "$"+df.format(jsonData.getJSONObject("quote").getJSONObject("USD").getDouble("total_market_cap")/1000000000).toString()+" B"
             volumeCap = "$"+df.format(jsonData.getJSONObject("quote").getJSONObject("USD").getDouble("total_volume_24h")/1000000000).toString()+" B"
             btcDominance = df.format(jsonData.getDouble("btc_dominance")).toString()+"%"
             marketChange = df.format(jsonData.getJSONObject("quote").getJSONObject("USD").getDouble("total_market_cap_yesterday_percentage_change")).toString()+"%"

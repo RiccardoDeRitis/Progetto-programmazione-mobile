@@ -13,6 +13,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.example.coincex.data_class.UserDataClass
 import com.example.coincex.fragment_menu.*
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -93,6 +94,7 @@ class MainActivity : AppCompatActivity() {
         },3000)
 
         // Listener che imposta il fragment in base al click nel BottomNavigationView
+
         navigation.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.wallet -> {
