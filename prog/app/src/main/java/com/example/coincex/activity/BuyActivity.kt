@@ -83,6 +83,7 @@ class BuyActivity: AppCompatActivity() {
         nameBuy.text = walletData[0].symbol
         nameConvert.text = walletData[1].symbol
 
+        // Click sul layout della coin da vendere
         layoutBuy.setOnClickListener {
             val editSearch = dialog.findViewById<SearchView>(R.id.searchBuy)
             editSearch.isIconified = false
@@ -118,6 +119,8 @@ class BuyActivity: AppCompatActivity() {
             })
         }
 
+
+        // Click sul layout della coin da comprare
         layoutConvert.setOnClickListener {
             val editSearch = dialogConvert.findViewById<SearchView>(R.id.searchConvert)
             editSearch.isIconified = false
@@ -139,6 +142,7 @@ class BuyActivity: AppCompatActivity() {
                 dialogConvert.show()
                 dialogConvert.window?.attributes = lp
 
+                // Listener per il search della coin ad ogni lettera
                 editSearch.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
                     override fun onQueryTextSubmit(p0: String?): Boolean {
                         return false
@@ -157,6 +161,7 @@ class BuyActivity: AppCompatActivity() {
 
         }
 
+        // Click sul pulsante di vendita che effettua la conversione e vende la coin inserita nel layout Buy per la coin nel layout Convert
         sell.setOnClickListener {
             when {
                 nameBuy.text.toString() == nameConvert.text.toString() -> Toast.makeText(applicationContext, "Inserisci coin diverse!", Toast.LENGTH_SHORT).show()
@@ -181,6 +186,7 @@ class BuyActivity: AppCompatActivity() {
             }
         }
 
+        // Click sul pulsante di acquisto che effettua la conversione e compra la coin inserita nel layout Buy per la coin nel layout Convert
         buy.setOnClickListener {
             when {
                 nameBuy.text.toString() == nameConvert.text.toString() -> Toast.makeText(applicationContext, "Inserisci coin diverse!", Toast.LENGTH_SHORT).show()
@@ -207,6 +213,7 @@ class BuyActivity: AppCompatActivity() {
 
     }
 
+    // Click sulle coin cercate nel layout Buy e seleziona quella cliccata
     private fun onClickItem(coin: WalletCoinDataClass) {
         nameBuy.text = coin.symbol
         picasso.load(coin.logo).into(logoBuy)
@@ -216,6 +223,7 @@ class BuyActivity: AppCompatActivity() {
         dialog.dismiss()
     }
 
+    // Click sulle coin cercate nel layou Convert e seleziona quella cliccata
     private fun onClickItemConvert(coin: WalletCoinDataClass) {
         nameConvert.text = coin.symbol
         picasso.load(coin.logo).into(logoConvert)

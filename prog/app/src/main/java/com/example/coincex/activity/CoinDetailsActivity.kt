@@ -59,6 +59,7 @@ class CoinDetailsActivity : AppCompatActivity() {
         val technology = findViewById<TextView>(R.id.technology)
         val governance = findViewById<TextView>(R.id.governance)
 
+        // Ottiene i dati da Messari.io e li inserisci nelle dovute TextView
         ProfileCoinData.getProfileFromApi(applicationContext, name!!) {
             val profile = ProfileCoinData.getDataProfile(it)
 

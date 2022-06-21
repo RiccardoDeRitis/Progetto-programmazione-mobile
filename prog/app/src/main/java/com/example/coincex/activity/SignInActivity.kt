@@ -36,6 +36,7 @@ class SignInActivity: AppCompatActivity() {
 
         val createApi = findViewById<Button>(R.id.button6)
 
+        // Tutorial su come creare correttamente le API di Binance
         createApi.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse("https://www.binance.com/en/support/faq/360002502072")
@@ -47,6 +48,7 @@ class SignInActivity: AppCompatActivity() {
         dialog.setContentView(R.layout.dialog_loading)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
+        // Click che registra un nuovo utente se ha inserito correttamente tutti i campi
         registrati.setOnClickListener {
             dialog.show()
             if (nome.text.toString() != "" && cognome.text.toString() != "" &&
@@ -93,11 +95,6 @@ class SignInActivity: AppCompatActivity() {
             }
         }
 
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
     }
 
 }

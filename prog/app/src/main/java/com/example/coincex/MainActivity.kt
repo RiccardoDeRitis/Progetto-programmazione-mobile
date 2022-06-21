@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         val auth = Firebase.auth
         val db = Firebase.firestore
 
+        // Se un utente all'avvio è già registrato otteniamo informazioni su di esso
         if (auth.currentUser != null)
             db.collection("Utente").document(auth.currentUser!!.email.toString()).get().addOnSuccessListener { doc ->
                 currentUser = UserDataClass(
@@ -63,14 +64,15 @@ class MainActivity : AppCompatActivity() {
         val rocket = findViewById<ImageView>(R.id.rocket)
         val doge = findViewById<ImageView>(R.id.doge)
 
-        val marketFragment = MarketFragment() // Fragment principale
+        val marketFragment = MarketFragment() // Fragment del mercato (Principale)
         val favoriteFragment = FavoritesFragment() // Fragment preferiti
         val loginFragment = LoginFragment() // Fragment di Login
         val walletFragment = WalletFragment() // Fragment del wallet
-        val notLoggedFragment = NotLoggedFragment() // Fragment per utente non loggato
+        val notLoggedFragment = NotLoggedFragment() // Fragment per utente non loggato per il wallet
         val newsFragment = NewsFragment() // Fragment per news
         val loggedFragment = LoggedFragment() // Fragment per utente loggato
 
+        // Animazione all'avvio del razzo cno Doge con accellerazione che dura 2.6 sec. ed inizia dopo 0.4 sec.
         Handler(Looper.getMainLooper()).postDelayed({
             val valueAnimator = ValueAnimator.ofFloat(0f, -screenHeight)
             valueAnimator.addUpdateListener {
@@ -85,6 +87,7 @@ class MainActivity : AppCompatActivity() {
             valueAnimator.start()
         },400)
 
+        // Una volta terminato il razzo viene mostrata l'interfaccia principale (Market)
         Handler(Looper.getMainLooper()).postDelayed({
             container.visibility = View.GONE
             navigation.visibility = View.VISIBLE
@@ -93,8 +96,7 @@ class MainActivity : AppCompatActivity() {
             setCurrentFragment(marketFragment)
         },3000)
 
-        // Listener che imposta il fragment in base al click nel BottomNavigationView
-
+        // Listener che imposta il fragment in base al click del BottomNavigationView
         navigation.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.wallet -> {
@@ -118,7 +120,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Funzione che inserisce il fragment passato nel fragment container presente nell'activity_main
-    fun setCurrentFragment(fragment: Fragment) = supportFragmentManager.beginTransaction().apply {
+    private fun setCurrentFragment(fragment: Fragment) = supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragment_container,fragment)
             commit()
     }

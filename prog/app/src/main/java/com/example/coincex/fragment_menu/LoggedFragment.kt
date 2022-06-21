@@ -48,6 +48,7 @@ class LoggedFragment: Fragment() {
         email.text = thisUser.email
         username.text = thisUser.username
 
+        // Click per effettuare il logout
         logout.setOnClickListener {
             auth.signOut()
             activity?.supportFragmentManager?.beginTransaction()?.apply {
@@ -57,15 +58,17 @@ class LoggedFragment: Fragment() {
             Toast.makeText(view.context, "Arrivederci ${email.text}", Toast.LENGTH_SHORT).show()
         }
 
+        // Click per il reset della password
         resetPassword.setOnClickListener {
             auth.sendPasswordResetEmail(thisUser.email).addOnCompleteListener {
                 if (it.isSuccessful)
-                    Toast.makeText(view.context, "Email sent.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(view.context, "Email inviata.", Toast.LENGTH_SHORT).show()
                 else
                     Toast.makeText(view.context, "Errore", Toast.LENGTH_SHORT).show()
             }
         }
 
+        // Click per la reimpostazione delle API di Binance
         resetApi.setOnClickListener {
             val dialog = Dialog(view.context)
             dialog.setContentView(R.layout.dialog_reset_api)

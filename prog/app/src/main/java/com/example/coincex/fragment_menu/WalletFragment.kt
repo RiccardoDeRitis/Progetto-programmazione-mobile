@@ -67,17 +67,22 @@ class WalletFragment: Fragment() {
         val tot = view.findViewById<TextView>(R.id.textView91)
 
         dialog.show()
+
+        // Ottenere i dati sul proprio wallet tramite API di Binance
         WalletData.getDataFromApi(view.context, currentUser.apikey, currentUser.secretKey) { result ->
             try {
-                val listAsset = WalletData.getData(result) // WalletData asset quantity
+                val listAsset = WalletData.getData(result) // Infromazioni sulla quantità delle coin possedute
                 WalletData.getPriceAsset(view.context, listAsset) { res ->
-                    val priceList = WalletData.getDataPrice(res) // WalletData asset price
-                    var totBalance = 0.0
+                    val priceList = WalletData.getDataPrice(res) // Infromazioni sui prezzi delle coin possedute in tempo reale
+                    var totBalance = 0.0 // Variabile utilizzata per calcolare le percentuali di ogni asset
 
                     val assetData = ArrayList<AssetAllocationDataClass>()
 
                     val recipeList = MarketFragment.recipe
 
+                    /* Le coin all'interno dei 2 array sono in posizione random e non uguali
+                       quindi occorre selezionare ogni coin e ricreare l'array contenente sia la quantità e il prezzo
+                     */
                     for (asset in listAsset) {
                         val element = priceList.stream().filter {
                             it.name == asset.name
@@ -87,6 +92,7 @@ class WalletFragment: Fragment() {
                             it.symbol == asset.name
                         }.findFirst().orElse(null)
                         val k = recipeList.indexOf(element2)
+                        // Se la coin che abbiamo su binance non è presente nelle prime 100 non verranno mostrate logo e nome completo
                         if (k == -1)
                             walletCoinData.add(
                                 WalletCoinDataClass(
@@ -98,6 +104,10 @@ class WalletFragment: Fragment() {
                                 )
                             )
                         else {
+                            /* Poichè i prezzi sono presi dalle coppie COIN/USDT se abbiamo USDT nel nostro
+                               portafoglio non bisogna prendere il prezzo nell'altro array (priceList) ma sarà la
+                               quantità di USDT che abbiamo.
+                             */
                             if (asset.name == "USDT")
                                 walletCoinData.add(
                                     WalletCoinDataClass(
@@ -109,6 +119,9 @@ class WalletFragment: Fragment() {
                                     )
                                 )
                             else
+                                /* Caso in cui non la coin presa in considerazione all'interno del for non sia USDT e sia nelle prime 100
+                                   allora verranno mostrate tutti i dettagli
+                                 */
                                 walletCoinData.add(
                                     WalletCoinDataClass(
                                         recipeList[k].imageLogo,
@@ -119,15 +132,18 @@ class WalletFragment: Fragment() {
                                     )
                                 )
                         }
+                        // totBalance sarà tutto l'ammontare del nostro wallet facendo prezzo*quantità
                         totBalance += if (asset.name == "USDT")
                             asset.value
                         else
                             asset.value * priceList[i].value
                     }
 
+                    // Popoliamo l'array che aiuterà a mostare il grafico a torta con colore, nome e percentuale
                     for ((i, coin) in walletCoinData.withIndex())
                         assetData.add(AssetAllocationDataClass(listColor[i], coin.name, (((coin.price*coin.quantity)/totBalance)*100).toFloat()))
 
+                    // Grafico a torta che mostra come è composto il nostro portafoglio
                     pieChart.apply {
                         var i = 0
                         for (coin in walletCoinData)
@@ -138,10 +154,12 @@ class WalletFragment: Fragment() {
 
                     pieChart.startAnimation()
 
+                    // Array di fianco il grafico a torta
                     assetWallet.layoutManager = LinearLayoutManager(view.context)
                     val adapter2 = AssetAllocationAdapter(assetData)
                     assetWallet.adapter = adapter2
 
+                    // Array che mostra invece quantità e prezzo
                     coinWallet.layoutManager = LinearLayoutManager(view.context)
                     val adapter = WalletAdapter(walletCoinData)
                     coinWallet.adapter = adapter
@@ -155,6 +173,7 @@ class WalletFragment: Fragment() {
             }
         }
 
+        // Click per la conversione delle coin che possediamo
         convert.setOnClickListener {
             val intent = Intent(view.context, BuyActivity::class.java)
             intent.putExtra("asset", walletCoinData)

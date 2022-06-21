@@ -22,7 +22,6 @@ class CoinChartActivity: AppCompatActivity() {
 
         val coin = intent.getSerializableExtra("item") as CoinData
 
-
         val logo = findViewById<ImageView>(R.id.logo_image)
         val symbol = findViewById<TextView>(R.id.name_coin)
         val rank = findViewById<TextView>(R.id.textView38)
@@ -48,6 +47,7 @@ class CoinChartActivity: AppCompatActivity() {
         maxSupply.text = coin.maxSupply
         changeAthPercent.text = coin.athChangePercent
 
+        // WebView contenente il grafico a candele della coin cliccata in precedenza
         val url = """
                 <div class="tradingview-widget-container">
                     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -82,11 +82,6 @@ class CoinChartActivity: AppCompatActivity() {
             startActivity(intent)
         }
 
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
     }
 
 }

@@ -51,6 +51,7 @@ class LoginFragment: Fragment() {
             password.setText(view.context.getSharedPreferences("User", Context.MODE_PRIVATE).getString("password", "null"))
         }
 
+        // Click per effettuare l'accesso
         accedi.setOnClickListener {
             dialog.show()
             dialog.window?.attributes = lp
@@ -106,6 +107,7 @@ class LoginFragment: Fragment() {
 
         }
 
+        // Click per ripristinare la password dimenticata
         resetPassword.setOnClickListener {
             val dialogReset = Dialog(view.context)
             dialogReset.setContentView(R.layout.dialog_reset_password)
