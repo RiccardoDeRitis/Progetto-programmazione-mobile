@@ -1,6 +1,7 @@
 package com.example.coincex.api_data
 
 import android.content.Context
+import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -20,7 +21,7 @@ data class WalletData(
 
         fun getDataFromApi(context: Context, apikey: String, secret: String, callback: (result: String) -> Unit) {
             val mills = System.currentTimeMillis()
-            val params = "recvWindow=50000&timestamp=$mills"
+            val params = "recvWindow=40000&timestamp=$mills"
             val hashing = Hashing.hmacSha256(secret.toByteArray(StandardCharsets.UTF_8))
                 .hashString(params, StandardCharsets.UTF_8).toString()
             val url = "https://api.binance.com/api/v3/account?$params&signature=$hashing"
@@ -51,7 +52,6 @@ data class WalletData(
                     if (jsonData.getJSONObject(i).getString("free").toDouble() > 0)
                         assetsList.add(WalletData(jsonData.getJSONObject(i).getString("asset"),
                             jsonData.getJSONObject(i).getString("free").toDouble()))
-
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

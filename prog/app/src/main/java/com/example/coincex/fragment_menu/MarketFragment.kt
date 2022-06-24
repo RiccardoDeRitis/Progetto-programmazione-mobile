@@ -12,7 +12,6 @@ import android.os.Looper
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -23,6 +22,7 @@ import com.example.coincex.R
 import com.example.coincex.activity.SearchActivity
 import com.example.coincex.list_adapter.CoinAdapter
 import com.example.coincex.list_adapter.RecyclerViewItemDecoration
+import kotlin.collections.ArrayList
 
 class MarketFragment: Fragment() {
 
@@ -81,6 +81,7 @@ class MarketFragment: Fragment() {
         dialog = Dialog(view.context)
         dialog.setContentView(R.layout.dialog_loading)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         getData(view.context)
 
         // Esegue la chiamata all'api e setta le info globali con diversi colori a seconda dell'andamento
